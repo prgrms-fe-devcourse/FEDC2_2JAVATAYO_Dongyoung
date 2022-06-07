@@ -7,6 +7,10 @@ interface IconInterface {
   onHover?: React.MouseEventHandler<HTMLDivElement>;
 }
 const Icon: React.FC<IconInterface> = (props) => {
-  return <S.Icon>{props.children}</S.Icon>;
+  return (
+    <S.Icon>
+      {props.onClick && <div onClick={props.onClick}>{props.children} </div>}
+    </S.Icon>
+  );
 };
 export default Icon;
