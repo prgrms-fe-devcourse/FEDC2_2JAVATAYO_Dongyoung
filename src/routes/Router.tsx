@@ -17,10 +17,10 @@ const AppRouter: React.FC = () => {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/detail/*" element={<Detail />} />
-        <Route path="/profile/*" element={<Profile />} />
-        <Route path="/edit/*" element={<Edit />} />
-        <Route path="/result/*" element={<Result />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/result/:id" element={<Result />} />
 
         <Route path="/*" element={<NotFound />} />
       </Routes>

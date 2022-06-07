@@ -1,4 +1,9 @@
+import { useParams } from "react-router";
+
 const Detail: React.FC = () => {
-  return <div>Detail</div>;
+  const { id } = useParams<Record<string, string>>();
+
+  console.log(id);
+  return <div>{id}Detail</div>;
 };
 export default Detail;
