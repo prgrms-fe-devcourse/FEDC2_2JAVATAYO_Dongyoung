@@ -1,16 +1,35 @@
+const path = require('path')
+
+
 module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+  stories: [
+    '../src/components/**/*.stories.mdx', 
+    '../src/components/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  "addons": [
+  addons: [
+    "@storybook/preset-create-react-app",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/preset-create-react-app"
+    "@storybook/addon-interactions"
   ],
-  "framework": "@storybook/react",
-  "core": {
-    "builder": "@storybook/builder-webpack5"
+  framework: "@storybook/react",
+  core: {
+    "builder": "webpack5"
+  },
+  typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+    },
+  },
+  webpackFinal: (config) => {
+    config.output = {
+        chunkFormat: 'array-push',
+    }
+    return config
   }
+
 }
