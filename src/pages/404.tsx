@@ -1,4 +1,4 @@
 const NotFound: React.FC = () => {
-  return <div>404 Ndasdasdasdas dasdas d as das d as dOT FOUND</div>;
+  return <div>404</div>;
 };
 export default NotFound;
