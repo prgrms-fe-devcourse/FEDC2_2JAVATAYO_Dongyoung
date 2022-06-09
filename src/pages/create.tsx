@@ -12,10 +12,6 @@ const Create: React.FC = () => {
 
   const [selectedValue, setSelectedValue] = useState("online");
 
-  useEffect(() => {
-    console.log(selectedValue);
-  }, [selectedValue]);
-
   return (
     <div>
       <Select

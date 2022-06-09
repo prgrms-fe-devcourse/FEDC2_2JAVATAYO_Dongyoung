@@ -17,7 +17,6 @@ const Select: React.FC<SelectInterface> = ({
   setSelectedValue
 }) => {
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
     setSelectedValue(value);
   };
 
