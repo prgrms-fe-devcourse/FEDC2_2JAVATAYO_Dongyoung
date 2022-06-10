@@ -1,22 +1,7 @@
 import { css } from "@emotion/react";
 
 const reset = css`
-  @font-face {
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2)
-      format("woff2");
-  }
-  @font-face {
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/notosanskr/v27/PbykFmXiEBPT4ITbgNA5Cgm203Tq4JJWq209pU0DPdWuqxJFA4GNDCBYtw.1.woff2)
-      format("woff2");
-  }
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
   html,
   body,
   div,
@@ -102,9 +87,7 @@ const reset = css`
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
-    font-family: "NanumBarunGothic", sans-serif;
   }
 
   article,
@@ -123,6 +106,7 @@ const reset = css`
 
   body {
     line-height: 1;
+    font-family: "Noto Sans KR", sans-serif;
   }
 
   ol,
