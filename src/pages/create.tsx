@@ -31,9 +31,6 @@ const Create: React.FC = () => {
 
   const [selectedStacks, setSelectedStacks] = useState();
 
-  useEffect(() => {
-    console.log(selectedStacks);
-  }, [selectedStacks]);
   return (
     <div>
       <Select

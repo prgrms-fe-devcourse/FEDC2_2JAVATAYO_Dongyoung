@@ -14,7 +14,6 @@ const Cascader: React.FC<CascaderInterface> = ({
   setSelectedValues
 }) => {
   const onChange = (value) => {
-    console.log(value);
     setSelectedValues(value);
   };
 
