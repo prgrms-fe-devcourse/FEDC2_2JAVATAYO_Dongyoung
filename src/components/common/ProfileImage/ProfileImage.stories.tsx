@@ -5,7 +5,7 @@ export default {
   title: "Component/ProfileImage",
   component: ProfileImage,
   argTypes: {
-    display: {
+    block: {
       control: "boolean"
     },
     size: {
