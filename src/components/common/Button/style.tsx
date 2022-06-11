@@ -13,9 +13,18 @@ export const Button = styled.button<{
   border-radius: ${({ radius }) => radius}px;
   color: ${({ fontColor }) => fontColor};
   background-color: ${({ backgroundColor }) => backgroundColor};
-  border: 2px solid ${({ borderColor }) => borderColor};
+  border: ${({backgroundColor}) => (backgroundColor === "white" ? "2px solid" : "none")};
+  border-color: ${({ borderColor }) => borderColor};
+  font-size: 14px;
+  font-weight: bold;
   text-align: center;
+  cursor: pointer;
+
   &:hover {
     opacity: 0.7;
+  }
+
+  &:active{
+    background-color: #222;
   }
 `;
