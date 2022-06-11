@@ -8,11 +8,11 @@ const Footer = () => {
     <S.Footer>
       <S.Wrap>
         <S.Title>2022 2JAVATAYO</S.Title>
-        <p>
+        <S.Content>
           (주) HARDY PLANT / 공동대표 박유현, 정현진, 김남경, 주형진, 마혜경 /
           위치 서울 특별시 서초구 강남대로 337,2층 프로그래머스(서초동,
           대륭서초타워 / 고객센터 010-9858-0000
-        </p>
+        </S.Content>
         <p>
           <S.PrivacyPolicy>개인정보 처리방침</S.PrivacyPolicy>
           <a>이용약관</a>

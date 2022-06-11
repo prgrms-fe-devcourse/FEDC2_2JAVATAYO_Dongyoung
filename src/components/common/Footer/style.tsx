@@ -32,6 +32,10 @@ export const Title = styled.p`
   font-weight: bold;
 `;
 
+export const Content = styled.p`
+  margin: 18px 0;
+`;
+
 export const PrivacyPolicy = styled.a`
   font-weight: bold !important;
   margin-right: 10px;
