@@ -52,7 +52,7 @@ export default {
       ],
       control: { type: "select" }
     },
-    alt: { defaultValue: "React" }
+    alt: { defaultValue: "Angular" }
   }
 } as ComponentMeta<typeof SkillIcon>;
 
