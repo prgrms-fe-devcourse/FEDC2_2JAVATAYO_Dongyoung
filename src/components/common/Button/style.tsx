@@ -10,7 +10,7 @@ export const Button = styled.button<{
 }>`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
-  border-radius:${({ radius }) => radius}px;
+  border-radius: ${({ radius }) => radius}px;
   color: ${({ fontColor }) => fontColor};
   background-color: ${({ backgroundColor }) => backgroundColor};
   border: 2px solid ${({ borderColor }) => borderColor};

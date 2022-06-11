@@ -11,7 +11,7 @@ interface ButtonInterface {
 }
 
 const Button: React.FC<ButtonInterface> = (props) => {
-  return(
+  return (
     <S.Button
       width={props.width}
       height={props.height}
@@ -23,7 +23,7 @@ const Button: React.FC<ButtonInterface> = (props) => {
     >
       {props.label}
     </S.Button>
-  )
-}
+  );
+};
 
 export default Button;
