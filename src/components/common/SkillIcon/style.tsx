@@ -32,6 +32,7 @@ export const ToolTip = styled.div`
   transform: translateX(-50%);
   font-size: 12px;
   text-align: center;
+  white-space: nowrap;
   box-sizing: border-box;
 `;
 
