@@ -1,9 +1,9 @@
 import * as S from "./style";
-interface InputInterface {
+interface LabelInterface {
   label: string;
 }
 
-const Label: React.FC<InputInterface> = ({ label }) => {
+const Label: React.FC<LabelInterface> = ({ label }) => {
   return <S.Label>{label}</S.Label>;
 };
 

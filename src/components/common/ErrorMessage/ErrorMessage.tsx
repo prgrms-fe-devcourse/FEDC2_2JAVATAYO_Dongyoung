@@ -1,9 +1,9 @@
 import * as S from "./style";
-interface InputInterface {
-  errorMessage?: string;
+interface ErrorMessageInterface {
+  errorMessage: string;
 }
 
-const ErrorMessage: React.FC<InputInterface> = ({ errorMessage }) => {
+const ErrorMessage: React.FC<ErrorMessageInterface> = ({ errorMessage }) => {
   return <S.ErrorMessage>{errorMessage}</S.ErrorMessage>;
 };
 
