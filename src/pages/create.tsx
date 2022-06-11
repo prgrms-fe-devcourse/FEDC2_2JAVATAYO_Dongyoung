@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Cascader from "../components/create/Cascader";
+import DatePicker from "../components/create/DatePicker";
 import Select from "../components/create/Select";
 
 const Create: React.FC = () => {
@@ -31,6 +32,8 @@ const Create: React.FC = () => {
 
   const [selectedStacks, setSelectedStacks] = useState();
 
+  const [startDate, setStartDate] = useState("");
+
   return (
     <div>
       <Select
@@ -44,6 +47,7 @@ const Create: React.FC = () => {
         options={stackOptions}
         setSelectedValues={setSelectedStacks}
       />
+      <DatePicker setSelectedValue={setStartDate} />
     </div>
   );
 };
