@@ -13,7 +13,8 @@ export const Button = styled.button<{
   border-radius: ${({ radius }) => radius}px;
   color: ${({ fontColor }) => fontColor};
   background-color: ${({ backgroundColor }) => backgroundColor};
-  border: ${({backgroundColor}) => (backgroundColor === "white" ? "2px solid" : "none")};
+  border: ${({ backgroundColor }) =>
+    backgroundColor === "white" ? "2px solid" : "none"};
   border-color: ${({ borderColor }) => borderColor};
   font-size: 14px;
   font-weight: bold;
@@ -24,7 +25,7 @@ export const Button = styled.button<{
     opacity: 0.7;
   }
 
-  &:active{
+  &:active {
     background-color: #222;
   }
 `;

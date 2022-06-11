@@ -13,7 +13,7 @@ export default {
       defaultValue: "40",
       description: "height"
     },
-    radius:{
+    radius: {
       defaultValue: "0",
       description: "radius"
     },
@@ -25,11 +25,11 @@ export default {
       defaultValue: "red",
       description: "backgroundColor"
     },
-    borderColor:{
+    borderColor: {
       defaultValue: "red",
       description: "borderColor"
     },
-    fontColor:{
+    fontColor: {
       defaultValue: "white",
       description: "color"
     },
