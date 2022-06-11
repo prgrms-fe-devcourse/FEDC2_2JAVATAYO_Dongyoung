@@ -1,34 +1,27 @@
 import * as S from "./style";
 
 interface InputInterface {
-  type: string;
+  type?: string;
   width: number;
-  label: string;
-  placeholder: string;
-  errorMessage: string;
+  placeholder?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const Input: React.FC<InputInterface> = ({
   type,
   width,
-  label,
   placeholder,
-  errorMessage,
   onChange,
   ...props
 }) => {
   return (
-    <S.Wrapper style={{ width }}>
-      <S.Label>{label}</S.Label>
-      <S.StyledInput
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        {...props}
-      />
-      <S.ErrorMessage>{errorMessage}</S.ErrorMessage>
-    </S.Wrapper>
+    <S.Input
+      type={type}
+      style={{ width }}
+      placeholder={placeholder}
+      onChange={onChange}
+      {...props}
+    />
   );
 };
 

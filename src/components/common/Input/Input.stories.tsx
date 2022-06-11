@@ -4,20 +4,12 @@ export default {
   title: "Component/Input",
   component: Input,
   argTypes: {
-    label: {
-      defaultValue: "Label",
-      control: "text"
-    },
     placeholder: {
       defaultValue: "",
       control: "text"
     },
-    errorMsg: {
-      defaultValue: "",
-      control: "text"
-    },
     width: {
-      defaultValue: "200",
+      defaultValue: "400",
       control: "number"
     }
   }
