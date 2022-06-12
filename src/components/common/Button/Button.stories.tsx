@@ -45,5 +45,5 @@ export const onClickButton: ComponentStory<typeof Button> = Template.bind({});
 onClickButton.args = {
   onClick: () => {
     alert("onClick!!!!");
-  },
+  }
 };

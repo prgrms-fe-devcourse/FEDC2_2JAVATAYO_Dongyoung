@@ -29,7 +29,7 @@ Button.defaultProps = {
   width: "100%",
   height: "40",
   isRound: false,
-  isDisabled: false,
-}
+  isDisabled: false
+};
 
 export default Button;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-const handleButtonType = buttonType => {
-  switch(buttonType){
+const handleButtonType = (buttonType) => {
+  switch (buttonType) {
     case "red":
       return `
         color: white;
@@ -81,7 +81,7 @@ const handleButtonType = buttonType => {
           background-color: lightgray;
         }
       `;
-    default:  // default style: red
+    default: // default style: red
       return `
         color: white;
         background-color: red;
@@ -97,7 +97,7 @@ const handleButtonType = buttonType => {
         }
       `;
   }
-}
+};
 
 export const Button = styled.button<{
   buttonType: string;
@@ -105,9 +105,10 @@ export const Button = styled.button<{
   height: string;
   isRound: boolean;
 }>`
-  width: ${({ width }) => width.includes("%") ? width.replace("%", "") + "%" : width + "px"};
+  width: ${({ width }) =>
+    width.includes("%") ? width.replace("%", "") + "%" : width + "px"};
   height: ${({ height }) => height}px;
-  ${({buttonType}) => handleButtonType(buttonType)};
+  ${({ buttonType }) => handleButtonType(buttonType)};
   border-radius: ${({ isRound, height }) => (isRound ? height : 5)}px;
   font-size: 14px;
   font-weight: bold;
