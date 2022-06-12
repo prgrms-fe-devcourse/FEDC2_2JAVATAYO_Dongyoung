@@ -9,7 +9,7 @@ export default {
       control: "text"
     },
     width: {
-      defaultValue: "400",
+      defaultValue: "100",
       control: "number"
     }
   }
