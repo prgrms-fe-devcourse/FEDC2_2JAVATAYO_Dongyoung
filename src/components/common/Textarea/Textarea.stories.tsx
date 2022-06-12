@@ -5,17 +5,16 @@ export default {
   title: "Component/Textarea",
   component: Textarea,
   argTypes: {
-    isLogin:{
+    isLogin: {
       defaultValue: true,
       description: "isLogin"
     },
     textareaType: {
       defaultValue: "comment",
       description: "textareaType"
-    },
+    }
   }
 } as ComponentMeta<typeof Textarea>;
-
 
 export const Default: ComponentStory<typeof Textarea> = (args) => (
   <div>
