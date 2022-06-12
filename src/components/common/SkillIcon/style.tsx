@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.span<{ name: string }>`
+export const Container = styled.div<{ name: string }>`
   position: relative;
   display: inline-block;
   border: 1px solid ${({ name }) => borderColorMap[name]};

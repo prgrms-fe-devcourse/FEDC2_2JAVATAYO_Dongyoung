@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useHover } from "../../../hooks";
 import * as S from "./style";
 
 interface SkillIconInterface {
@@ -7,21 +7,17 @@ interface SkillIconInterface {
 }
 
 const SkillIcon: React.FC<SkillIconInterface> = ({ name, alt = "" }) => {
-  const [state, setState] = useState(false);
+  const [ref, hover] = useHover<HTMLDivElement>();
   const iconName = name === "RN" ? "rn" : convertPascalToSnake(name);
 
   return (
-    <S.Container
-      name={name.toLowerCase()}
-      onMouseEnter={() => setState(true)}
-      onMouseLeave={() => setState(false)}
-    >
+    <S.Container name={name.toLowerCase()} ref={ref}>
       <S.Img
         src={`${process.env.PUBLIC_URL}/assets/icons/icon_${iconName}.svg`}
         alt={alt}
         name={name.toLowerCase()}
       />
-      {state ? <S.ToolTip>{alt}</S.ToolTip> : undefined}
+      {hover ? <S.ToolTip>{alt}</S.ToolTip> : null}
     </S.Container>
   );
 };
