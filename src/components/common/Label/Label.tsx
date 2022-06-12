@@ -1,10 +1,10 @@
 import * as S from "./style";
 interface LabelInterface {
-  label: string;
+  children: React.ReactNode;
 }
 
-const Label: React.FC<LabelInterface> = ({ label }) => {
-  return <S.Label>{label}</S.Label>;
+const Label: React.FC<LabelInterface> = ({ children }) => {
+  return <S.Label>{children}</S.Label>;
 };
 
 export default Label;

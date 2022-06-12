@@ -1,10 +1,10 @@
 import * as S from "./style";
 interface ErrorMessageInterface {
-  errorMessage: string;
+  children: React.ReactNode;
 }
 
-const ErrorMessage: React.FC<ErrorMessageInterface> = ({ errorMessage }) => {
-  return <S.ErrorMessage>{errorMessage}</S.ErrorMessage>;
+const ErrorMessage: React.FC<ErrorMessageInterface> = ({ children }) => {
+  return <S.ErrorMessage>{children}</S.ErrorMessage>;
 };
 
 export default ErrorMessage;
