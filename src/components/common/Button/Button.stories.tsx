@@ -5,33 +5,25 @@ export default {
   title: "Component/Button",
   component: Button,
   argTypes: {
+    buttonType: {
+      defaultValue: "red",
+      description: "type"
+    },
     width: {
-      defaultValue: "300",
+      defaultValue: "100%",
       description: "width"
     },
     height: {
       defaultValue: "40",
       description: "height"
     },
-    radius: {
-      defaultValue: "0",
-      description: "radius"
+    isRound: {
+      defaultValue: false,
+      description: "isRound"
     },
     label: {
       defaultValue: "버튼",
       description: "value"
-    },
-    backgroundColor: {
-      defaultValue: "red",
-      description: "backgroundColor"
-    },
-    borderColor: {
-      defaultValue: "red",
-      description: "borderColor"
-    },
-    fontColor: {
-      defaultValue: "white",
-      description: "color"
     },
     onClick: {
       control: {
@@ -53,5 +45,5 @@ export const onClickButton: ComponentStory<typeof Button> = Template.bind({});
 onClickButton.args = {
   onClick: () => {
     alert("onClick!!!!");
-  }
+  },
 };
