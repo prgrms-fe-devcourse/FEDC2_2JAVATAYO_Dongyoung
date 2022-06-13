@@ -6,12 +6,8 @@ const baseURL = "http://kdt.frontend.2nd.programmers.co.kr:5005";
 
 const unauthRequest = axios.create({});
 unauthRequest.interceptors.response.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error.response);
-  }
+  (config) => config,
+  (error) => Promise.reject(error.response)
 );
 const authRequest = axios.create({});
 authRequest.interceptors.request.use((config) => {
