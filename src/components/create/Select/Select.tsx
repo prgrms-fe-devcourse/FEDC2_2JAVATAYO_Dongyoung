@@ -24,7 +24,7 @@ const Select: React.FC<SelectInterface> = ({
     <AntdSelect
       defaultValue={defaultValue}
       style={{
-        width: "120px"
+        width: "100%"
       }}
       onChange={handleChange}
       allowClear={canAllowClear}
