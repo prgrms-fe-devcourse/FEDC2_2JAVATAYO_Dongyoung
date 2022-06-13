@@ -110,7 +110,7 @@ export const Button = styled.button<{
   width: ${({ width }) =>
     width.includes("%") ? width.replace("%", "") + "%" : width + "px"};
   height: ${({ height }) => height}px;
-  
+
   border-radius: ${({ isRound, height }) => (isRound ? height : 5)}px;
   font-size: 14px;
   font-weight: bold;
