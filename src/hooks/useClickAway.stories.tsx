@@ -3,7 +3,7 @@ import { useState } from "react";
 import useClickAway from "./useClickAway";
 
 export default {
-  title: "Hook/useClickAway"
+  title: "Hooks/useClickAway"
 };
 
 const Box = styled.div`
