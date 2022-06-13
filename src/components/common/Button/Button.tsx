@@ -1,22 +1,23 @@
 import * as S from "./style";
+
 interface ButtonInterface {
   buttonType?: string;
   width?: string;
   height?: string;
   isRound?: boolean;
   isDisabled?: boolean;
-  label?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: React.ReactNode;
 }
 
 const Button: React.FC<ButtonInterface> = ({
+  children,
   buttonType,
   width,
   height,
   isRound,
   onClick,
   isDisabled,
-  label
 }) => {
   return (
     <S.Button
@@ -27,7 +28,7 @@ const Button: React.FC<ButtonInterface> = ({
       onClick={onClick ? onClick : null}
       disabled={isDisabled}
     >
-      {label}
+      {children}
     </S.Button>
   );
 };
@@ -38,7 +39,6 @@ Button.defaultProps = {
   height: "40",
   isRound: false,
   isDisabled: false,
-  label: "Button"
 };
 
 export default Button;
