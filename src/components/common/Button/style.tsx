@@ -5,7 +5,7 @@ const handleButtonType = (buttonType) => {
     case "red":
       return `
         color: white;
-        background-color: red;
+        background-color: #F55139;
         border: none;
         transition:0.3s ease all;
 
@@ -20,8 +20,9 @@ const handleButtonType = (buttonType) => {
     case "blue":
       return `
         color: white;
-        background-color: #243A73;
+        background-color: #304E75;
         border: none;
+        transition:0.3s ease all;
 
         &:hover {
           opacity: 0.8;
@@ -34,7 +35,7 @@ const handleButtonType = (buttonType) => {
     case "gray":
       return `
         color: black;
-        background-color: lightgray;
+        background-color: #E8E8E8;
         border: none;
 
         &:hover {
@@ -47,13 +48,13 @@ const handleButtonType = (buttonType) => {
       `;
     case "red-line":
       return `
-        color: red;
+        color: #F55139;
         background-color: white;
-        border: 1.5px solid red;
+        border: 1.5px solid #F55139;
         transition:0.3s ease all;
 
         &:hover {
-          background-color: #f44336;
+          background-color: #F55139;
           border: none;
           color: white;
           opacity: 1;
@@ -67,11 +68,11 @@ const handleButtonType = (buttonType) => {
       return `
         color: black;
         background-color: white;
-        border: 1.5px solid gray;
+        border: 1.5px solid #B0B0B0;
         transition:0.3s ease all;
 
         &:hover {
-          background-color: gray;
+          background-color: #505050;
           color: white;
           border: none;
           opacity: 1;
@@ -105,10 +106,11 @@ export const Button = styled.button<{
   height: string;
   isRound: boolean;
 }>`
+  ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) =>
     width.includes("%") ? width.replace("%", "") + "%" : width + "px"};
   height: ${({ height }) => height}px;
-  ${({ buttonType }) => handleButtonType(buttonType)};
+  
   border-radius: ${({ isRound, height }) => (isRound ? height : 5)}px;
   font-size: 14px;
   font-weight: bold;

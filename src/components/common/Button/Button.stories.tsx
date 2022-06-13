@@ -22,8 +22,8 @@ export default {
       description: "isRound"
     },
     label: {
-      defaultValue: "버튼",
-      description: "value"
+      defaultValue: "Button",
+      description: "label"
     },
     onClick: {
       control: {
