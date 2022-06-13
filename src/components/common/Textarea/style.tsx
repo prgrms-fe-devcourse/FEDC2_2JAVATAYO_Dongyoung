@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
 
 export const Textarea = styled.textarea<{
-  textareaType: string;
+  isIntroduction: boolean;
 }>`
   width: 100%;
   max-width: 678px;
   min-width: 340px;
 
-  height: ${({ textareaType }) =>
-    textareaType === "comment" ? "80" : "400"}px;
+  height: ${({ isIntroduction }) =>
+  isIntroduction ? "400" : "80"}px;
 
-  border-radius: ${({ textareaType }) =>
-    textareaType === "comment" ? "10" : "0"}px;
+  border-radius: ${({ isIntroduction }) =>
+  isIntroduction ? "0" : "10"}px;
 
   padding: 10px;
   @media (max-width: 700px) {
@@ -19,7 +19,7 @@ export const Textarea = styled.textarea<{
     box-sizing: border-box;
   }
 
-  overflow: ${({ textareaType }) =>
-    textareaType === "comment" ? "scroll" : "none"};
+  overflow: ${({ isIntroduction }) =>
+  isIntroduction ? "none" : "auto"};
   resize: none;
 `;

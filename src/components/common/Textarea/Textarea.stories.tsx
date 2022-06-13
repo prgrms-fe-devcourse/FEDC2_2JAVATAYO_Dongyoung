@@ -9,9 +9,9 @@ export default {
       defaultValue: true,
       description: "isLogin"
     },
-    textareaType: {
-      defaultValue: "comment",
-      description: "textareaType"
+    isIntroduction: {
+      defaultValue: true,
+      description: "isIntroduction"
     }
   }
 } as ComponentMeta<typeof Textarea>;

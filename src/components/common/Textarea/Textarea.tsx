@@ -1,14 +1,21 @@
 import * as S from "./style";
-import { useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 
 interface TextareaInterface {
   isLogin: boolean;
-  textareaType: string;
+  isIntroduction: boolean;
+  children: React.ReactNode;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const Textarea: React.FC<TextareaInterface> = (props) => {
+const Textarea: React.FC<TextareaInterface> = ({
+  isLogin,
+  isIntroduction,
+  children,
+  onChange
+}) => {
   const ref = useRef<HTMLTextAreaElement>(null);
+  const [ContentValue, setContentValue] = useState(""); // 수정 페이지에서 불러올 value관리
 
   const handleResizeHeight = useCallback(() => {
     if (
@@ -25,28 +32,28 @@ const Textarea: React.FC<TextareaInterface> = (props) => {
     ref.current.style.height = ref.current.scrollHeight - 20 + "px";
   }, []);
 
-  const textareaType = props.textareaType;
-
-  const placeholderText = props.isLogin
-    ? textareaType === "comment"
-      ? "댓글을 남겨주세요.😀"
-      : "프로젝트를 자유롭게 소개해주세요!🙂"
+  const placeholderText = isLogin
+    ? isIntroduction
+      ? "프로젝트를 자유롭게 소개해주세요!🙂"
+      : "댓글을 남겨주세요.😀"
     : "로그인한 사용자만 작성할 수 있습니다.";
   return (
     <S.Textarea
-      disabled={!props.isLogin}
-      textareaType={textareaType}
+      isIntroduction={isIntroduction}
+      disabled={!isLogin}
       placeholder={placeholderText}
-      onChange={textareaType === "comment" ? null : props.onChange}
-      onInput={textareaType === "comment" ? null : handleResizeHeight}
-      ref={textareaType === "comment" ? null : ref}
-    ></S.Textarea>
+      onChange={isIntroduction ? onChange : null}
+      onInput={isIntroduction ? handleResizeHeight : null}
+      ref={isIntroduction ? ref : null}
+    >
+      {children}
+    </S.Textarea>
   );
 };
 
 Textarea.defaultProps = {
   isLogin: false,
-  textareaType: "comment"
+  isIntroduction: true,
 };
 
 export default Textarea;
