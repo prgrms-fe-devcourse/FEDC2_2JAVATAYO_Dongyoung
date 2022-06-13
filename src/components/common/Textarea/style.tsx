@@ -7,11 +7,9 @@ export const Textarea = styled.textarea<{
   max-width: 678px;
   min-width: 340px;
 
-  height: ${({ isIntroduction }) =>
-  isIntroduction ? "400" : "80"}px;
+  height: ${({ isIntroduction }) => (isIntroduction ? "400" : "80")}px;
 
-  border-radius: ${({ isIntroduction }) =>
-  isIntroduction ? "0" : "10"}px;
+  border-radius: ${({ isIntroduction }) => (isIntroduction ? "0" : "10")}px;
 
   padding: 10px;
   @media (max-width: 700px) {
@@ -19,7 +17,6 @@ export const Textarea = styled.textarea<{
     box-sizing: border-box;
   }
 
-  overflow: ${({ isIntroduction }) =>
-  isIntroduction ? "none" : "auto"};
+  overflow: ${({ isIntroduction }) => (isIntroduction ? "none" : "auto")};
   resize: none;
 `;

@@ -53,7 +53,7 @@ const Textarea: React.FC<TextareaInterface> = ({
 
 Textarea.defaultProps = {
   isLogin: false,
-  isIntroduction: true,
+  isIntroduction: true
 };
 
 export default Textarea;
