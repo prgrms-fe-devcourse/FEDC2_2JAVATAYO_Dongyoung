@@ -8,7 +8,11 @@ interface SkillIconInterface {
 
 const SkillIcon: React.FC<SkillIconInterface> = ({ name, alt = "" }) => {
   const [ref, hover] = useHover<HTMLDivElement>();
-  const iconName = name === "RN" ? "rn" : convertPascalToSnake(name);
+
+  let iconName = name;
+  if (name === "RN") iconName = "rn";
+  else if (name === "C/C++") iconName = "cpp";
+  else iconName = convertPascalToSnake(name);
 
   return (
     <S.Container name={name.toLowerCase()} ref={ref}>
