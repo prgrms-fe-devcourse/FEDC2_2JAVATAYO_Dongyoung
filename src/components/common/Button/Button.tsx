@@ -17,7 +17,7 @@ const Button: React.FC<ButtonInterface> = ({
   height,
   isRound,
   onClick,
-  isDisabled,
+  isDisabled
 }) => {
   return (
     <S.Button
@@ -38,7 +38,7 @@ Button.defaultProps = {
   width: "100%",
   height: "40",
   isRound: false,
-  isDisabled: false,
+  isDisabled: false
 };
 
 export default Button;
