@@ -32,19 +32,11 @@ const handleButtonType = (buttonType) => {
           opacity: 0.6;
         }
       `;
-    case "gray":
+    case "gray": // disabled color
       return `
-        color: black;
-        background-color: #E8E8E8;
+        color: #808080;
+        background-color: #D8D9D9;
         border: none;
-
-        &:hover {
-          opacity: 0.8;
-        }
-      
-        &:active {
-          opacity: 0.6;
-        }
       `;
     case "red-line":
       return `
@@ -116,4 +108,9 @@ export const Button = styled.button<{
   font-weight: bold;
   text-align: center;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 1;
+    cursor: default;
+  }
 `;
