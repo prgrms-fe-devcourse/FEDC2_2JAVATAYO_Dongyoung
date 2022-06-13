@@ -1,7 +1,9 @@
 import axios from "axios";
 import storage from "../storage";
 
-const baseURL = "http://kdt.frontend.2nd.programmers.co.kr:5005";
+const { REACT_APP_END_POINT, REACT_APP_PORT } = process.env;
+
+const baseURL = `${REACT_APP_END_POINT}:${REACT_APP_PORT}`;
 
 const unauthRequest = axios.create({
   baseURL

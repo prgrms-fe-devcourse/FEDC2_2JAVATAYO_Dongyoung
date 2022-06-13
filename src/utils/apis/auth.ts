@@ -1,6 +1,5 @@
 import { unauthRequest, authRequest } from "./common";
 import { ISignIn, ISignUp } from "../../types/apis";
-import storage from "../storage";
 
 const authAPI = {
   signIn: (payload: ISignIn) => unauthRequest.post("/login", payload),
