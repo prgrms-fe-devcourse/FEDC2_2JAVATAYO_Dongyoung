@@ -8,7 +8,7 @@ interface HeaderInterface {
 }
 
 const Header: React.FC<HeaderInterface> = ({
-  isLoggedIn,
+  isLoggedIn = false,
   userName = "주형진",
   goHome,
   onLogin
