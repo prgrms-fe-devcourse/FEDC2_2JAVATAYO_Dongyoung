@@ -22,6 +22,7 @@ const Cascader: React.FC<CascaderInterface> = ({
       <AntdCascader
         multiple={isMultiple}
         style={{
+          marginTop: "10px",
           width: "100%"
         }}
         options={options}
