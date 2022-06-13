@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Cascader from "../components/create/Cascader";
+import SelectBox from "../components/create/SelectBox";
 import DatePicker from "../components/create/DatePicker";
 import Select from "../components/create/Select";
 
@@ -36,7 +37,8 @@ const Create: React.FC = () => {
 
   return (
     <div>
-      <Select
+      <SelectBox
+        label={"진행방식"}
         defaultValue={"온라인"}
         options={options}
         canAllowClear={true}
