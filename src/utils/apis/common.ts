@@ -1,9 +1,7 @@
 import axios from "axios";
 import storage from "../storage";
 
-const { REACT_APP_END_POINT, REACT_APP_PORT } = process.env;
-
-const baseURL = `${REACT_APP_END_POINT}:${REACT_APP_PORT}`;
+const baseURL = `${process.env.REACT_APP_END_POINT}:${process.env.REACT_APP_PORT}`;
 
 const unauthRequest = axios.create({
   baseURL
