@@ -91,6 +91,7 @@ const reset = css`
     font: inherit;
     vertical-align: baseline;
     font-family: "Noto Sans KR", sans-serif;
+    color: "#312F2F";
   }
 
   article,
