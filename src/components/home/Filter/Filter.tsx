@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CHANNELS } from "../../../constants/channel";
+import CHANNELS from "../../../constants/channel";
 import { postAPI } from "../../../utils/apis";
 import * as S from "./style";
 

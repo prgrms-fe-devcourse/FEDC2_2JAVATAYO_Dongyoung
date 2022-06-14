@@ -3,6 +3,8 @@ import theme from "../../../styles/theme";
 
 export const RadioBox = styled.div`
   display: flex;
+  div {
+  }
 `;
 
 export const Radio = styled.input`
@@ -34,6 +36,7 @@ export const SelectLabel = styled.label`
 `;
 
 export const Label = styled.label`
+  white-space: nowrap;
   display: block;
   margin-right: 8px;
   height: 40px;

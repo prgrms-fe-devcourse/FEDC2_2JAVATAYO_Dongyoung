@@ -1,4 +1,4 @@
-export const CHANNELS = {
+const CHANNELS = {
   front: {
     _id: "62a55d95c882bf3a287f9618",
     label: "프론트"
@@ -23,4 +23,6 @@ export const CHANNELS = {
     _id: "62a5b766c882bf3a287f968b",
     label: "디자이너"
   }
-};
+} as const;
+
+export default CHANNELS;
