@@ -1,4 +1,4 @@
-import { ProfileImage } from "..";
+import { ProfileImage, SkillIcon } from "..";
 import heartIcon from "../../../assets/icons/icon_heart.svg";
 import heartFillIcon from "../../../assets/icons/icon_heart_fill.svg";
 import * as S from "./style";
@@ -7,6 +7,7 @@ type like = { user: string };
 interface CardInterface {
   post: {
     channel: string;
+    skills: string[];
     likes: like[];
     title: string;
     people: number;
@@ -56,7 +57,11 @@ const Card: React.FC<CardInterface> = ({ post, user = null }) => {
       </S.FlexBetween>
       <S.Title>{post.title}</S.Title>
       <span>모집인원: {post.people}</span>
-      <S.SkillIcons>배찌위치</S.SkillIcons>
+      <S.SkillIcons>
+        {post.skills.map((skill) => (
+          <SkillIcon key={skill} name={skill} alt={skill} />
+        ))}
+      </S.SkillIcons>
       <S.FlexBetween>
         <S.profile>
           <ProfileImage size="sm" />

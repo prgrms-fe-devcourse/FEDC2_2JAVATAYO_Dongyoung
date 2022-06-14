@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import theme from "../../../styles/theme";
 
 export const FlexBetween = styled.div`
   display: flex;
@@ -26,7 +27,14 @@ export const Tag = styled.div<{ color: string }>`
   line-height: 1;
 `;
 
-export const Like = styled.div``;
+export const Like = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 21px;
+    margin-right: 3px;
+  }
+`;
 
 export const Title = styled.p`
   font-weight: bold;
@@ -39,9 +47,10 @@ export const Title = styled.p`
 `;
 
 export const SkillIcons = styled.div`
-  background-color: yellow;
-  height: 26px;
   margin: 10px 0;
+  & > div {
+    margin-right: 6px;
+  }
 `;
 
 export const profile = styled.div`
@@ -58,6 +67,6 @@ export const Date = styled.div`
   flex-direction: column;
   justify-content: center;
   font-size: 12px;
-  color: #b0b0b0;
+  color: ${theme.$gray400};
   line-height: 1.2;
 `;

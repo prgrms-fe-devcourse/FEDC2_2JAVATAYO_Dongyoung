@@ -11,6 +11,7 @@ export default {
       control: "object",
       defaultValue: {
         channel: "front",
+        skills: ["TypeScript", "React"],
         likes: [
           {
             _id: 123,
