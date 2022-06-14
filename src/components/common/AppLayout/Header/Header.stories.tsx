@@ -10,7 +10,7 @@ export default {
       control: "boolean"
     },
     userName: {
-      defaultValue: "주형진",
+      defaultValue: "",
       control: "text"
     }
   }
