@@ -1,37 +1,31 @@
 import * as S from "./style";
-
+import { useNavigate } from "react-router-dom";
+import Logo from "../../../../assets/logos/Logo.svg";
 interface HeaderInterface {
   isLoggedIn?: boolean;
   userName?: string;
-  onLogin?: React.MouseEventHandler<HTMLDivElement>;
-  goHome?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const Header: React.FC<HeaderInterface> = ({
   isLoggedIn = false,
-  userName = "주형진",
-  goHome,
-  onLogin
+  userName = ""
 }) => {
+  const navigate = useNavigate();
   return (
     <S.Header>
-      <img
-        src="https://i.ibb.co/PT3QPhd/Logo.png"
-        alt="Logo"
-        onClick={goHome}
-      />
+      <img src={Logo} alt="Logo" onClick={() => navigate("/")} />
       <div>
         {isLoggedIn ? (
-          <div className="loggedIn">
+          <S.LoggedIn>
             <div>새글쓰기</div>
             <div>알람</div>
             <div>프로필</div>
             <div>{userName}님</div>
-          </div>
+          </S.LoggedIn>
         ) : (
-          <div className="loggedOut" onClick={onLogin}>
+          <S.Loggedout onClick={() => navigate("/signin")}>
             로그인 / 회원가입
-          </div>
+          </S.Loggedout>
         )}
       </div>
     </S.Header>
