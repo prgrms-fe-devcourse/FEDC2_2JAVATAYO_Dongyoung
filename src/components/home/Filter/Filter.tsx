@@ -21,11 +21,15 @@ const CHANNEL = {
   }
 };
 
-const Filter = ({ setPost }) => {
-  const channels = Object.entries(CHANNEL);
-  const [channel, setChannel] = useState("front");
+interface FilterInterface {
+  setPost: (value: object) => void;
+}
 
-  const channelChange = (e, id) => {
+const Filter: React.FC<FilterInterface> = ({ setPost }) => {
+  const channels = Object.entries(CHANNEL);
+  const [channel, setChannel] = useState<string>("front");
+
+  const channelChange = (e, id: string) => {
     setChannel(e.target.value);
     channelSearch(id);
   };
@@ -33,7 +37,7 @@ const Filter = ({ setPost }) => {
   const channelSearch = async (id) => {
     try {
       const { data } = await postAPI.getChannelPostList(id);
-      await setPost(data);
+      setPost(data);
     } catch (error) {
       console.error(error);
     }
