@@ -93,6 +93,7 @@
     "husky": "^8.0.1",
     "prettier": "^2.6.2",
     "prop-types": "^15.8.1",
+    "react-app-alias": "^2.2.0",
     "webpack": "^5.73.0"
   }
 }

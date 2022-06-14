@@ -1,5 +1,5 @@
 import * as S from "./style";
-import defaultCoverImage from "../../../assets/imgs/profile_default_cover.png";
+import defaultCoverImage from "@assets/imgs/profile_default_cover.png";
 
 interface ICoverImage {
   imgSrc?: string;
