@@ -1,4 +1,4 @@
-import { useHover } from "../../../hooks";
+import { useHover } from "@hooks";
 import * as S from "./style";
 
 interface SkillIconInterface {

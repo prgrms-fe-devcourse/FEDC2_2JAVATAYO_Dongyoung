@@ -1,6 +1,5 @@
-import Icon from "../Icon";
-import githubIcon from "../../../assets/icons/icon_github.svg";
-import youtubeIcon from "../../../assets/icons/icon_youtube.svg";
+import githubIcon from "@assets/icons/icon_github.svg";
+import youtubeIcon from "@assets/icons/icon_youtube.svg";
 import * as S from "./style";
 
 const Footer = () => {
