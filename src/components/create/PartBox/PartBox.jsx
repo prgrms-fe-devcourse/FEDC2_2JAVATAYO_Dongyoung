@@ -46,6 +46,7 @@ const PartBox = () => {
   };
 
   React.useEffect(() => {
+    setStacks(null);
     getSkillOptions(channel);
   }, [channel]);
 
@@ -73,6 +74,7 @@ const PartBox = () => {
       </S.Wrapper>
       <Label>기술 스택</Label>
       <Cascader
+        stacks={stacks}
         isMultiple={true}
         options={stackOptions}
         setSelectedValues={setStacks}
