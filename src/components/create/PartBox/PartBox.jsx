@@ -2,7 +2,7 @@ import React from "react";
 import { Label } from "../../common/Label/style";
 import Cascader from "../Cascader";
 import SelectBox from "../SelectBox";
-import skillOptions from "../../../constants/skill";
+import SKILL_OPTIONS from "../../../constants/skill";
 import * as S from "./style";
 
 const PartBox = () => {
@@ -28,7 +28,7 @@ const PartBox = () => {
   const [channel, setChannel] = React.useState("front");
   const [people, setPeople] = React.useState("1");
   const [stackOptions, setStackOptions] = React.useState(
-    skillOptions[0].options
+    SKILL_OPTIONS[0].options
   );
   const [stacks, setStacks] = React.useState(null);
 
@@ -39,10 +39,10 @@ const PartBox = () => {
   }, [channel, people, stacks]);
 
   const getSkillOptions = (channel) => {
-    let idx = skillOptions.findIndex(
+    let idx = SKILL_OPTIONS.findIndex(
       (skillOption) => skillOption.channel === channel
     );
-    setStackOptions(skillOptions[idx].options);
+    setStackOptions(SKILL_OPTIONS[idx].options);
   };
 
   React.useEffect(() => {

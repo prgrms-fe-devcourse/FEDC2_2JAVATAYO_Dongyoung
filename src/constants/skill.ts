@@ -1,4 +1,4 @@
-const skillOptions = [
+const SKILL_OPTIONS = [
   {
     channel: "front",
     options: [
@@ -76,4 +76,4 @@ const skillOptions = [
   }
 ] as const;
 
-export default skillOptions;
+export default SKILL_OPTIONS;
