@@ -1,32 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { CHANNELS } from "../../../constants/channel";
 import { postAPI } from "../../../utils/apis";
 import * as S from "./style";
-
-const CHANNEL = {
-  front: {
-    _id: "62a55d95c882bf3a287f9618",
-    label: "프론트"
-  },
-  back: {
-    _id: "62a55de1c882bf3a287f961c",
-    label: "백엔드"
-  },
-  ios: {
-    _id: "62a55eb0c882bf3a287f9623",
-    label: "ios"
-  },
-  ai: {
-    _id: "62a6d99777ad437a6b8f362c",
-    label: "AI"
-  }
-};
 
 interface FilterInterface {
   setPost: (value: object) => void;
 }
 
 const Filter: React.FC<FilterInterface> = ({ setPost }) => {
-  const channels = Object.entries(CHANNEL);
+  const channels = Object.entries(CHANNELS);
   const [channel, setChannel] = useState<string>("front");
 
   const channelChange = (e, id: string) => {
@@ -44,7 +26,7 @@ const Filter: React.FC<FilterInterface> = ({ setPost }) => {
   };
 
   useEffect(() => {
-    channelSearch(CHANNEL.front._id);
+    channelSearch(CHANNELS.front._id);
   }, []);
 
   return (
