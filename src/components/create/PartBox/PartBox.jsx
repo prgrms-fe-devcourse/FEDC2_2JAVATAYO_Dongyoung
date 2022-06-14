@@ -25,12 +25,6 @@ const PartBox = () => {
     { id: 7, value: "notyet", label: "미정" }
   ];
 
-  interface Option {
-    id: number;
-    value: string;
-    label: string;
-  }
-
   const [channel, setChannel] = React.useState("front");
   const [people, setPeople] = React.useState("1");
   const [stackOptions, setStackOptions] = React.useState(
@@ -42,10 +36,9 @@ const PartBox = () => {
     console.log("channel", channel);
     console.log("people", people);
     console.log("stacks", stacks);
-  }, [channel, people]);
+  }, [channel, people, stacks]);
 
   const getSkillOptions = (channel) => {
-    console.log(channel);
     let idx = skillOptions.findIndex(
       (skillOption) => skillOption.channel === channel
     );
