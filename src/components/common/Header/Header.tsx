@@ -1,6 +1,6 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../../../assets/logos/Logo.svg";
+import Logo from "../../../assets/logos/Logo.svg";
 interface HeaderInterface {
   isLoggedIn?: boolean;
   userName?: string;
@@ -13,7 +13,18 @@ const Header: React.FC<HeaderInterface> = ({
   const navigate = useNavigate();
   return (
     <S.Header>
-      <img src={Logo} alt="Logo" onClick={() => navigate("/")} />
+      <img
+        src={Logo}
+        alt="Logo"
+        onClick={
+          isLoggedIn
+            ? () => {
+                window.confirm("메인으로 돌아가시겠습니까?");
+                navigate("/");
+              }
+            : () => navigate("/")
+        }
+      />
       <div>
         {isLoggedIn ? (
           <S.LoggedIn>
@@ -23,7 +34,7 @@ const Header: React.FC<HeaderInterface> = ({
             <div>{userName}님</div>
           </S.LoggedIn>
         ) : (
-          <S.Loggedout onClick={() => navigate("/signin")}>
+          <S.Loggedout onClick={() => console.log("navigate")}>
             로그인 / 회원가입
           </S.Loggedout>
         )}
