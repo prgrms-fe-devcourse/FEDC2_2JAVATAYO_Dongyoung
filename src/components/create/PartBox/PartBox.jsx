@@ -5,11 +5,7 @@ import SelectBox from "../SelectBox";
 import skillOptions from "../../../constants/skill";
 import * as S from "./style";
 
-type Mutable<T> = {
-  -readonly [k in typeof T]: T[k];
-};
-
-const PartBox: React.FC = () => {
+const PartBox = () => {
   const channelOption = [
     { id: 1, value: "front", label: "프론트엔드" },
     { id: 2, value: "back", label: "백엔드" },
@@ -37,7 +33,7 @@ const PartBox: React.FC = () => {
 
   const [channel, setChannel] = React.useState("front");
   const [people, setPeople] = React.useState("1");
-  const [stackOptions, setStackOptions]: Mutable<Option>[] = React.useState(
+  const [stackOptions, setStackOptions] = React.useState(
     skillOptions[0].options
   );
   const [stacks, setStacks] = React.useState(null);
@@ -48,15 +44,18 @@ const PartBox: React.FC = () => {
     console.log("stacks", stacks);
   }, [channel, people]);
 
-  const getSkillOptions = (channel: string) => {
-    skillOptions.map((skillOption) => {
-      if (skillOption.channel === channel) return skillOption.options;
-    });
+  const getSkillOptions = (channel) => {
+    console.log(channel);
+    let idx = skillOptions.findIndex(
+      (skillOption) => skillOption.channel === channel
+    );
+    setStackOptions(skillOptions[idx].options);
   };
 
   React.useEffect(() => {
     getSkillOptions(channel);
   }, [channel]);
+
   return (
     <S.PartBox>
       <S.Wrapper>
