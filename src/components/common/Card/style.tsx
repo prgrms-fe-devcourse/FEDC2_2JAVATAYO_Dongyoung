@@ -9,11 +9,15 @@ export const FlexBetween = styled.div`
 export const Card = styled.div`
   width: 100%;
   border-radius: 8px;
-  padding: 18px;
+  padding: 21px 25px;
   background-color: #fff;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   cursor: pointer;
+  transition: all 0.5s;
+  :hover {
+    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export const Tag = styled.div<{ color: string }>`
@@ -21,7 +25,7 @@ export const Tag = styled.div<{ color: string }>`
   justify-content: center;
   align-items: center;
   background-color: ${({ color }) => color};
-  padding: 0 16px;
+  padding: 8px 16px;
   border-radius: 26px;
   font-size: 14px;
   line-height: 1;
@@ -30,9 +34,13 @@ export const Tag = styled.div<{ color: string }>`
 export const Like = styled.div`
   display: flex;
   align-items: center;
+  &:hover img {
+    transform: scale(1.1);
+  }
   img {
     width: 21px;
-    margin-right: 3px;
+    margin-right: 5px;
+    transition: transform 0.3s;
   }
 `;
 
@@ -47,7 +55,7 @@ export const Title = styled.p`
 `;
 
 export const SkillIcons = styled.div`
-  margin: 10px 0;
+  margin: 20px 0 30px;
   & > div {
     margin-right: 6px;
   }

@@ -41,11 +41,10 @@ const Card: React.FC<CardInterface> = ({ post, user = null }) => {
         <S.Tag color={channelColor[post.channel].color}>
           {channelColor[post.channel].title}
         </S.Tag>
-        <S.Like>
+        <S.Like onClick={onClickLike}>
           {user ? (
             // 이후 ICON 컴포넌트로 변경 예정
             <img
-              onClick={onClickLike}
               src={isClickLike ? heartFillIcon : heartIcon}
               alt="좋아요 버튼"
             />
