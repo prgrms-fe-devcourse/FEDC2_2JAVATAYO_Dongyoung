@@ -8,24 +8,24 @@ import AppLayout from "../../components/common/AppLayout";
 import Button from "../../components/common/Button";
 import * as S from "./style";
 
+const placeOptions = [
+  { id: 1, value: "online", label: "온라인" },
+  { id: 2, value: "offline", label: "오프라인" },
+  { id: 3, value: "both", label: "온오프라인 병행" },
+  { id: 4, value: "notyet", label: "미정" }
+];
+
+const expectedDateOptions = [
+  { id: 1, value: "1개월", lable: "1개월" },
+  { id: 2, value: "2개월", lable: "2개월" },
+  { id: 3, value: "3개월", lable: "3개월" },
+  { id: 4, value: "4개월", lable: "4개월" },
+  { id: 5, value: "5개월", lable: "5개월" },
+  { id: 6, value: "6개월 이상", lable: "6개월 이상" },
+  { id: 7, value: "notyet", lable: "미정" }
+];
+
 const Create: React.FC = () => {
-  const placeOptions = [
-    { id: 1, value: "online", label: "온라인" },
-    { id: 2, value: "offline", label: "오프라인" },
-    { id: 3, value: "both", label: "온오프라인 병행" },
-    { id: 4, value: "notyet", label: "미정" }
-  ];
-
-  const expectedDateOptions = [
-    { id: 1, value: "1개월", lable: "1개월" },
-    { id: 2, value: "2개월", lable: "2개월" },
-    { id: 3, value: "3개월", lable: "3개월" },
-    { id: 4, value: "4개월", lable: "4개월" },
-    { id: 5, value: "5개월", lable: "5개월" },
-    { id: 6, value: "6개월 이상", lable: "6개월 이상" },
-    { id: 7, value: "notyet", lable: "미정" }
-  ];
-
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
