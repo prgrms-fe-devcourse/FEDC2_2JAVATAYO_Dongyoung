@@ -2,18 +2,20 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div<{ name: string }>`
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid ${({ name }) => borderColorMap[name]};
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
   box-sizing: border-box;
 `;
 
 export const Img = styled.img<{ name: string }>`
   position: absolute;
-  width: ${({ name }) => (name === "kotlin" ? "14px" : "16px")};
-  height: ${({ name }) => (name === "kotlin" ? "14px" : "16px")};
+  width: ${({ name }) => (name === "kotlin" ? "22px" : "28px")};
+  height: ${({ name }) => (name === "kotlin" ? "22px" : "28px")};
   top: ${({ name }) => (topLeftMap[name] ? topLeftMap[name].top : "50%")};
   left: ${({ name }) => (topLeftMap[name] ? topLeftMap[name].left : "50%")};
   transform: ${({ name }) =>
@@ -24,7 +26,7 @@ export const ToolTip = styled.div`
   z-index: 100;
   position: absolute;
   min-width: 16px;
-  bottom: -100%;
+  top: 45px;
   left: 50%;
   border: 1px solid black;
   padding: 1px 4px;
@@ -82,12 +84,11 @@ const borderColorMap = {
 
 const topLeftMap = {
   django: { top: "5px", left: "3px" },
-  figma: { top: "5px", left: "4px" },
-  flutter: { top: "4px", left: "3px" },
-  html5: { top: "5px", left: "4px" },
-  java: { top: "3px", left: "4px" },
-  mui: { top: "5px", left: "4px" },
-  mysql: { top: "3px", left: "4px" },
-  postgresql: { top: "5px", left: "4px" },
-  vue: { top: "6px", left: "4px" }
+  flutter: { left: "3px" },
+  html5: { top: "7px" },
+  java: { top: "4px" },
+  mui: { top: "7px" },
+  mysql: { top: "4px" },
+  postgresql: { top: "8px" },
+  vue: { top: "6px" }
 };
