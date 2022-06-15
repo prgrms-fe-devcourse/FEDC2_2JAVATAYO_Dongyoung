@@ -30,26 +30,28 @@ const Filter: React.FC<FilterInterface> = ({ setPost }) => {
   }, []);
 
   return (
-    <S.RadioBox>
-      {channels.map(([name, { _id, label }], i) => {
-        return (
-          <div key={i}>
-            <S.Radio
-              type="radio"
-              id={name}
-              name="channel"
-              value={name}
-              onChange={() => channelChange(event, _id)}
-            />
-            {channel === name ? (
-              <S.SelectLabel htmlFor={name}>{label}</S.SelectLabel>
-            ) : (
-              <S.Label htmlFor={name}>{label}</S.Label>
-            )}
-          </div>
-        );
-      })}
-    </S.RadioBox>
+    <S.FilterWrap>
+      <S.RadioBox>
+        {channels.map(([name, { _id, label }], i) => {
+          return (
+            <div key={i}>
+              <S.Radio
+                type="radio"
+                id={name}
+                name="channel"
+                value={name}
+                onChange={() => channelChange(event, _id)}
+              />
+              {channel === name ? (
+                <S.SelectLabel htmlFor={name}>{label}</S.SelectLabel>
+              ) : (
+                <S.Label htmlFor={name}>{label}</S.Label>
+              )}
+            </div>
+          );
+        })}
+      </S.RadioBox>
+    </S.FilterWrap>
   );
 };
 

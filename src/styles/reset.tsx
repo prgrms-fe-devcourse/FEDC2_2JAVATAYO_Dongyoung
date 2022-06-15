@@ -170,6 +170,11 @@ const reset = css`
     background-color: #bbb;
   }
 
+  body {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+
   svg,
   path {
     pointer-events: none;
