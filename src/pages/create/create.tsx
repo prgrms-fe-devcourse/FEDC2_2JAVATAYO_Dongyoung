@@ -22,8 +22,8 @@ const expectedDateOptions = [
   { id: 3, value: "3개월", lable: "3개월" },
   { id: 4, value: "4개월", lable: "4개월" },
   { id: 5, value: "5개월", lable: "5개월" },
-  { id: 6, value: "6개월 이상", lable: "6개월 이상" },
-  { id: 7, value: "notyet", lable: "미정" }
+  { id: 6, value: "6개월 이상", label: "6개월 이상" },
+  { id: 7, value: "notyet", label: "미정" }
 ];
 
 const Create: React.FC = () => {
