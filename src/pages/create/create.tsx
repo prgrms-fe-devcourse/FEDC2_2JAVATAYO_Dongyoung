@@ -61,7 +61,7 @@ const Create: React.FC = () => {
           label={"진행방식"}
           defaultValue={"온라인"}
           options={placeOptions}
-          canAllowClear={true}
+          canAllowClear={false}
           setSelectedValue={setPlace}
         />
         <InputBox
@@ -78,7 +78,7 @@ const Create: React.FC = () => {
           label={"예상기간"}
           defaultValue={"1개월"}
           options={expectedDateOptions}
-          canAllowClear={true}
+          canAllowClear={false}
           setSelectedValue={setExpectedDate}
         />
       </S.Wrapper>
