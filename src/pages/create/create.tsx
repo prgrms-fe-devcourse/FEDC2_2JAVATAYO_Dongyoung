@@ -57,30 +57,38 @@ const Create: React.FC = () => {
         />
       </div>
       <S.Wrapper>
-        <SelectBox
-          label={"진행방식"}
-          defaultValue={"온라인"}
-          options={placeOptions}
-          canAllowClear={false}
-          setSelectedValue={setPlace}
-        />
-        <InputBox
-          label="연락 이메일"
-          placeholder="이메일을 입력해주세요"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <S.InnerWrapper>
+          <SelectBox
+            label={"진행방식"}
+            defaultValue={"온라인"}
+            options={placeOptions}
+            canAllowClear={true}
+            setSelectedValue={setPlace}
+          />
+        </S.InnerWrapper>
+        <S.InnerWrapper>
+          <InputBox
+            label="연락 이메일"
+            placeholder="이메일을 입력해주세요"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </S.InnerWrapper>
       </S.Wrapper>
       <S.Wrapper>
-        <Label> 시작일</Label>
-        <DatePicker setSelectedValue={setStartDate} />
-        <SelectBox
-          label={"예상기간"}
-          defaultValue={"1개월"}
-          options={expectedDateOptions}
-          canAllowClear={false}
-          setSelectedValue={setExpectedDate}
-        />
+        <S.InnerWrapper>
+          <Label> 시작일</Label>
+          <DatePicker setSelectedValue={setStartDate} />
+        </S.InnerWrapper>
+        <S.InnerWrapper>
+          <SelectBox
+            label={"예상기간"}
+            defaultValue={"1개월"}
+            options={expectedDateOptions}
+            canAllowClear={true}
+            setSelectedValue={setExpectedDate}
+          />
+        </S.InnerWrapper>
       </S.Wrapper>
       <h2>모집 분야</h2>
       <PartBox />
