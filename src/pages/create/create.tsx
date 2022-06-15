@@ -3,7 +3,6 @@ import SelectBox from "../../components/create/SelectBox";
 import DatePicker from "../../components/create/DatePicker";
 import PartBox from "../../components/create/PartBox";
 import Label from "../../components/common/Label";
-import Input from "../../components/common/Input";
 import AppLayout from "../../components/common/AppLayout";
 import Button from "../../components/common/Button";
 import * as S from "./style";
@@ -18,11 +17,11 @@ const placeOptions = [
 ];
 
 const expectedDateOptions = [
-  { id: 1, value: "1개월", lable: "1개월" },
-  { id: 2, value: "2개월", lable: "2개월" },
-  { id: 3, value: "3개월", lable: "3개월" },
-  { id: 4, value: "4개월", lable: "4개월" },
-  { id: 5, value: "5개월", lable: "5개월" },
+  { id: 1, value: "1개월", label: "1개월" },
+  { id: 2, value: "2개월", label: "2개월" },
+  { id: 3, value: "3개월", label: "3개월" },
+  { id: 4, value: "4개월", label: "4개월" },
+  { id: 5, value: "5개월", label: "5개월" },
   { id: 6, value: "6개월 이상", label: "6개월 이상" },
   { id: 7, value: "notyet", label: "미정" }
 ];
@@ -56,7 +55,6 @@ const Create: React.FC = () => {
     introduction
   ]);
 
-  // TODO : Label + Input -> InputBox
   return (
     <AppLayout>
       <div>
