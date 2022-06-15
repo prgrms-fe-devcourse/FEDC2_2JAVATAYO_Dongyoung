@@ -1,17 +1,15 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
+const { CracoAliasPlugin } = require("react-app-alias");
 
 module.exports = {
   babel: {
-    presets: ["@emotion/babel-preset-css-prop"],
+    presets: ["@emotion/babel-preset-css-prop"]
   },
-  webpack: {
-    alias: {
-      "@components": path.resolve(__dirname, "src/components"),
-      "@hooks": path.resolve(__dirname, "src/hooks"),
-      "@contexts": path.resolve(__dirname, "src/contexts"),
-      "@pages": path.resolve(__dirname, "src/pages"),
-    },
-  },
+  plugins: [
+    {
+      plugin: CracoAliasPlugin,
+      options: {}
+    }
+  ]
 };
