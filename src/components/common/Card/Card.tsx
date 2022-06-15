@@ -1,15 +1,13 @@
+import React from "react";
 import { ProfileImage, SkillIcon } from "..";
-import heartIcon from "../../../assets/icons/icon_heart.svg";
-import heartFillIcon from "../../../assets/icons/icon_heart_fill.svg";
+import { ReactComponent as HeartIcon } from "../../../assets/icons/icon_heart.svg";
+import { ReactComponent as HeartFillIcon } from "../../../assets/icons/icon_heart_fill.svg";
 import { IPost } from "../../../types/model";
 import * as S from "./style";
 
-type CardInterface = { post: IPost } & { user?: string };
+type CardInterface = { post?: IPost } & { user?: string };
 
-// post에서 카드 내용을 가져옴니다. (필수)
-// user는 로그인한 유저이름입니다. 좋아요를 이전에 클릭했는지 여부를 파악하기 위해서 받아오기로했습니다.
-// user는 회원가입하지 않은 유저가 있어서 필수요소로 하지 않았습니다.
-const Card: React.FC<CardInterface> = ({ post, user = null }) => {
+const Card: React.FC<CardInterface> = ({ post = dummy, user = null }) => {
   const isClickLike = post.likes.some((item) => item.user === user);
 
   const onClickCard = () => {
@@ -26,28 +24,30 @@ const Card: React.FC<CardInterface> = ({ post, user = null }) => {
   return (
     <S.Card onClick={onClickCard}>
       <S.FlexBetween>
-        <S.Tag color={channelColor[post.channel.name].color}>
-          {channelColor[post.channel.name].title}
+        <S.Tag color={channelColor["front"].color}>
+          {channelColor["front"].title}
         </S.Tag>
         <S.Like onClick={onClickLike}>
           {user ? (
             // 이후 ICON 컴포넌트로 변경 예정
-            <img
-              src={isClickLike ? heartFillIcon : heartIcon}
-              alt="좋아요 버튼"
-            />
+            isClickLike ? (
+              <HeartFillIcon />
+            ) : (
+              <HeartIcon />
+            )
           ) : (
-            <img src={heartIcon} alt="좋아요 버튼" />
+            <HeartIcon />
           )}
           {post.likes.length}
         </S.Like>
       </S.FlexBetween>
       <S.Title>{post.title}</S.Title>
-      <span>모집인원: {post.people}</span>
+      <span>모집인원: {1}</span>
       <S.SkillIcons>
-        {post.skills.map((skill) => (
+        <SkillIcon key={"react"} name={"react"} alt={"react"} />
+        {/* {post.skills.map((skill) => (
           <SkillIcon key={skill} name={skill} alt={skill} />
-        ))}
+        ))} */}
       </S.SkillIcons>
       <S.FlexBetween>
         <S.profile>
@@ -55,7 +55,7 @@ const Card: React.FC<CardInterface> = ({ post, user = null }) => {
           <span>{post.author.fullName}</span>
         </S.profile>
         <S.Date>
-          <p>프로젝트 기간: {post.expectedDate}</p>
+          <p>프로젝트 기간: {"2022.01.01"}</p>
           <p>{post.createdAt}</p>
         </S.Date>
       </S.FlexBetween>
@@ -92,6 +92,45 @@ const channelColor = {
     title: "기타",
     color: "#ACFFFA"
   }
+};
+
+const dummy = {
+  likes: [],
+  comments: [],
+  _id: "62a8cfb53229d934e9b64d3d",
+  title: "제목이 글어지면 말줄임 으로 나오는지 테스트해볼",
+  channel: {
+    authRequired: false,
+    posts: ["62a8cfb53229d934e9b64d3d", "62a958533229d934e9b6506e"],
+    _id: "62a55eb0c882bf3a287f9623",
+    name: "ios",
+    description: "ios",
+    createdAt: "2022-06-12T03:34:08.725Z",
+    updatedAt: "2022-06-15T05:07:50.553Z",
+    __v: 0
+  },
+  author: {
+    role: "Regular",
+    emailVerified: false,
+    banned: false,
+    isOnline: false,
+    posts: [],
+    likes: [],
+    comments: [],
+    followers: [],
+    following: [],
+    notifications: [],
+    messages: [],
+    _id: "62a6d6c977ad437a6b8f3614",
+    fullName: "knk",
+    email: "knk@gmail.com",
+    createdAt: "2022-06-13T06:18:49.164Z",
+    updatedAt: "2022-06-13T06:34:06.411Z",
+    __v: 0
+  },
+  createdAt: "2022-06-14T18:13:09.711Z",
+  updatedAt: "2022-06-14T18:18:27.673Z",
+  __v: 0
 };
 
 export default Card;
