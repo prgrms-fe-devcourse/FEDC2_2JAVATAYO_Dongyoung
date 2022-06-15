@@ -1,3 +1,4 @@
+import Label from "@components/common/Label";
 import React, { useState, Dispatch, SetStateAction } from "react";
 import Select from "../Select/Select";
 import * as S from "./style";
@@ -19,7 +20,7 @@ const SelectBox: React.FC<SelectInterface> = ({
 }) => {
   return (
     <S.SelectBox>
-      <S.Label>{label}</S.Label>
+      <Label>{label}</Label>
       <Select
         options={options}
         defaultValue={defaultValue}
