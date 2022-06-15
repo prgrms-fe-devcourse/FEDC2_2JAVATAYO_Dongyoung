@@ -90,6 +90,8 @@ const Create: React.FC = () => {
       >
         모집분야 추가
       </Button>
+      <h2>프로젝트 소개</h2>
+      <textarea />
     </AppLayout>
   );
 };
