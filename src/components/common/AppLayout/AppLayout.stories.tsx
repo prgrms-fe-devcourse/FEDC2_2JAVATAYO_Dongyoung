@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 import AppLayout from "./AppLayout";
 
 export default {
@@ -15,8 +16,10 @@ const Children = styled.div`
 
 export const Default: ComponentStory<typeof AppLayout> = () => {
   return (
-    <AppLayout>
-      <Children>Children</Children>
-    </AppLayout>
+    <BrowserRouter>
+      <AppLayout>
+        <Children>Children</Children>
+      </AppLayout>
+    </BrowserRouter>
   );
 };

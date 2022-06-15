@@ -1,3 +1,5 @@
+import Footer from "../Footer";
+import Header from "../Header";
 import * as S from "./style";
 
 interface AppLayoutInterface {
@@ -7,11 +9,11 @@ interface AppLayoutInterface {
 const AppLayout: React.FC<AppLayoutInterface> = ({ children }) => {
   // header, footer 컴포넌트 추가
   return (
-    <>
-      <S.Header />
+    <div>
+      <Header />
       <S.Layout>{children}</S.Layout>
-      <S.Footer />
-    </>
+      <Footer />
+    </div>
   );
 };
 

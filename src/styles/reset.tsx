@@ -163,7 +163,11 @@ const reset = css`
   }
 
   ::-webkit-scrollbar {
-    display: none;
+    background-color: #ddd;
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #bbb;
   }
 
   svg,
