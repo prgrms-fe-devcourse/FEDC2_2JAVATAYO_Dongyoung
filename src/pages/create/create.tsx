@@ -7,6 +7,7 @@ import Input from "../../components/common/Input";
 import AppLayout from "../../components/common/AppLayout";
 import Button from "../../components/common/Button";
 import * as S from "./style";
+import InputBox from "@components/create/InputBox/InputBox";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -48,8 +49,8 @@ const Create: React.FC = () => {
   return (
     <AppLayout>
       <div>
-        <Label>제목</Label>
-        <Input
+        <InputBox
+          label="제목"
           placeholder="제목을 입력해주세요"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -63,8 +64,8 @@ const Create: React.FC = () => {
           canAllowClear={true}
           setSelectedValue={setPlace}
         />
-        <Label>연락 이메일</Label>
-        <Input
+        <InputBox
+          label="연락 이메일"
           placeholder="이메일을 입력해주세요"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
