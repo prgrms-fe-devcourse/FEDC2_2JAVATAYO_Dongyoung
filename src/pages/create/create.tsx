@@ -8,6 +8,7 @@ import AppLayout from "../../components/common/AppLayout";
 import Button from "../../components/common/Button";
 import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
+import Textarea from "@components/common/Textarea";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -34,6 +35,7 @@ const Create: React.FC = () => {
 
   const [selectedStacks, setSelectedStacks] = useState();
   const [expectedDate, setExpectedDate] = useState("");
+  const [introduction, setIntroduction] = useState("냥냥");
   const [totalPartCount, setTotalPartCount] = useState(1);
 
   useEffect(() => {
@@ -43,7 +45,16 @@ const Create: React.FC = () => {
     console.log("startDate", startDate);
     console.log("expectedDate", expectedDate);
     console.log("selectedStacks", selectedStacks);
-  }, [title, email, place, startDate, expectedDate, selectedStacks]);
+    console.log("introduction", introduction);
+  }, [
+    title,
+    email,
+    place,
+    startDate,
+    expectedDate,
+    selectedStacks,
+    introduction
+  ]);
 
   // TODO : Label + Input -> InputBox
   return (
@@ -100,7 +111,13 @@ const Create: React.FC = () => {
         모집분야 추가
       </Button>
       <h2>프로젝트 소개</h2>
-      <textarea />
+      <Textarea
+        isIntroduction={true}
+        isLogin={true}
+        onChange={(e) => setIntroduction(e.target.value)}
+      >
+        {introduction}
+      </Textarea>
     </AppLayout>
   );
 };
