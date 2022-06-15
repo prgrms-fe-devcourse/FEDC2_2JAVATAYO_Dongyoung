@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import theme from "../../../styles/theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -9,6 +10,8 @@ export const Wrapper = styled.div`
 export const PartBox = styled.div`
   border-radius: 8px;
   width: 100%;
-  padding: 10px 22px;
+  padding: 20px;
   box-sizing: border-box;
+  background-color: ${theme.$gray100};
+  margin-bottom: 20px;
 `;

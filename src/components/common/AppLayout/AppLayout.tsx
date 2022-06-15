@@ -1,5 +1,6 @@
 import Footer from "../Footer";
 import Header from "../Header";
+import React from "react";
 import * as S from "./style";
 
 interface AppLayoutInterface {
