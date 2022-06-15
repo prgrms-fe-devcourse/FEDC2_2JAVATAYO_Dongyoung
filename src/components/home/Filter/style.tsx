@@ -1,9 +1,20 @@
 import styled from "@emotion/styled";
 import theme from "../../../styles/theme";
 
+export const FilterWrap = styled.div`
+  overflow: hidden;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export const RadioBox = styled.div`
   display: flex;
-  div {
+  @media (max-width: 700px) {
+    padding-left: 30px;
   }
 `;
 
@@ -21,6 +32,7 @@ export const Radio = styled.input`
 `;
 
 export const SelectLabel = styled.label`
+  white-space: nowrap;
   display: block;
   margin-right: 8px;
   height: 40px;
