@@ -7,7 +7,8 @@ export const FlexBetween = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 100%;
+  width: calc(700px / 2 - 15px / 2);
+  margin-top: 15px;
   border-radius: 8px;
   padding: 21px 25px;
   background-color: #fff;
@@ -17,6 +18,9 @@ export const Card = styled.div`
   transition: all 0.5s;
   :hover {
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.3);
+  }
+  @media (max-width: 700px) {
+    width: 100%;
   }
 `;
 
