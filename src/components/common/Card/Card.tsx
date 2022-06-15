@@ -1,22 +1,10 @@
 import { ProfileImage, SkillIcon } from "..";
 import heartIcon from "../../../assets/icons/icon_heart.svg";
 import heartFillIcon from "../../../assets/icons/icon_heart_fill.svg";
+import { IPost } from "../../../types/model";
 import * as S from "./style";
 
-type like = { user: string };
-interface CardInterface {
-  post: {
-    channel: string;
-    skills: string[];
-    likes: like[];
-    title: string;
-    people: number;
-    author: string;
-    expectedDate: string;
-    createdAt: string;
-  };
-  user?: string;
-}
+type CardInterface = { post: IPost } & { user?: string };
 
 // post에서 카드 내용을 가져옴니다. (필수)
 // user는 로그인한 유저이름입니다. 좋아요를 이전에 클릭했는지 여부를 파악하기 위해서 받아오기로했습니다.
@@ -38,8 +26,8 @@ const Card: React.FC<CardInterface> = ({ post, user = null }) => {
   return (
     <S.Card onClick={onClickCard}>
       <S.FlexBetween>
-        <S.Tag color={channelColor[post.channel].color}>
-          {channelColor[post.channel].title}
+        <S.Tag color={channelColor[post.channel.name].color}>
+          {channelColor[post.channel.name].title}
         </S.Tag>
         <S.Like onClick={onClickLike}>
           {user ? (
@@ -64,7 +52,7 @@ const Card: React.FC<CardInterface> = ({ post, user = null }) => {
       <S.FlexBetween>
         <S.profile>
           <ProfileImage size="sm" />
-          <span>{post.author}</span>
+          <span>{post.author.fullName}</span>
         </S.profile>
         <S.Date>
           <p>프로젝트 기간: {post.expectedDate}</p>
