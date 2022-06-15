@@ -1,2 +1,4 @@
 import CoverImage from "./CoverImage";
-export { CoverImage };
+import Modal from "./Modal";
+
+export { CoverImage, Modal };
