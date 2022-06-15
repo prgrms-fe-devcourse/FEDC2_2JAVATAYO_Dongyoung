@@ -49,6 +49,7 @@ export default {
         "Vue",
         "Zeplin"
       ],
+      defaultValue: "Angular",
       control: { type: "select" }
     },
     alt: { defaultValue: "Angular" }
