@@ -31,7 +31,6 @@ export const Tag = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
   padding: 8px 16px;
   border-radius: 26px;
-  font-size: 14px;
   line-height: 1;
 `;
 

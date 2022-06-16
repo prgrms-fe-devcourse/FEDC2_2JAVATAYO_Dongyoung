@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 import Header from "./Header";
 
 export default {
@@ -17,5 +18,9 @@ export default {
 } as ComponentMeta<typeof Header>;
 
 export const Default: ComponentStory<typeof Header> = (args) => {
-  return <Header {...args}></Header>;
+  return (
+    <BrowserRouter>
+      <Header {...args}></Header>
+    </BrowserRouter>
+  );
 };

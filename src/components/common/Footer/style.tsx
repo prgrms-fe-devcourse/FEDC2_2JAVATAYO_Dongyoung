@@ -28,7 +28,6 @@ export const Wrap = styled.div`
 `;
 
 export const Title = styled.p`
-  font-size: 14px !important;
   font-weight: bold;
 `;
 
