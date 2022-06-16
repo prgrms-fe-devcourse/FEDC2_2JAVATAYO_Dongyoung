@@ -104,7 +104,6 @@ export const Button = styled.button<{
   height: ${({ height }) => height}px;
 
   border-radius: ${({ isRound, height }) => (isRound ? height : 5)}px;
-  font-size: 14px;
   font-weight: bold;
   text-align: center;
   cursor: pointer;

@@ -144,10 +144,6 @@ const reset = css`
   }
 
   // customized
-  body {
-    background-color: rgba(249, 251, 253);
-  }
-
   #root {
     height: 100vh;
     box-sizing: border-box;
@@ -178,6 +174,104 @@ const reset = css`
   svg,
   path {
     pointer-events: none;
+  }
+
+  // font - size
+
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 24px;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  label {
+    font-size: 14px;
+  }
+  button {
+    font-size: 14px;
   }
 `;
 
