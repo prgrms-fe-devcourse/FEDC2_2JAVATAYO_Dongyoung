@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
-import { CoverImage, EditIcon } from "@components/profile";
+import { CoverImage, EditIcon, Tab } from "@components/profile";
 import { ProfileImage } from "@components/common";
 import * as S from "./style";
 
@@ -36,6 +36,17 @@ const Profile: React.FC = () => {
       <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
         {isLoggedIn ? "로그아웃되는 척" : "로그인되는 척"}
       </button>
+
+      <div style={{ display: "inline-flex" }}>
+        <Tab>
+          <Tab.Item active title="작성한 글 목록" index={0}>
+            작성한 글 목록 컨텐츠
+          </Tab.Item>
+          <Tab.Item title="좋아요 한 글" index={1}>
+            좋아요 한 글 목록 컨텐츠
+          </Tab.Item>
+        </Tab>
+      </div>
     </>
   );
 };
