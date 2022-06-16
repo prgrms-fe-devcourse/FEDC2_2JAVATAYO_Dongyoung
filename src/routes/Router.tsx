@@ -4,7 +4,7 @@ import Create from "../pages/create/create";
 import Detail from "../pages/detail";
 import Edit from "../pages/edit";
 import Home from "../pages/home";
-import Profile from "../pages/profile";
+import Profile from "../pages/profile/profile";
 import Result from "../pages/result";
 import SignIn from "../pages/signIn";
 import SignUp from "../pages/signUp";

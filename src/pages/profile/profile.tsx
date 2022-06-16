@@ -1,9 +1,14 @@
 import React from "react";
+import { useState } from "react";
 import { useParams } from "react-router";
-import { CoverImage } from "../components/profile";
+import { CoverImage, EditIcon } from "@components/profile";
+import { ProfileImage } from "@components/common";
+import * as S from "./style";
 
 const Profile: React.FC = () => {
   const { id } = useParams<Record<string, string>>();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const user = DUMMY_USER;
 
@@ -14,6 +19,17 @@ const Profile: React.FC = () => {
         imgSrc={user.coverImage}
         imgAlt={`${user.fullName}님의 커버 이미지`}
       />
+
+      <S.ProfileImageWrapper>
+        <ProfileImage imgSrc={user.image} size="lg" />
+        {isLoggedIn ? (
+          <EditIcon bottom="0px" right="-3px" onClick={() => alert("Click!")} />
+        ) : null}
+      </S.ProfileImageWrapper>
+
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+        {isLoggedIn ? "로그아웃되는 척" : "로그인되는 척"}
+      </button>
     </>
   );
 };
