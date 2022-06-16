@@ -8,7 +8,6 @@ export const PostBody = styled.div`
 `;
 
 export const Section = styled.h3`
-  font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 `;

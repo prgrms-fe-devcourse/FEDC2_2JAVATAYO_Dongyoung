@@ -2,16 +2,16 @@ import * as S from "./style";
 import Button from "../../common/Button";
 
 interface PostBodyInterface {
-  introductionContent: string;
+  introduction: string;
 }
 
-const PostBody: React.FC<PostBodyInterface> = ({ introductionContent }) => {
+const PostBody: React.FC<PostBodyInterface> = ({ introduction }) => {
   return (
     <S.PostBody>
       {/* 추후 global font로 교체 예정 */}
       <S.Section>프로젝트 소개</S.Section>
       <hr color="#FFD613" />
-      <S.IntroductionDiv>{introductionContent}</S.IntroductionDiv>
+      <S.IntroductionDiv>{introduction}</S.IntroductionDiv>
       <S.Wrapper>
         <Button buttonType="gray-line" width="100">
           수정

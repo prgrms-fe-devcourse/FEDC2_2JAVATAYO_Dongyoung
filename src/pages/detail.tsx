@@ -31,7 +31,7 @@ const Detail: React.FC = () => {
           startDate={"2022/06/06"}
           expectedDate={"3주"}
         />
-        <PostBody introductionContent={introductionContent} />
+        <PostBody introduction={introductionContent} />
         {/* <PostFooter comments={detail.comments} /> */}
       </div>
     </AppLayout>
