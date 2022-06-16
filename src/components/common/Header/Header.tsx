@@ -1,6 +1,7 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../../assets/logos/Logo.svg";
+import TempLogin from "../TempLogin";
 interface HeaderInterface {
   isLoggedIn?: boolean;
   userName?: string;
@@ -25,6 +26,9 @@ const Header: React.FC<HeaderInterface> = ({
             : () => navigate("/")
         }
       />
+      {/* 임시 */}
+      <TempLogin />
+      {/* 임시 */}
       <div>
         {isLoggedIn ? (
           <S.LoggedIn>
