@@ -8,6 +8,7 @@ import Button from "../../components/common/Button";
 import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
 import Textarea from "@components/common/Textarea";
+import { usePrompt } from "../../routes/Blocker";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -37,6 +38,7 @@ const Create: React.FC = () => {
   const [introduction, setIntroduction] = useState("냥냥");
   const [totalPartCount, setTotalPartCount] = useState(1);
 
+  usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   useEffect(() => {
     console.log("title", title);
     console.log("email", email);
