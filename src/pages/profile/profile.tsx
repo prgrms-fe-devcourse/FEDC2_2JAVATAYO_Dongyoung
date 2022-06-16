@@ -15,15 +15,21 @@ const Profile: React.FC = () => {
   return (
     <>
       <h1>Profile id_: {id}</h1>
-      <CoverImage
-        imgSrc={user.coverImage}
-        imgAlt={`${user.fullName}님의 커버 이미지`}
-      />
+
+      <S.CoverImageWrapper>
+        <CoverImage
+          imgSrc={user.coverImage}
+          imgAlt={`${user.fullName}님의 커버 이미지`}
+        />
+        {isLoggedIn ? (
+          <EditIcon bottom="9px" right="20%" onClick={() => alert("Click!")} />
+        ) : null}
+      </S.CoverImageWrapper>
 
       <S.ProfileImageWrapper>
         <ProfileImage imgSrc={user.image} size="lg" />
         {isLoggedIn ? (
-          <EditIcon bottom="0px" right="-3px" onClick={() => alert("Click!")} />
+          <EditIcon right="-3px" onClick={() => alert("Click!")} />
         ) : null}
       </S.ProfileImageWrapper>
 
