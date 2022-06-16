@@ -20,13 +20,13 @@ const Tab: React.FC<TabInterface> & TabCompositionType = ({
 
   const tabItemList = useMemo(() => {
     return React.Children.toArray(children).map(
-      (tabItem: ReactElement<TabItemInterface>) => {
+      (tabItem: ReactElement<TabItemInterface>, index) => {
         return React.cloneElement(tabItem, {
           ...tabItem.props,
-          key: tabItem.props.index,
-          active: tabItem.props.index === currentActive,
+          key: index,
+          active: index === currentActive,
           onClick: () => {
-            setCurrentActive(tabItem.props.index);
+            setCurrentActive(index);
           }
         });
       }
@@ -34,7 +34,7 @@ const Tab: React.FC<TabInterface> & TabCompositionType = ({
   }, [children, currentActive]);
 
   const activeTabItem = useMemo(
-    () => tabItemList.find((tabItem) => currentActive === tabItem.props.index),
+    () => tabItemList[currentActive],
     [currentActive, tabItemList]
   );
 

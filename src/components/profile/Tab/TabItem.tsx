@@ -4,7 +4,6 @@ export interface TabItemInterface {
   children: React.ReactNode;
   title: string;
   active?: boolean;
-  index: number;
   onClick?: () => void;
 }
 

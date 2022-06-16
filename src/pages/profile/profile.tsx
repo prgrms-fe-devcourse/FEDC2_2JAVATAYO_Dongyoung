@@ -39,12 +39,10 @@ const Profile: React.FC = () => {
 
       <div style={{ display: "inline-flex" }}>
         <Tab>
-          <Tab.Item active title="작성한 글 목록" index={0}>
+          <Tab.Item active title="작성한 글 목록">
             작성한 글 목록 컨텐츠
           </Tab.Item>
-          <Tab.Item title="좋아요 한 글" index={1}>
-            좋아요 한 글 목록 컨텐츠
-          </Tab.Item>
+          <Tab.Item title="좋아요 한 글">좋아요 한 글 목록 컨텐츠</Tab.Item>
         </Tab>
       </div>
     </>
