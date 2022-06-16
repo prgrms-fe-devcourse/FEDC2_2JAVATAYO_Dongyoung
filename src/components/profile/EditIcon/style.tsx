@@ -11,10 +11,6 @@ export const EditWrapper = styled.div<{ bottom: string; right: string }>`
   width: 23px;
   height: 23px;
   border-radius: 50%;
-  background-color: ${theme.$gray400};
+  background-color: ${theme.$gray900};
   cursor: pointer;
-
-  &:hover {
-    background-color: ${theme.$gray600};
-  }
 `;
