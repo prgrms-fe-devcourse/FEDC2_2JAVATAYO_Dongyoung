@@ -1,8 +1,5 @@
 import * as S from "./style";
-import { ReactComponent as TypeScriptIcon } from "../../../../assets/icons/icon_type_script.svg";
-import { ReactComponent as ReactIcon } from "../../../../assets/icons/icon_react.svg";
-import { ReactComponent as ReduxIcon } from "../../../../assets/icons/icon_redux.svg";
-
+import SkillIcon from "../../../common/SkillIcon";
 interface PostSummaryInterface {
   channel: string;
   email: string;
@@ -47,18 +44,14 @@ const PostSummary: React.FC<PostSummaryInterface> = ({
         <td>{expectedDate}</td>
       </tr>
       <tr>
-        <td>기술 스택</td>
+        <td style={{ verticalAlign: "middle" }}>기술 스택</td>
         {/* <td>{skills}</td> */}
         <td>
-          <S.CenterAlignItemSpan>
-            <TypeScriptIcon />
-          </S.CenterAlignItemSpan>
-          <S.CenterAlignItemSpan>
-            <ReactIcon />
-          </S.CenterAlignItemSpan>
-          <S.CenterAlignItemSpan>
-            <ReduxIcon />
-          </S.CenterAlignItemSpan>
+          <S.FlexBetween>
+            <SkillIcon name="type_script" alt="TypeScript" />
+            <SkillIcon name="react" alt="React" />
+            <SkillIcon name="redux" alt="Redux" />
+          </S.FlexBetween>
         </td>
       </tr>
     </S.PostSummary>

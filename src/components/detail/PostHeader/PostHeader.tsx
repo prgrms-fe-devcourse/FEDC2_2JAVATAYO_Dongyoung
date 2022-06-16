@@ -34,12 +34,12 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
         <span>
           <BackIcon />
         </span>
-        <span>
+        <S.CenterAlignItemSpan>
           <HeartIcon />
           <span>12{/* 추후에 받아올 예정 */}</span>
-        </span>
+        </S.CenterAlignItemSpan>
       </S.FlexBetween>
-      <S.PostTitle>{title}</S.PostTitle>
+      <PostTitle>{title}</PostTitle>
       <S.FlexBetween style={{ alignItems: "end" }}>
         <S.CenterAlignItemSpan>
           <ProfileImage block={false} size={"md"}></ProfileImage>

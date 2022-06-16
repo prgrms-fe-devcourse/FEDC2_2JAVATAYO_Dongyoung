@@ -21,4 +21,5 @@ export const CenterAlignItemSpan = styled.span`
   align-items: center;
   display: flex;
   position: relative;
+  gap: 10px;
 `;

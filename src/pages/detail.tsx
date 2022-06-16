@@ -30,7 +30,7 @@ const Detail: React.FC = () => {
           channel={"프론트엔드"}
           email={"test@test.com"}
           place={"온라인"}
-          startDate={"2022.06.06"}
+          startDate={"2022/06/06"}
           expectedDate={"3주"}
         />
         {/* <PostBody body={introductionContent} />

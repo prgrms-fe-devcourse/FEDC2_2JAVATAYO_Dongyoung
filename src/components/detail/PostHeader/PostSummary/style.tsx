@@ -15,8 +15,7 @@ export const PostSummary = styled.table`
   }
 `;
 
-export const CenterAlignItemSpan = styled.span`
-  align-items: center;
-  margin-right: 5px;
-  position: relative;
+export const FlexBetween = styled.div`
+  display: flex;
+  gap: 5px;
 `;
