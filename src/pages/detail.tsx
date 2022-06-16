@@ -1,7 +1,6 @@
-//import { env } from "process";
-import { useParams } from "react-router";
 import AppLayout from "../components/common/AppLayout";
 import PostHeader from "../components/detail/PostHeader";
+import PostBody from "../components/detail/PostBody";
 //import postAPI from "../utils/apis/post";
 
 const Detail: React.FC = () => {
@@ -9,9 +8,8 @@ const Detail: React.FC = () => {
 
   const baseURL = `${process.env.REACT_APP_END_POINT}:${process.env.REACT_APP_PORT}`;
 
-  const introductionContent =
-    `안녕하세요. 현재 서울에서 개발을 하고 있는 개발자입니다.` +
-    `사이드 프로젝트 경험을 쌓고 싶어 팀을 구해봅니다.
+  const introductionContent = `안녕하세요. 현재 서울에서 개발을 하고 있는 개발자입니다.
+    사이드 프로젝트 경험을 쌓고 싶어 팀을 구해봅니다.
     서울에서 근무중이라 온/오프라인 상관 없습니다.
     
     기술 스택은
@@ -25,7 +23,7 @@ const Detail: React.FC = () => {
       <div>
         <PostHeader
           title={detail.title}
-          authorId={"주형진"}
+          authorId={detail.author.fullName}
           createdAt={detail.createdAt}
           channel={"프론트엔드"}
           email={"test@test.com"}
@@ -33,8 +31,8 @@ const Detail: React.FC = () => {
           startDate={"2022/06/06"}
           expectedDate={"3주"}
         />
-        {/* <PostBody body={introductionContent} />
-        <PostFooter comments={detail.comments} /> */}
+        <PostBody introductionContent={introductionContent} />
+        {/* <PostFooter comments={detail.comments} /> */}
       </div>
     </AppLayout>
   );
