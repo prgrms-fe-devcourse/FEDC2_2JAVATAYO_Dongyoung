@@ -1,11 +1,19 @@
 import React from "react";
-import { Label } from "../../common/Label/style";
+import { Label } from "@components/common/Label/style";
+import Button from "@components/common/Button";
+import SKILL_OPTIONS from "@constants/skill";
 import Cascader from "../Cascader";
 import SelectBox from "../SelectBox";
-import SKILL_OPTIONS from "../../../constants/skill";
 import * as S from "./style";
 
-const PartBox = () => {
+const PartBox = ({
+  id,
+  initialChannel = "front",
+  initialPeople = "1",
+  initialSkills,
+  handleUpdate,
+  handleDelete
+}) => {
   const channelOption = [
     { id: 1, value: "front", label: "프론트엔드" },
     { id: 2, value: "back", label: "백엔드" },
@@ -25,18 +33,20 @@ const PartBox = () => {
     { id: 7, value: "notyet", label: "미정" }
   ];
 
-  const [channel, setChannel] = React.useState("front");
-  const [people, setPeople] = React.useState("1");
+  const [channel, setChannel] = React.useState(initialChannel);
+  const [people, setPeople] = React.useState(initialPeople);
   const [stackOptions, setStackOptions] = React.useState(
     SKILL_OPTIONS[0].options
   );
-  const [stacks, setStacks] = React.useState(null);
+  const [skills, setSkills] = React.useState(null);
 
   React.useEffect(() => {
-    console.log("channel", channel);
-    console.log("people", people);
-    console.log("stacks", stacks);
-  }, [channel, people, stacks]);
+    handleUpdate({
+      channel,
+      people,
+      skills
+    });
+  }, [channel, people, skills]);
 
   const getSkillOptions = (channel) => {
     let idx = SKILL_OPTIONS.findIndex(
@@ -46,7 +56,7 @@ const PartBox = () => {
   };
 
   React.useEffect(() => {
-    setStacks(null);
+    setSkills(null);
     getSkillOptions(channel);
   }, [channel]);
 
@@ -74,11 +84,12 @@ const PartBox = () => {
       </S.Wrapper>
       <Label>기술 스택</Label>
       <Cascader
-        stacks={stacks}
+        stacks={skills}
         isMultiple={true}
         options={stackOptions}
-        setSelectedValues={setStacks}
+        setSelectedValues={setSkills}
       />
+      <Button onClick={handleDelete}>삭제</Button>
     </S.PartBox>
   );
 };
