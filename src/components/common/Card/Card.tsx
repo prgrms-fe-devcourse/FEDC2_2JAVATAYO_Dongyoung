@@ -41,10 +41,10 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
         ))}
       </S.SkillIcons>
       <S.FlexBetween>
-        <S.profile>
+        <S.Profile>
           <ProfileImage size="sm" imgAlt={author.fullName} imgSrc={image} />
           <span>{author.fullName}</span>
-        </S.profile>
+        </S.Profile>
         <S.Date>
           <p>프로젝트 기간: {expectedDate}</p>
           <p>{createDate}</p>
