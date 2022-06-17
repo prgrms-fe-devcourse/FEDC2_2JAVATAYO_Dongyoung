@@ -9,6 +9,7 @@ import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
 import Textarea from "@components/common/Textarea";
 import { usePrompt } from "../../routes/Blocker";
+import ImageUploader from "@components/create/ImageUploader/ImageUploader";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -118,6 +119,7 @@ const Create: React.FC = () => {
       >
         {introduction}
       </Textarea>
+      <ImageUploader />
     </AppLayout>
   );
 };
