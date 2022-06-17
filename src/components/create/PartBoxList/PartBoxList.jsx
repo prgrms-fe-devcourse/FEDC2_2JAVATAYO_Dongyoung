@@ -6,8 +6,8 @@ const PartBoxList = ({ handleUpdateParts, parts, handleDeleteParts }) => {
     <S.PartBoxList>
       {parts.map((_part, index) => (
         <PartBox
-          handleUpdate={handleUpdateParts}
-          handleDelete={handleDeleteParts}
+          handleUpdate={(part) => handleUpdateParts(index, part)}
+          handleDelete={() => handleDeleteParts(index)}
           key={index}
           id={index}
           initialChannel={_part.channel}

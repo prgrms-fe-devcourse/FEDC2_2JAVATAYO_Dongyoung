@@ -1,9 +1,9 @@
 import React from "react";
-import { Label } from "../../common/Label/style";
+import { Label } from "@components/common/Label/style";
+import Button from "@components/common/Button";
+import SKILL_OPTIONS from "@constants/skill";
 import Cascader from "../Cascader";
 import SelectBox from "../SelectBox";
-import Button from "@components/common/Button";
-import SKILL_OPTIONS from "../../../constants/skill";
 import * as S from "./style";
 
 const PartBox = ({
@@ -38,16 +38,15 @@ const PartBox = ({
   const [stackOptions, setStackOptions] = React.useState(
     SKILL_OPTIONS[0].options
   );
-  const [stacks, setStacks] = React.useState(null);
+  const [skills, setSkills] = React.useState(null);
 
   React.useEffect(() => {
-    const part = {
-      channel: channel,
-      people: people,
-      skills: stacks
-    };
-    handleUpdate(id, part);
-  }, [channel, people, stacks]);
+    handleUpdate({
+      channel,
+      people,
+      skills
+    });
+  }, [channel, people, skills]);
 
   const getSkillOptions = (channel) => {
     let idx = SKILL_OPTIONS.findIndex(
@@ -57,7 +56,7 @@ const PartBox = ({
   };
 
   React.useEffect(() => {
-    setStacks(null);
+    setSkills(null);
     getSkillOptions(channel);
   }, [channel]);
 
@@ -85,12 +84,12 @@ const PartBox = ({
       </S.Wrapper>
       <Label>기술 스택</Label>
       <Cascader
-        stacks={stacks}
+        stacks={skills}
         isMultiple={true}
         options={stackOptions}
-        setSelectedValues={setStacks}
+        setSelectedValues={setSkills}
       />
-      <Button onClick={() => handleDelete(id)}>삭제</Button>
+      <Button onClick={handleDelete}>삭제</Button>
     </S.PartBox>
   );
 };
