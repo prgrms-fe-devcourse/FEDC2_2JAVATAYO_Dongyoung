@@ -37,7 +37,11 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
       </S.SkillIcons>
       <S.FlexBetween>
         <S.Profile>
-          <ProfileImage size="sm" imgAlt={author.fullName} imgSrc={image} />
+          <ProfileImage
+            size="sm"
+            imgAlt={author.fullName}
+            imgSrc={author.image}
+          />
           <span>{author.fullName}</span>
         </S.Profile>
         <S.Date>
