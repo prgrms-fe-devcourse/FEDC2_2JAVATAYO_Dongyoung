@@ -4,16 +4,14 @@ import * as S from "./style";
 interface EditIconInterface {
   bottom?: string;
   right?: string;
-  onClick: React.MouseEventHandler;
 }
 
 const EditIcon: React.FC<EditIconInterface> = ({
   bottom = "0",
-  right = "0",
-  onClick
+  right = "0"
 }) => {
   return (
-    <S.EditWrapper bottom={bottom} right={right} onClick={onClick}>
+    <S.EditWrapper bottom={bottom} right={right}>
       <EditComponent width="16px" height="16px" />
     </S.EditWrapper>
   );
