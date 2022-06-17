@@ -17,45 +17,43 @@ const ImageUploader: React.FC = () => {
   };
 
   return (
-    <>
-      <ImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-        maxNumber={maxNumber}
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageRemove,
-          isDragging,
-          dragProps
-        }) => (
-          <S.UploadImageWrapper>
-            <Button
-              icon={<UploadOutlined />}
-              style={isDragging ? { color: "red" } : undefined}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here
-            </Button>
+    <ImageUploading
+      multiple
+      value={images}
+      onChange={onChange}
+      maxNumber={maxNumber}
+    >
+      {({
+        imageList,
+        onImageUpload,
+        onImageRemoveAll,
+        onImageRemove,
+        isDragging,
+        dragProps
+      }) => (
+        <S.UploadImageWrapper>
+          <Button
+            icon={<UploadOutlined />}
+            style={isDragging ? { color: "red" } : undefined}
+            onClick={onImageUpload}
+            {...dragProps}
+          >
+            Click or Drop here
+          </Button>
 
-            {imageList.map((image, index) => (
-              <S.ImageItem key={index}>
-                <img src={image.dataURL} alt="img" width="100" />
-                <Button
-                  style={{ border: "none", transform: "scale(1.2)" }}
-                  icon={<DeleteOutlined />}
-                  onClick={() => onImageRemove(index)}
-                ></Button>
-              </S.ImageItem>
-            ))}
-          </S.UploadImageWrapper>
-        )}
-      </ImageUploading>
-    </>
+          {imageList.map((image, index) => (
+            <S.ImageItem key={index}>
+              <img src={image.dataURL} alt="img" width="100" />
+              <Button
+                style={{ border: "none", transform: "scale(1.2)" }}
+                icon={<DeleteOutlined />}
+                onClick={() => onImageRemove(index)}
+              ></Button>
+            </S.ImageItem>
+          ))}
+        </S.UploadImageWrapper>
+      )}
+    </ImageUploading>
   );
 };
 export default ImageUploader;
