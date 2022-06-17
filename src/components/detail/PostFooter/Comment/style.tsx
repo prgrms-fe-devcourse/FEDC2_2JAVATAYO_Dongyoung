@@ -13,6 +13,7 @@ export const FlexBetween = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 20px 0px;
+  align-items: center;
 `;
 
 export const CenterAlignItemSpan = styled.span`

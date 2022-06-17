@@ -21,9 +21,9 @@ const Comment: React.FC<CommentInterface> = ({
 }) => {
   return (
     <div>
-      <S.FlexBetween style={{ alignItems: "center" }}>
+      <S.FlexBetween>
         <S.CenterAlignItemSpan>
-          <ProfileImage block={false} size={"md"}></ProfileImage>
+          <ProfileImage block={false} size="md" />
           <span>{author}</span>
         </S.CenterAlignItemSpan>
         <span style={{ color: theme.$gray400 }}>{updatedAt}</span>
