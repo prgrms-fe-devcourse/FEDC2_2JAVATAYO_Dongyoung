@@ -1,7 +1,8 @@
+import { formatDate } from "@utils/Date";
 import React from "react";
 import { useNavigate } from "react-router";
+import { IPost } from "src/types/model";
 import { ProfileImage, SkillIcon } from "..";
-import { IPost } from "../../../types/model";
 // import LikeBtn from "../LikeBtn";
 import * as S from "./style";
 
@@ -13,13 +14,7 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
   const { title, parts, expectedDate } = postTitle;
   const navigate = useNavigate();
 
-  const createAt = new Date(post.createdAt);
-  const Year = createAt.getFullYear();
-  const getMonth = createAt.getMonth() + 1;
-  const getDate = createAt.getDate();
-  const month = getMonth < 10 ? "0" + getMonth : getMonth;
-  const date = getDate < 10 ? "0" + getDate : getDate;
-  const createDate = `${Year}-${month}-${date}`;
+  const createDate = formatDate(post.createdAt, ".");
 
   const onClickCard = (id) => {
     navigate(`/detail/${id}`);
