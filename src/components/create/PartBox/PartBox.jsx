@@ -11,6 +11,7 @@ const PartBox = ({
   initialChannel = "front",
   initialPeople = "1",
   initialSkills,
+  handleUpdate,
   handleDelete
 }) => {
   const channelOption = [
@@ -40,9 +41,12 @@ const PartBox = ({
   const [stacks, setStacks] = React.useState(null);
 
   React.useEffect(() => {
-    // console.log("channel", channel);
-    // console.log("people", people);
-    // console.log("stacks", stacks);
+    const part = {
+      channel: channel,
+      people: people,
+      skills: stacks
+    };
+    handleUpdate(id, part);
   }, [channel, people, stacks]);
 
   const getSkillOptions = (channel) => {

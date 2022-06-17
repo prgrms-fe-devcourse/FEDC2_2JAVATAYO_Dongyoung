@@ -1,11 +1,12 @@
 import PartBox from "../PartBox/PartBox";
 import * as S from "./style";
 
-const PartBoxList = ({ parts, handleDeleteParts }) => {
+const PartBoxList = ({ handleUpdateParts, parts, handleDeleteParts }) => {
   return (
     <S.PartBoxList>
       {parts.map((_part, index) => (
         <PartBox
+          handleUpdate={handleUpdateParts}
           handleDelete={handleDeleteParts}
           key={index}
           id={index}

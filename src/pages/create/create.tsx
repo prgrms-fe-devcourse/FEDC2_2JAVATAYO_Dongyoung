@@ -64,13 +64,18 @@ const Create: React.FC = () => {
 
   const handleAddParts = () => {
     const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
-    console.log(newParts);
     setParts(newParts);
   };
 
   const handleDeleteParts = (id) => {
     const newParts = parts.filter((_, idx) => idx !== id);
     setParts(newParts);
+  };
+
+  const handleUpdateParts = (id, part) => {
+    console.log("ID : ", id);
+    console.log("PART : ", part);
+    setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
   };
   return (
     <AppLayout>
@@ -117,7 +122,11 @@ const Create: React.FC = () => {
         </S.InnerWrapper>
       </S.Wrapper>
       <h2>모집 분야</h2>
-      <PartBoxList parts={parts} handleDeleteParts={handleDeleteParts} />
+      <PartBoxList
+        parts={parts}
+        handleUpdateParts={handleUpdateParts}
+        handleDeleteParts={handleDeleteParts}
+      />
       <Button onClick={handleAddParts}>모집분야 추가</Button>
       <h2>프로젝트 소개</h2>
       <Textarea
