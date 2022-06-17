@@ -1,17 +1,14 @@
 import PartBox from "../PartBox/PartBox";
 import * as S from "./style";
 
-const PartBoxList = ({ parts }) => {
-  //   const parts = [
-  //     { channel: "front", people: "5", skills: [["html5"], ["next.js"]] },
-  //     { channel: "back", people: 10, skills: [] }
-  //   ];
-
+const PartBoxList = ({ parts, handleDeleteParts }) => {
   return (
     <S.PartBoxList>
-      {parts.map((_part) => (
+      {parts.map((_part, index) => (
         <PartBox
-          key={_part.channel}
+          handleDelete={handleDeleteParts}
+          key={index}
+          id={index}
           initialChannel={_part.channel}
           initialPeople={_part.people}
           initialSkills={_part.skills}

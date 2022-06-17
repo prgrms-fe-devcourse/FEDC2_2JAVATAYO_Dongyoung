@@ -7,9 +7,11 @@ import SKILL_OPTIONS from "../../../constants/skill";
 import * as S from "./style";
 
 const PartBox = ({
+  id,
   initialChannel = "front",
   initialPeople = "1",
-  initialSkills = null
+  initialSkills,
+  handleDelete
 }) => {
   const channelOption = [
     { id: 1, value: "front", label: "프론트엔드" },
@@ -38,9 +40,9 @@ const PartBox = ({
   const [stacks, setStacks] = React.useState(null);
 
   React.useEffect(() => {
-    console.log("channel", channel);
-    console.log("people", people);
-    console.log("stacks", stacks);
+    // console.log("channel", channel);
+    // console.log("people", people);
+    // console.log("stacks", stacks);
   }, [channel, people, stacks]);
 
   const getSkillOptions = (channel) => {
@@ -84,7 +86,7 @@ const PartBox = ({
         options={stackOptions}
         setSelectedValues={setStacks}
       />
-      <Button>삭제</Button>
+      <Button onClick={() => handleDelete(id)}>삭제</Button>
     </S.PartBox>
   );
 };

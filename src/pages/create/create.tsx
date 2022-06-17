@@ -50,6 +50,7 @@ const Create: React.FC = () => {
     console.log("expectedDate", expectedDate);
     console.log("selectedStacks", selectedStacks);
     console.log("introduction", introduction);
+    console.log("parts", parts);
   }, [
     title,
     email,
@@ -57,11 +58,18 @@ const Create: React.FC = () => {
     startDate,
     expectedDate,
     selectedStacks,
-    introduction
+    introduction,
+    parts
   ]);
 
-  const handleParts = () => {
-    const newParts = [...parts, { channel: "front", people: "", skills: [] }];
+  const handleAddParts = () => {
+    const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
+    console.log(newParts);
+    setParts(newParts);
+  };
+
+  const handleDeleteParts = (id) => {
+    const newParts = parts.filter((_, idx) => idx !== id);
     setParts(newParts);
   };
   return (
@@ -109,8 +117,8 @@ const Create: React.FC = () => {
         </S.InnerWrapper>
       </S.Wrapper>
       <h2>모집 분야</h2>
-      <PartBoxList parts={parts} />
-      <Button onClick={handleParts}>모집분야 추가</Button>
+      <PartBoxList parts={parts} handleDeleteParts={handleDeleteParts} />
+      <Button onClick={handleAddParts}>모집분야 추가</Button>
       <h2>프로젝트 소개</h2>
       <Textarea
         isIntroduction={true}
