@@ -13,6 +13,7 @@ const Cascader = ({ stacks, isMultiple, options, setSelectedValues }) => {
         multiple={isMultiple}
         style={{
           marginTop: "10px",
+          marginBottom: "20px",
           width: "100%"
         }}
         value={stacks}
