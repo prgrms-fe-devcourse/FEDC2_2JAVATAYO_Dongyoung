@@ -9,6 +9,7 @@ import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
 import Textarea from "@components/common/Textarea";
 import { usePrompt } from "../../routes/Blocker";
+import PartBoxList from "@components/create/PartBoxList";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -36,7 +37,9 @@ const Create: React.FC = () => {
   const [selectedStacks, setSelectedStacks] = useState();
   const [expectedDate, setExpectedDate] = useState("");
   const [introduction, setIntroduction] = useState("냥냥");
-  const [totalPartCount, setTotalPartCount] = useState(1);
+  const [parts, setParts] = useState([
+    { channel: "front", people: "1", skills: [] }
+  ]);
 
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   useEffect(() => {
@@ -57,6 +60,10 @@ const Create: React.FC = () => {
     introduction
   ]);
 
+  const handleParts = () => {
+    const newParts = [...parts, { channel: "front", people: "", skills: [] }];
+    setParts(newParts);
+  };
   return (
     <AppLayout>
       <div>
@@ -102,14 +109,8 @@ const Create: React.FC = () => {
         </S.InnerWrapper>
       </S.Wrapper>
       <h2>모집 분야</h2>
-      <PartBox />
-      <Button
-        onClick={() => {
-          console.log("onClick");
-        }}
-      >
-        모집분야 추가
-      </Button>
+      <PartBoxList parts={parts} />
+      <Button onClick={handleParts}>모집분야 추가</Button>
       <h2>프로젝트 소개</h2>
       <Textarea
         isIntroduction={true}

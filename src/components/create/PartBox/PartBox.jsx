@@ -2,10 +2,15 @@ import React from "react";
 import { Label } from "../../common/Label/style";
 import Cascader from "../Cascader";
 import SelectBox from "../SelectBox";
+import Button from "@components/common/Button";
 import SKILL_OPTIONS from "../../../constants/skill";
 import * as S from "./style";
 
-const PartBox = () => {
+const PartBox = ({
+  initialChannel = "front",
+  initialPeople = "1",
+  initialSkills = null
+}) => {
   const channelOption = [
     { id: 1, value: "front", label: "프론트엔드" },
     { id: 2, value: "back", label: "백엔드" },
@@ -25,8 +30,8 @@ const PartBox = () => {
     { id: 7, value: "notyet", label: "미정" }
   ];
 
-  const [channel, setChannel] = React.useState("front");
-  const [people, setPeople] = React.useState("1");
+  const [channel, setChannel] = React.useState(initialChannel);
+  const [people, setPeople] = React.useState(initialPeople);
   const [stackOptions, setStackOptions] = React.useState(
     SKILL_OPTIONS[0].options
   );
@@ -79,6 +84,7 @@ const PartBox = () => {
         options={stackOptions}
         setSelectedValues={setStacks}
       />
+      <Button>삭제</Button>
     </S.PartBox>
   );
 };
