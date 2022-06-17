@@ -33,8 +33,6 @@ const Create: React.FC = () => {
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
   const [startDate, setStartDate] = useState("");
-
-  const [selectedStacks, setSelectedStacks] = useState();
   const [expectedDate, setExpectedDate] = useState("");
   const [introduction, setIntroduction] = useState("냥냥");
   const [parts, setParts] = useState([
@@ -73,8 +71,6 @@ const Create: React.FC = () => {
   };
 
   const handleUpdateParts = (id, part) => {
-    console.log("ID : ", id);
-    console.log("PART : ", part);
     setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
   };
   return (
