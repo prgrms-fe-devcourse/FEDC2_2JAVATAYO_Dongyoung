@@ -34,6 +34,7 @@ const Detail: React.FC = () => {
         />
         <PostBody introduction={introduction} />
         <PostFooter comments={detail.comments} />
+        <PostBody introduction={introduction} />
       </div>
     </AppLayout>
   );

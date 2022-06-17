@@ -257,15 +257,19 @@ const reset = css`
 
   h1 {
     font-size: 32px;
+    font-weight: bold;
   }
   h2 {
     font-size: 32px;
+    font-weight: bold;
   }
   h3 {
     font-size: 24px;
+    font-weight: bold;
   }
   h4 {
     font-size: 20px;
+    font-weight: bold;
   }
   label {
     font-size: 14px;
