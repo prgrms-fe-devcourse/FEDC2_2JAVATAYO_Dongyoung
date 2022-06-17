@@ -1,7 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
-import { ProfileImageBox } from "@components/profile";
+import {
+  CoverImage,
+  EditIcon,
+  Tab,
+  ProfileImageBox
+} from "@components/profile";
+import { ProfileImage } from "@components/common";
+import * as S from "./style";
 
 const Profile: React.FC = () => {
   const { id } = useParams<Record<string, string>>();
@@ -18,6 +25,15 @@ const Profile: React.FC = () => {
       <button onClick={() => setIsMine(!isMine)}>
         {isMine ? "다른 사람인 척" : "내 프로필인 척"}
       </button>
+
+      <div style={{ display: "inline-flex" }}>
+        <Tab>
+          <Tab.Item active title="작성한 글 목록">
+            작성한 글 목록 컨텐츠
+          </Tab.Item>
+          <Tab.Item title="좋아요 한 글">좋아요 한 글 목록 컨텐츠</Tab.Item>
+        </Tab>
+      </div>
     </>
   );
 };
