@@ -46,19 +46,9 @@ const Create: React.FC = () => {
     console.log("place", place);
     console.log("startDate", startDate);
     console.log("expectedDate", expectedDate);
-    console.log("selectedStacks", selectedStacks);
     console.log("introduction", introduction);
     console.log("parts", parts);
-  }, [
-    title,
-    email,
-    place,
-    startDate,
-    expectedDate,
-    selectedStacks,
-    introduction,
-    parts
-  ]);
+  }, [title, email, place, startDate, expectedDate, introduction, parts]);
 
   const handleAddParts = () => {
     const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
