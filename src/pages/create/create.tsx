@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import SelectBox from "../../components/create/SelectBox";
-import DatePicker from "../../components/create/DatePicker";
-import Label from "../../components/common/Label";
-import AppLayout from "../../components/common/AppLayout";
-import Button from "../../components/common/Button";
+import SelectBox from "@components/create/SelectBox";
+import DatePicker from "@components/create/DatePicker";
+import Label from "@components/common/Label";
+import AppLayout from "@components/common/AppLayout";
+import Button from "@components/common/Button";
 import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
 import Textarea from "@components/common/Textarea";
