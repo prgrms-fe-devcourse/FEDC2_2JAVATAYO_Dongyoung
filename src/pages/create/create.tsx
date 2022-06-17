@@ -79,7 +79,7 @@ const Create: React.FC = () => {
             label={"진행방식"}
             defaultValue={"온라인"}
             options={placeOptions}
-            canAllowClear={true}
+            canAllowClear={false}
             setSelectedValue={setPlace}
           />
         </S.InnerWrapper>
