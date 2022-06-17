@@ -1,62 +1,53 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { ProfileImage, SkillIcon } from "..";
-import { ReactComponent as HeartIcon } from "../../../assets/icons/icon_heart.svg";
-import { ReactComponent as HeartFillIcon } from "../../../assets/icons/icon_heart_fill.svg";
 import { IPost } from "../../../types/model";
+// import LikeBtn from "../LikeBtn";
 import * as S from "./style";
 
-type CardInterface = { post?: IPost } & { user?: string };
+type CardInterface = { post?: IPost } & { userId?: string };
 
-const Card: React.FC<CardInterface> = ({ post = dummy, user = null }) => {
-  const isClickLike = post.likes.some((item) => item.user === user);
+const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
+  const postTitle = post ? JSON.parse(post.title) : dummy;
+  const { _id, author, image, likes } = post;
+  const { title, parts, expectedDate } = postTitle;
+  const navigate = useNavigate();
 
-  const onClickCard = () => {
-    alert("Card");
-    // 관련 상세페이지로 이동
-  };
+  const createAt = new Date(post.createdAt);
+  const Year = createAt.getFullYear();
+  const getMonth = createAt.getMonth() + 1;
+  const getDate = createAt.getDate();
+  const month = getMonth < 10 ? "0" + getMonth : getMonth;
+  const date = getDate < 10 ? "0" + getDate : getDate;
+  const createDate = `${Year}-${month}-${date}`;
 
-  const onClickLike = (e) => {
-    e.stopPropagation();
-    alert("❤");
-    // Like클릭
+  const onClickCard = (id) => {
+    navigate(`/detail/${id}`);
   };
 
   return (
-    <S.Card onClick={onClickCard}>
+    <S.Card onClick={() => onClickCard(_id)}>
       <S.FlexBetween>
-        <S.Tag color={channelColor["front"].color}>
-          {channelColor["front"].title}
+        <S.Tag color={channelColor[parts.channel].color}>
+          {channelColor[parts.channel].title}
         </S.Tag>
-        <S.Like onClick={onClickLike}>
-          {user ? (
-            // 이후 ICON 컴포넌트로 변경 예정
-            isClickLike ? (
-              <HeartFillIcon />
-            ) : (
-              <HeartIcon />
-            )
-          ) : (
-            <HeartIcon />
-          )}
-          {post.likes.length}
-        </S.Like>
+        {/* <LikeBtn likes={likes} userId={userId} /> */}
       </S.FlexBetween>
-      <S.Title>{post.title}</S.Title>
-      <span>모집인원: {1}</span>
+      <S.Title>{title}</S.Title>
+      <span>모집인원: {parts.people}</span>
       <S.SkillIcons>
-        <SkillIcon key={"react"} name={"react"} alt={"react"} />
-        {/* {post.skills.map((skill) => (
-          <SkillIcon key={skill} name={skill} alt={skill} />
-        ))} */}
+        {parts.skills.map((skill) => (
+          <SkillIcon key={skill[0]} name={skill[0]} alt={skill[0]} />
+        ))}
       </S.SkillIcons>
       <S.FlexBetween>
         <S.profile>
-          <ProfileImage size="sm" />
-          <span>{post.author.fullName}</span>
+          <ProfileImage size="sm" imgAlt={author.fullName} imgSrc={image} />
+          <span>{author.fullName}</span>
         </S.profile>
         <S.Date>
-          <p>프로젝트 기간: {"2022.01.01"}</p>
-          <p>{post.createdAt}</p>
+          <p>프로젝트 기간: {expectedDate}</p>
+          <p>{createDate}</p>
         </S.Date>
       </S.FlexBetween>
     </S.Card>
@@ -94,11 +85,20 @@ const channelColor = {
   }
 };
 
+// 이후제거
 const dummy = {
   likes: [],
   comments: [],
   _id: "62a8cfb53229d934e9b64d3d",
-  title: "제목이 글어지면 말줄임 으로 나오는지 테스트해볼",
+  title: {
+    title: "✨샘플",
+    introduction: "test중 입니다.",
+    email: "knk@gmail.com",
+    expectedDate: "1개월",
+    place: "online",
+    startDate: "2022/06/06",
+    parts: { channel: "front", people: "5", skills: [["html5"], ["next.js"]] }
+  },
   channel: {
     authRequired: false,
     posts: ["62a8cfb53229d934e9b64d3d", "62a958533229d934e9b6506e"],
