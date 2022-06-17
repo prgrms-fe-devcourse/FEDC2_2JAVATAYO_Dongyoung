@@ -5,7 +5,7 @@ export const Layout = styled.div`
   min-width: 340px;
   min-height: calc(100vh - 198px);
   margin: auto;
-  padding-top: 60px;
+  padding: 125px 0 300px;
   @media (max-width: 700px) {
     padding: 0 18px;
     box-sizing: border-box;
