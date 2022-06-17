@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from "react";
 interface TextareaInterface {
   isLogin: boolean;
   isIntroduction: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 

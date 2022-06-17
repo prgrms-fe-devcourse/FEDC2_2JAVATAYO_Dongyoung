@@ -1,7 +1,7 @@
-//import { env } from "process";
-import { useParams } from "react-router";
 import AppLayout from "../components/common/AppLayout";
 import PostHeader from "../components/detail/PostHeader";
+import PostBody from "../components/detail/PostBody";
+import PostFooter from "@components/detail/PostFooter";
 //import postAPI from "../utils/apis/post";
 
 const Detail: React.FC = () => {
@@ -9,9 +9,8 @@ const Detail: React.FC = () => {
 
   const baseURL = `${process.env.REACT_APP_END_POINT}:${process.env.REACT_APP_PORT}`;
 
-  const introductionContent =
-    `안녕하세요. 현재 서울에서 개발을 하고 있는 개발자입니다.` +
-    `사이드 프로젝트 경험을 쌓고 싶어 팀을 구해봅니다.
+  const introduction = `안녕하세요. 현재 서울에서 개발을 하고 있는 개발자입니다.
+    사이드 프로젝트 경험을 쌓고 싶어 팀을 구해봅니다.
     서울에서 근무중이라 온/오프라인 상관 없습니다.
     
     기술 스택은
@@ -25,7 +24,7 @@ const Detail: React.FC = () => {
       <div>
         <PostHeader
           title={detail.title}
-          authorId={"주형진"}
+          authorId={detail.author.fullName}
           createdAt={detail.createdAt}
           channel={"프론트엔드"}
           email={"test@test.com"}
@@ -33,8 +32,9 @@ const Detail: React.FC = () => {
           startDate={"2022/06/06"}
           expectedDate={"3주"}
         />
-        {/* <PostBody body={introductionContent} />
-        <PostFooter comments={detail.comments} /> */}
+        <PostBody introduction={introduction} />
+        <PostFooter comments={detail.comments} />
+        <PostBody introduction={introduction} />
       </div>
     </AppLayout>
   );
@@ -55,32 +55,42 @@ const DUMMY_DETAIL = {
   comments: [
     {
       _id: "1",
-      comment: "첫 번째 테스트 댓글입니다.",
-      author: "User[]",
+      comment: `안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요.
+        혹시 프로젝트는 어떤 기획으로 정해져 있나요? 어떤 주제로 할 생각이신가요? 
+        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요.`,
+      author: "김남경",
       post: "62a62988c882bf3a287f9c8a", // 포스트 id
       createdAt: "2022.06.14",
       updatedAt: "2022.06.14"
     },
     {
       _id: "2",
-      comment: "두 번째 테스트 댓글입니다.",
-      author: "User[]",
+      comment: `안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 
+        혹시 프로젝트는 어떤 기획은 정해져 있나요? 어떤 주제로 할 생각이신가요? 
+        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 
+        혹시 프로젝트는 어떤 기획은 정해져 있나요? 어떤 주제로 할 생각이신가요? 
+        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요안녕하세요 
+        개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 혹시 프로젝트는 어떤 기획은 정해져 있나요? 
+        어떤 주제로 할 생각이신가요? 디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요`,
+      author: "마혜경",
       post: "62a62988c882bf3a287f9c8a", // 포스트 id
       createdAt: "2022.06.15",
       updatedAt: "2022.06.15"
     },
     {
       _id: "3",
-      comment: "세 번째 테스트 댓글입니다.",
-      author: "User[]",
+      comment: `프로젝트 기간안에 다 할 수 있을까요?? ㅠㅠ`,
+      author: "박유현",
       post: "62a62988c882bf3a287f9c8a", // 포스트 id
       createdAt: "2022.06.15",
       updatedAt: "2022.06.15"
     },
     {
       _id: "4",
-      comment: "네 번째 테스트 댓글입니다.",
-      author: "User[]",
+      comment: `안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 
+        혹시 프로젝트는 어떤 기획은 정해져 있나요? 어떤 주제로 할 생각이신가요? 
+        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요`,
+      author: "정현진",
       post: "62a62988c882bf3a287f9c8a", // 포스트 id
       createdAt: "2022.06.15",
       updatedAt: "2022.06.15"
