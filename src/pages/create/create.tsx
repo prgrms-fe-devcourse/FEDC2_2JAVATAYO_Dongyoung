@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import SelectBox from "../../components/create/SelectBox";
 import DatePicker from "../../components/create/DatePicker";
-import PartBox from "../../components/create/PartBox";
 import Label from "../../components/common/Label";
 import AppLayout from "../../components/common/AppLayout";
 import Button from "../../components/common/Button";
@@ -107,14 +106,14 @@ const Create: React.FC = () => {
           />
         </S.InnerWrapper>
       </S.Wrapper>
-      <h2>모집 분야</h2>
+      <h3>모집 분야</h3>
       <PartBoxList
         parts={parts}
         handleUpdateParts={handleUpdateParts}
         handleDeleteParts={handleDeleteParts}
       />
       <Button onClick={handleAddParts}>모집분야 추가</Button>
-      <h2>프로젝트 소개</h2>
+      <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
         isIntroduction={true}
         isLogin={true}
