@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { authAPI } from "@utils/apis";
 import storage from "@utils/storage";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const TempLogin = () => {
   const [isLogin, setLogin] = useState(false);
@@ -32,11 +33,17 @@ const TempLogin = () => {
     <>
       {isLogin ? (
         <div>
+          <button>
+            <Link to={"/profile/62a0cf0bc882bf3a287f907c"}>profile페이지</Link>
+          </button>
           <button onClick={logOut}>로그아웃</button>
           user{user}
         </div>
       ) : (
         <Form>
+          <button>
+            <Link to={"/profile/62a0cf0bc882bf3a287f907c"}>profile페이지</Link>
+          </button>
           <button onClick={() => logIn(1)}>user1</button>
           <button onClick={() => logIn(2)}>user2</button>
           <button onClick={() => logIn(3)}>user3</button>
