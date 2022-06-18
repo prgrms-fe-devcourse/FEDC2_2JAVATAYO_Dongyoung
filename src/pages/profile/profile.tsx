@@ -1,40 +1,22 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
-import { CoverImage, EditIcon, Tab } from "@components/profile";
-import { ProfileImage } from "@components/common";
-import * as S from "./style";
+import { Tab, ProfileImageBox, CoverImageBox } from "@components/profile";
 
 const Profile: React.FC = () => {
   const { id } = useParams<Record<string, string>>();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const user = DUMMY_USER;
+
+  const [isMine, setIsMine] = useState(false);
 
   return (
     <>
       <h1>Profile id_: {id}</h1>
 
-      <S.CoverImageWrapper>
-        <CoverImage
-          imgSrc={user.coverImage}
-          imgAlt={`${user.fullName}님의 커버 이미지`}
-        />
-        {isLoggedIn ? (
-          <EditIcon bottom="9px" right="20%" onClick={() => alert("Click!")} />
-        ) : null}
-      </S.CoverImageWrapper>
+      <CoverImageBox isMine={isMine} imgSrc={user.coverImage} />
+      <ProfileImageBox isMine={isMine} imgSrc={user.image} />
 
-      <S.ProfileImageWrapper>
-        <ProfileImage imgSrc={user.image} size="lg" />
-        {isLoggedIn ? (
-          <EditIcon right="-3px" onClick={() => alert("Click!")} />
-        ) : null}
-      </S.ProfileImageWrapper>
-
-      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-        {isLoggedIn ? "로그아웃되는 척" : "로그인되는 척"}
+      <button onClick={() => setIsMine(!isMine)}>
+        {isMine ? "다른 사람인 척" : "내 프로필인 척"}
       </button>
 
       <div style={{ display: "inline-flex" }}>
@@ -71,7 +53,7 @@ const DUMMY_USER = {
   __v: 0,
   username: "유현naver",
   image:
-    "https://res.cloudinary.com/learnprogrammers/image/upload/v1655058232/user/6ecb4177-78ea-4362-96a4-e95903a6e84a.png",
+    "https://res.cloudinary.com/learnprogrammers/image/upload/v1655428928/user/7128b331-10d5-4771-b33f-afa6448b64bd.png",
   imagePublicId: "user/6ecb4177-78ea-4362-96a4-e95903a6e84a",
   coverImage:
     "https://res.cloudinary.com/learnprogrammers/image/upload/v1655058503/user/99bff83a-15db-4b49-bedc-7ae907aebbbe.jpg",

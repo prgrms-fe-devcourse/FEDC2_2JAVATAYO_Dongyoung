@@ -4,7 +4,7 @@ export const Textarea = styled.textarea<{
   isIntroduction: boolean;
 }>`
   width: 100%;
-  max-width: 678px;
+  max-width: 700px;
   min-width: 340px;
 
   height: ${({ isIntroduction }) => (isIntroduction ? "400" : "80")}px;

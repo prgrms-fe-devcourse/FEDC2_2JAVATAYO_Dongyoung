@@ -1,48 +1,62 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../../assets/logos/Logo.svg";
+import { ReactComponent as Logo } from "../../../assets/logos/Logo.svg";
+import { ReactComponent as Bell } from "../../../assets/icons/icon_bell.svg";
+import { useEffect, useState } from "react";
+import storage from "@utils/storage";
+import { ProfileImage } from "..";
+import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
-interface HeaderInterface {
-  isLoggedIn?: boolean;
-  userName?: string;
-}
+import { authAPI } from "@utils/apis";
 
-const Header: React.FC<HeaderInterface> = ({
-  isLoggedIn = false,
-  userName = ""
-}) => {
+const Header: React.FC = () => {
   const navigate = useNavigate();
+
+  //이후 contextAPI로 변경
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({ fullName: "test" });
+  const { fullName } = userData;
+  const userInfo = async () => {
+    const { data } = await authAPI.checkAuthUser();
+    setUserData(data);
+    console.log(data);
+  };
+  useEffect(() => {
+    userInfo();
+  }, [isLoggedIn]);
+  //이후 contextAPI로 변경
+
+  useEffect(() => {
+    const hasToken = storage.getItem("TOKEN", false) ? true : false;
+    setIsLoggedIn(hasToken);
+    alert;
+  }, []);
+
   return (
     <S.Header>
-      <img
-        src={Logo}
-        alt="Logo"
-        onClick={
-          isLoggedIn
-            ? () => {
-                window.confirm("메인으로 돌아가시겠습니까?");
-                navigate("/");
-              }
-            : () => navigate("/")
-        }
-      />
+      <h1>2JAVATAYO </h1>
+      <Link to={"/"}>
+        <Logo />
+      </Link>
       {/* 임시 */}
-      <TempLogin />
+      <TempLogin setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
       {/* 임시 */}
-      <div>
-        {isLoggedIn ? (
-          <S.LoggedIn>
-            <div>새글쓰기</div>
-            <div>알람</div>
-            <div>프로필</div>
-            <div>{userName}님</div>
-          </S.LoggedIn>
-        ) : (
-          <S.Loggedout onClick={() => console.log("navigate")}>
-            로그인 / 회원가입
-          </S.Loggedout>
-        )}
-      </div>
+      {isLoggedIn ? (
+        <S.LoggedIn>
+          <Link to={"/create"}>새글쓰기</Link>
+          <S.Notice isGetAlarm={true} onClick={() => alert("알림")}>
+            <Bell />
+          </S.Notice>
+          <S.User onClick={() => alert("사용자 토글매뉴")}>
+            <ProfileImage size="sm" />
+            <S.UserFullName>{fullName} 님</S.UserFullName>
+          </S.User>
+        </S.LoggedIn>
+      ) : (
+        <S.LoggedOut onClick={() => navigate("/signin")}>
+          로그인 / 회원가입
+        </S.LoggedOut>
+      )}
     </S.Header>
   );
 };

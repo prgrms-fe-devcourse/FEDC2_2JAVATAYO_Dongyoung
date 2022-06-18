@@ -11,14 +11,13 @@ export default {
 } as ComponentMeta<typeof Filter>;
 
 export const Default: ComponentStory<typeof Filter> = () => {
-  const [post, setPost] = useState([]);
-  console.log(post);
+  const [posts, setPosts] = useState([]);
 
   return (
     <>
       <Global styles={reset} />
-      <Filter setPost={setPost}></Filter>
-      {JSON.stringify(post)}
+      <Filter setPost={setPosts}></Filter>
+      {JSON.stringify(posts)}
     </>
   );
 };

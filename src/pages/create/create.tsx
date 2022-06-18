@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import SelectBox from "../../components/create/SelectBox";
-import DatePicker from "../../components/create/DatePicker";
-import PartBox from "../../components/create/PartBox";
-import Label from "../../components/common/Label";
-import AppLayout from "../../components/common/AppLayout";
-import Button from "../../components/common/Button";
+import SelectBox from "@components/create/SelectBox";
+import DatePicker from "@components/create/DatePicker";
+import Label from "@components/common/Label";
+import AppLayout from "@components/common/AppLayout";
+import Button from "@components/common/Button";
 import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
 import Textarea from "@components/common/Textarea";
 import { usePrompt } from "../../routes/Blocker";
 import ImageUploader from "@components/create/ImageUploader/ImageUploader";
+import PartBoxList from "@components/create/PartBoxList";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -33,11 +33,11 @@ const Create: React.FC = () => {
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
   const [startDate, setStartDate] = useState("");
-
-  const [selectedStacks, setSelectedStacks] = useState();
   const [expectedDate, setExpectedDate] = useState("");
   const [introduction, setIntroduction] = useState("냥냥");
-  const [totalPartCount, setTotalPartCount] = useState(1);
+  const [parts, setParts] = useState([
+    { channel: "front", people: "1", skills: [] }
+  ]);
 
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   useEffect(() => {
@@ -46,18 +46,23 @@ const Create: React.FC = () => {
     console.log("place", place);
     console.log("startDate", startDate);
     console.log("expectedDate", expectedDate);
-    console.log("selectedStacks", selectedStacks);
     console.log("introduction", introduction);
-  }, [
-    title,
-    email,
-    place,
-    startDate,
-    expectedDate,
-    selectedStacks,
-    introduction
-  ]);
+    console.log("parts", parts);
+  }, [title, email, place, startDate, expectedDate, introduction, parts]);
 
+  const handleAddParts = () => {
+    const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
+    setParts(newParts);
+  };
+
+  const handleDeleteParts = (id) => {
+    const newParts = parts.filter((_, idx) => idx !== id);
+    setParts(newParts);
+  };
+
+  const handleUpdateParts = (id, part) => {
+    setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
+  };
   return (
     <AppLayout>
       <div>
@@ -74,7 +79,7 @@ const Create: React.FC = () => {
             label={"진행방식"}
             defaultValue={"온라인"}
             options={placeOptions}
-            canAllowClear={true}
+            canAllowClear={false}
             setSelectedValue={setPlace}
           />
         </S.InnerWrapper>
@@ -102,16 +107,14 @@ const Create: React.FC = () => {
           />
         </S.InnerWrapper>
       </S.Wrapper>
-      <h2>모집 분야</h2>
-      <PartBox />
-      <Button
-        onClick={() => {
-          console.log("onClick");
-        }}
-      >
-        모집분야 추가
-      </Button>
-      <h2>프로젝트 소개</h2>
+      <h3>모집 분야</h3>
+      <PartBoxList
+        parts={parts}
+        handleUpdateParts={handleUpdateParts}
+        handleDeleteParts={handleDeleteParts}
+      />
+      <Button onClick={handleAddParts}>모집분야 추가</Button>
+      <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
         isIntroduction={true}
         isLogin={true}
