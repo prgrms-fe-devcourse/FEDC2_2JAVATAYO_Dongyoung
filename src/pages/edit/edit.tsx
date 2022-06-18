@@ -110,6 +110,7 @@ const Edit: React.FC = () => {
       </S.Wrapper>
       <h3>모집 분야</h3>
       <PartBoxList
+        disabled={true}
         parts={parts}
         handleDeleteParts={() => {
           console.log("hi");
@@ -126,7 +127,9 @@ const Edit: React.FC = () => {
       >
         {introduction}
       </Textarea>
-      <Button>수정하기</Button>
+      <Button isRound={true} width="300">
+        수정하기
+      </Button>
     </AppLayout>
   );
 };

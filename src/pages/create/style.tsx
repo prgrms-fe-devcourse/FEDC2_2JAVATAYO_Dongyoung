@@ -13,3 +13,7 @@ export const Wrapper = styled.div`
 export const InnerWrapper = styled.div`
   width: 50%;
 `;
+
+export const ButtonWrapper = styled.div`
+  margin: auto;
+`;

@@ -98,6 +98,7 @@ const Create: React.FC = () => {
         </S.InnerWrapper>
         <S.InnerWrapper>
           <SelectBox
+            disabled={false}
             label={"예상기간"}
             defaultValue={"1개월"}
             options={expectedDateOptions}
@@ -108,6 +109,7 @@ const Create: React.FC = () => {
       </S.Wrapper>
       <h3>모집 분야</h3>
       <PartBoxList
+        disabled={false}
         parts={parts}
         handleUpdateParts={handleUpdateParts}
         handleDeleteParts={handleDeleteParts}
@@ -121,6 +123,9 @@ const Create: React.FC = () => {
       >
         {introduction}
       </Textarea>
+      <Button isRound={true} width="300">
+        생성하기
+      </Button>
     </AppLayout>
   );
 };
