@@ -1,7 +1,8 @@
 import { formatDate } from "@utils/Date";
 import React from "react";
 import { useNavigate } from "react-router";
-import { ProfileImage, SkillIcon } from "..";
+import ProfileImage from "../ProfileImage";
+import SkillIcon from "../SkillIcon";
 import { IPost } from "../../../types/model";
 import LikeBtn from "../LikeBtn";
 import * as S from "./style";
