@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { ImageUpload } from "@components/common";
-import { CoverImage, EditIcon } from "@components/profile";
+import { CoverImage } from "@components/profile";
+import { useHover } from "@hooks";
 import { userAPI } from "@utils/apis";
 import * as S from "./style";
 
@@ -11,8 +12,9 @@ interface CoverImageBoxInterface {
 
 const CoverImageBox: FC<CoverImageBoxInterface> = ({ isMine, imgSrc }) => {
   const [src, setSrc] = useState(imgSrc);
+  const [ref, hover] = useHover<HTMLDivElement>();
 
-  const handleImageUpload = async (file) => {
+  const handleImageUpload = async (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
 
@@ -26,12 +28,17 @@ const CoverImageBox: FC<CoverImageBoxInterface> = ({ isMine, imgSrc }) => {
   };
 
   return (
-    <S.CoverImageWrapper>
+    <S.CoverImageWrapper ref={ref}>
       <CoverImage imgSrc={src} />
-      {isMine ? (
+      {isMine && hover ? (
         <ImageUpload
           onImageUpload={handleImageUpload}
-          replacement={<EditIcon bottom="9px" right="20%" />}
+          replacement={<S.Replacement>커버 변경</S.Replacement>}
+          replacementStyle={{
+            position: "absolute",
+            bottom: "12px",
+            right: "25%"
+          }}
         />
       ) : null}
     </S.CoverImageWrapper>
