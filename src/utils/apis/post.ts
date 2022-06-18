@@ -11,7 +11,8 @@ const postAPI = {
   updatePost: (formData: FormData) =>
     authRequest.put("/posts/update", formData),
   deletePost: (postId: string) =>
-    authRequest.delete("/posts/delete", { data: { id: postId } })
+    authRequest.delete("/posts/delete", { data: { id: postId } }),
+  allPost: () => authRequest.get("/posts")
 };
 
 export default postAPI;

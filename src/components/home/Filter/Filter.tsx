@@ -4,15 +4,31 @@ import * as S from "./style";
 
 interface FilterInterface {
   channelChange: (_id: string) => void;
+  getAllPost: () => void;
 }
 
-const Filter: React.FC<FilterInterface> = ({ channelChange }) => {
+const Filter: React.FC<FilterInterface> = ({ channelChange, getAllPost }) => {
   const channels = Object.entries(CHANNELS);
   const [channel, setChannel] = useState<string>("front");
 
   return (
     <S.FilterWrap>
       <S.RadioBox>
+        <S.Radio
+          type="radio"
+          id="all"
+          name="channel"
+          value="all"
+          onChange={(e) => {
+            setChannel(e.target.value);
+            // channelChange("all");
+          }}
+        />
+        {channel === "all" ? (
+          <S.SelectLabel htmlFor="all">전체</S.SelectLabel>
+        ) : (
+          <S.Label htmlFor="all">전체</S.Label>
+        )}
         {channels.map(([name, { _id, label }], i) => {
           return (
             <div key={i}>

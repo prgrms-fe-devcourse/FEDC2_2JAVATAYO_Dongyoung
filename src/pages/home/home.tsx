@@ -22,11 +22,14 @@ const Home: React.FC = () => {
     channelSearch(id);
   };
 
+  const getAllPost = () => {
+    console.log("all");
+  };
+
   const channelSearch = async (id) => {
     try {
       const { data } = await postAPI.getChannelPostList(id);
       setPosts(data);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +47,7 @@ const Home: React.FC = () => {
         <h2>이런 프로젝트가 올라왔어요</h2>
       </S.Wrapper>
       <S.FilterWrapper>
-        <Filter channelChange={channelChange} />
+        <Filter channelChange={channelChange} getAllPost={getAllPost} />
       </S.FilterWrapper>
       <S.Wrapper>
         <S.CardBox>
