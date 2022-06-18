@@ -38,7 +38,7 @@ const LikeBtn: React.FC<LikeBtnInterface> = ({ likes, postId, userId }) => {
     });
     setLikeId(userLike[0] ? userLike[0]._id : null);
     setTotalLike(likes.length);
-  }, [likes, userId]);
+  }, [likes]);
 
   return (
     <S.LikeBtn onClick={userId ? clickLikeBtn : null} userId={userId}>
