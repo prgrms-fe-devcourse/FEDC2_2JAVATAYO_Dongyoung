@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { ProfileImage, ImageUpload } from "@components/common";
 import { EditIcon } from "@components/profile";
-import * as S from "./style";
 import { userAPI } from "@utils/apis";
+import * as S from "./style";
 
 interface ProfileImageBoxInterface {
   isMine: boolean;
@@ -16,14 +16,13 @@ const ProfileImageBox: FC<ProfileImageBoxInterface> = ({ isMine, imgSrc }) => {
     const formData = new FormData();
     formData.append("image", file);
 
-    // try {
-    //   const response = await userAPI.changeProfileImage(formData);
+    try {
+      const response = await userAPI.changeProfileImage(formData);
 
-    //   console.log(response.data);
-    //   setSrc(response.data.image);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      setSrc(response.data.image);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

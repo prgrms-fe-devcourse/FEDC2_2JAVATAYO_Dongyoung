@@ -1,14 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
-import {
-  CoverImage,
-  EditIcon,
-  Tab,
-  ProfileImageBox
-} from "@components/profile";
-import { ProfileImage } from "@components/common";
-import * as S from "./style";
+import { Tab, ProfileImageBox, CoverImageBox } from "@components/profile";
 
 const Profile: React.FC = () => {
   const { id } = useParams<Record<string, string>>();
@@ -20,6 +12,7 @@ const Profile: React.FC = () => {
     <>
       <h1>Profile id_: {id}</h1>
 
+      <CoverImageBox isMine={isMine} imgSrc={user.coverImage} />
       <ProfileImageBox isMine={isMine} imgSrc={user.image} />
 
       <button onClick={() => setIsMine(!isMine)}>
