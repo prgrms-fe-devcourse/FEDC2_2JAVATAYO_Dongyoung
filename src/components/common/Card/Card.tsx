@@ -1,16 +1,16 @@
 import { formatDate } from "@utils/Date";
 import React from "react";
 import { useNavigate } from "react-router";
-import { IPost } from "src/types/model";
 import { ProfileImage, SkillIcon } from "..";
-// import LikeBtn from "../LikeBtn";
+import { IPost } from "../../../types/model";
+import LikeBtn from "../LikeBtn";
 import * as S from "./style";
 
 type CardInterface = { post?: IPost } & { userId?: string };
 
 const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
   const postTitle = post ? JSON.parse(post.title) : dummy;
-  const { _id, author, image, likes } = post;
+  const { _id, author, likes } = post;
   const { title, parts, expectedDate } = postTitle;
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
         <S.Tag color={channelColor[parts.channel].color}>
           {channelColor[parts.channel].title}
         </S.Tag>
-        {/* <LikeBtn likes={likes} userId={userId} /> */}
+        <LikeBtn likes={likes} userId={userId} postId={_id} />
       </S.FlexBetween>
       <S.Title>{title}</S.Title>
       <span>모집인원: {parts.people}</span>

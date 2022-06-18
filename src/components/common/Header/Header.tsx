@@ -19,7 +19,6 @@ const Header: React.FC = () => {
   const userInfo = async () => {
     const { data } = await authAPI.checkAuthUser();
     setUserData(data);
-    console.log(data);
   };
   useEffect(() => {
     userInfo();
