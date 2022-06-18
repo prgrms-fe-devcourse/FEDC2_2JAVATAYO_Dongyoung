@@ -4,7 +4,12 @@ import Header from "@components/common/Header";
 import Footer from "@components/common/Footer";
 import Card from "@components/common/Card";
 import Button from "@components/common/Button";
-import { Tab, ProfileImageBox, CoverImageBox } from "@components/profile";
+import {
+  Tab,
+  ProfileImageBox,
+  CoverImageBox,
+  EditFullName
+} from "@components/profile";
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 
@@ -92,6 +97,8 @@ const Profile: React.FC = () => {
             더보기
           </Button>
         </S.Wrapper>
+
+        <EditFullName />
       </S.Layout>
 
       <Footer />
