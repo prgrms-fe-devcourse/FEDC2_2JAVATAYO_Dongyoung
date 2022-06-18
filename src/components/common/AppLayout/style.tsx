@@ -10,11 +10,6 @@ export const Layout = styled.div`
     padding: 0 18px;
     box-sizing: border-box;
   }
-
-  button {
-    display: block;
-    margin: auto;
-  }
 `;
 
 export const Header = styled.div`
