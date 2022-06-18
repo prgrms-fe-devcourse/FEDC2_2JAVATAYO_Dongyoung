@@ -37,10 +37,22 @@ const Edit: React.FC = () => {
   const [expectedDate, setExpectedDate] = useState("");
   const [introduction, setIntroduction] = useState("냥냥");
   const [parts, setParts] = useState([
-    { channel: "front", people: "1", skills: [] }
+    { channel: "front", people: "5" },
+    { channel: "back", people: "5" }
   ]);
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   console.log(channel, id);
+
+  //TODO : EDIT이므로 채널에 맞는 parts하나만 PartBoxList로 보낼것
+  const setExactParts = () => {
+    const newParts = parts.filter((part) => part.channel === channel);
+    console.log(newParts);
+    setParts(newParts);
+  };
+
+  useEffect(() => {
+    setExactParts();
+  }, []);
 
   useEffect(() => {
     console.log("title", title);
@@ -97,7 +109,15 @@ const Edit: React.FC = () => {
         </S.InnerWrapper>
       </S.Wrapper>
       <h3>모집 분야</h3>
-      {/* <PartBoxList parts={parts} handleUpdateParts={handleUpdateParts} /> */}
+      <PartBoxList
+        parts={parts}
+        handleDeleteParts={() => {
+          console.log("hi");
+        }}
+        handleUpdateParts={() => {
+          console.log("hi");
+        }}
+      />
       <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
         isIntroduction={true}

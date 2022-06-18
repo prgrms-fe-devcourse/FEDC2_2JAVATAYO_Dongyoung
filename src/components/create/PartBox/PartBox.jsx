@@ -7,7 +7,6 @@ import SelectBox from "../SelectBox";
 import * as S from "./style";
 
 const PartBox = ({
-  id,
   initialChannel = "front",
   initialPeople = "1",
   initialSkills,
