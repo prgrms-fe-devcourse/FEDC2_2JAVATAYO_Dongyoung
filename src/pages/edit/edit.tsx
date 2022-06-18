@@ -36,27 +36,13 @@ const Edit: React.FC = () => {
   const [startDate, setStartDate] = useState("");
   const [expectedDate, setExpectedDate] = useState("");
   const [introduction, setIntroduction] = useState("냥냥");
-  const [parts, setParts] = useState([
-    { channel: "front", people: "5" },
-    { channel: "back", people: "5" }
-  ]);
+  const [parts, setParts] = useState([]);
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   console.log(channel, id);
-
-  //TODO : EDIT이므로 채널에 맞는 parts하나만 PartBoxList로 보낼것
-  const setExactParts = () => {
-    const newParts = parts.filter((part) => part.channel === channel);
-    console.log(newParts);
-    setParts(newParts);
-  };
 
   const handleUpdateParts = (id, part) => {
     setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
   };
-
-  useEffect(() => {
-    setExactParts();
-  }, []);
 
   useEffect(() => {
     console.log("title", title);
