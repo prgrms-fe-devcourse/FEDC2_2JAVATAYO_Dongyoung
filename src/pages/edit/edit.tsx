@@ -50,6 +50,10 @@ const Edit: React.FC = () => {
     setParts(newParts);
   };
 
+  const handleUpdateParts = (id, part) => {
+    setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
+  };
+
   useEffect(() => {
     setExactParts();
   }, []);
@@ -115,9 +119,7 @@ const Edit: React.FC = () => {
         handleDeleteParts={() => {
           console.log("hi");
         }}
-        handleUpdateParts={() => {
-          console.log("hi");
-        }}
+        handleUpdateParts={handleUpdateParts}
       />
       <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
