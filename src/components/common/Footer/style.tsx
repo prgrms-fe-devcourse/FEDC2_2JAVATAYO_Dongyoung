@@ -47,3 +47,12 @@ export const SocialLink = styled.div`
     margin-right: 10px;
   }
 `;
+
+export const Banner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  width: 100%;
+  background-color: #eaabbf;
+`;

@@ -5,15 +5,16 @@ import * as S from "./style";
 
 interface AppLayoutInterface {
   children: React.ReactNode;
+  banner?: boolean;
 }
 
-const AppLayout: React.FC<AppLayoutInterface> = ({ children }) => {
+const AppLayout: React.FC<AppLayoutInterface> = ({ children, banner }) => {
   // header, footer 컴포넌트 추가
   return (
     <div>
       <Header />
       <S.Layout>{children}</S.Layout>
-      <Footer />
+      <Footer banner={banner} />
     </div>
   );
 };
