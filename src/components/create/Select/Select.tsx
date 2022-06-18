@@ -7,6 +7,7 @@ interface SelectInterface {
   defaultValue: string;
   options: Array<object>;
   canAllowClear: boolean;
+  disabled?: boolean;
   setSelectedValue: Dispatch<SetStateAction<string>>;
 }
 
@@ -14,6 +15,7 @@ const Select: React.FC<SelectInterface> = ({
   defaultValue,
   options,
   canAllowClear,
+  disabled = false,
   setSelectedValue
 }) => {
   const handleChange = (value: string) => {
@@ -29,6 +31,7 @@ const Select: React.FC<SelectInterface> = ({
         height: "40px",
         padding: "4px 8px"
       }}
+      disabled={disabled}
       onChange={handleChange}
       allowClear={canAllowClear}
     >

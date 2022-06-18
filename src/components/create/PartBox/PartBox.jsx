@@ -7,12 +7,12 @@ import SelectBox from "../SelectBox";
 import * as S from "./style";
 
 const PartBox = ({
-  id,
   initialChannel = "front",
   initialPeople = "1",
   initialSkills,
   handleUpdate,
-  handleDelete
+  handleDelete,
+  disabled
 }) => {
   const channelOption = [
     { id: 1, value: "front", label: "프론트엔드" },
@@ -66,6 +66,7 @@ const PartBox = ({
         <div style={{ flexGrow: 1 }}>
           <SelectBox
             label={"모집분야"}
+            disabled={disabled}
             defaultValue={"front"}
             canAllowClear={false}
             options={channelOption}
@@ -89,7 +90,7 @@ const PartBox = ({
         options={stackOptions}
         setSelectedValues={setSkills}
       />
-      <Button onClick={handleDelete}>삭제</Button>
+      {!disabled && <Button onClick={handleDelete}>삭제</Button>}
     </S.PartBox>
   );
 };

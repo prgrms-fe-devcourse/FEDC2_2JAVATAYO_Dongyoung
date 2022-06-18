@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import SelectBox from "@components/create/SelectBox";
 import DatePicker from "@components/create/DatePicker";
 import Label from "@components/common/Label";
 import AppLayout from "@components/common/AppLayout";
 import Button from "@components/common/Button";
-import * as S from "./style";
 import InputBox from "@components/create/InputBox/InputBox";
 import Textarea from "@components/common/Textarea";
+import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
-import ImageUploader from "@components/create/ImageUploader/ImageUploader";
 import PartBoxList from "@components/create/PartBoxList";
+import { useParams } from "react-router";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -28,18 +28,22 @@ const expectedDateOptions = [
   { id: 7, value: "notyet", label: "미정" }
 ];
 
-const Create: React.FC = () => {
+const Edit: React.FC = () => {
+  const { channel, id } = useParams<Record<string, string>>();
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
   const [startDate, setStartDate] = useState("");
   const [expectedDate, setExpectedDate] = useState("");
   const [introduction, setIntroduction] = useState("냥냥");
-  const [parts, setParts] = useState([
-    { channel: "front", people: "1", skills: [] }
-  ]);
-
+  const [parts, setParts] = useState([]);
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
+  console.log(channel, id);
+
+  const handleUpdateParts = (id, part) => {
+    setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
+  };
+
   useEffect(() => {
     console.log("title", title);
     console.log("email", email);
@@ -50,19 +54,6 @@ const Create: React.FC = () => {
     console.log("parts", parts);
   }, [title, email, place, startDate, expectedDate, introduction, parts]);
 
-  const handleAddParts = () => {
-    const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
-    setParts(newParts);
-  };
-
-  const handleDeleteParts = (id) => {
-    const newParts = parts.filter((_, idx) => idx !== id);
-    setParts(newParts);
-  };
-
-  const handleUpdateParts = (id, part) => {
-    setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
-  };
   return (
     <AppLayout>
       <div>
@@ -99,7 +90,6 @@ const Create: React.FC = () => {
         </S.InnerWrapper>
         <S.InnerWrapper>
           <SelectBox
-            disabled={false}
             label={"예상기간"}
             defaultValue={"1개월"}
             options={expectedDateOptions}
@@ -110,12 +100,13 @@ const Create: React.FC = () => {
       </S.Wrapper>
       <h3>모집 분야</h3>
       <PartBoxList
-        disabled={false}
+        disabled={true}
         parts={parts}
+        handleDeleteParts={() => {
+          console.log("hi");
+        }}
         handleUpdateParts={handleUpdateParts}
-        handleDeleteParts={handleDeleteParts}
       />
-      <Button onClick={handleAddParts}>모집분야 추가</Button>
       <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
         isIntroduction={true}
@@ -125,10 +116,9 @@ const Create: React.FC = () => {
         {introduction}
       </Textarea>
       <Button isRound={true} width="300">
-        생성하기
+        수정하기
       </Button>
-      <ImageUploader />
     </AppLayout>
   );
 };
-export default Create;
+export default Edit;

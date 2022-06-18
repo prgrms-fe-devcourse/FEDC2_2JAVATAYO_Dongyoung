@@ -9,6 +9,7 @@ interface SelectInterface {
   canAllowClear: boolean;
   setSelectedValue: Dispatch<SetStateAction<string>>;
   label: string;
+  disabled?: boolean;
 }
 
 const SelectBox: React.FC<SelectInterface> = ({
@@ -16,12 +17,14 @@ const SelectBox: React.FC<SelectInterface> = ({
   options,
   canAllowClear,
   setSelectedValue,
-  label
+  label,
+  disabled
 }) => {
   return (
     <S.SelectBox>
       <Label>{label}</Label>
       <Select
+        disabled={disabled}
         options={options}
         defaultValue={defaultValue}
         setSelectedValue={setSelectedValue}
