@@ -30,7 +30,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     <>
       <div
         onClick={() => inputRef.current.click()}
-        style={{ ...replacementStyle }}
+        style={{ ...replacementStyle, cursor: "pointer" }}
       >
         {replacement ? replacement : null}
       </div>
