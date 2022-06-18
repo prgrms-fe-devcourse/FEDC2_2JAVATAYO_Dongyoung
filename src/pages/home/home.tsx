@@ -3,7 +3,6 @@ import { Card, Button, Footer, Header } from "@components/common";
 import Filter from "@components/home/Filter";
 import * as S from "./style";
 import { authAPI, postAPI } from "@utils/apis";
-import CHANNELS from "@constants/channel";
 
 const Home: React.FC = () => {
   // contextAPI로 변경 (로그인확인부분)
@@ -22,8 +21,13 @@ const Home: React.FC = () => {
     channelSearch(id);
   };
 
-  const getAllPost = () => {
-    console.log("all");
+  const getAllPost = async () => {
+    try {
+      const { data } = await postAPI.allPost();
+      setPosts(data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const channelSearch = async (id) => {
@@ -36,7 +40,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    channelSearch(CHANNELS.front._id);
+    getAllPost();
   }, []);
 
   return (

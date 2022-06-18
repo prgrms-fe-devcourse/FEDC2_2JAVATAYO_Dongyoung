@@ -9,7 +9,7 @@ interface FilterInterface {
 
 const Filter: React.FC<FilterInterface> = ({ channelChange, getAllPost }) => {
   const channels = Object.entries(CHANNELS);
-  const [channel, setChannel] = useState<string>("front");
+  const [channel, setChannel] = useState<string>("all");
 
   return (
     <S.FilterWrap>
@@ -21,7 +21,7 @@ const Filter: React.FC<FilterInterface> = ({ channelChange, getAllPost }) => {
           value="all"
           onChange={(e) => {
             setChannel(e.target.value);
-            // channelChange("all");
+            getAllPost();
           }}
         />
         {channel === "all" ? (
