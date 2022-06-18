@@ -21,7 +21,6 @@ const AppRouter: React.FC = () => {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/result/:id" element={<Result />} />
-
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
