@@ -12,8 +12,25 @@ const ImageUploader: React.FC = () => {
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    console.log(imageList);
+    if (imageList.length >= 2) {
+      alert("사진은 한장만 업로드 가능합니다");
+      return;
+    }
     setImages(imageList as never[]);
+  };
+
+  const renderImageItem = (imageList, onImageRemove) => {
+    return (
+      <S.ImageItem>
+        <img src={imageList[0].dataURL} alt="img" width="100" />
+        <Button
+          style={{ border: "none", transform: "scale(1.2)" }}
+          icon={<DeleteOutlined />}
+          onClick={() => onImageRemove(0)}
+        ></Button>
+      </S.ImageItem>
+    );
   };
 
   return (
@@ -32,25 +49,23 @@ const ImageUploader: React.FC = () => {
         dragProps
       }) => (
         <S.UploadImageWrapper>
-          <Button
-            icon={<UploadOutlined />}
-            style={isDragging ? { color: "red" } : undefined}
-            onClick={onImageUpload}
-            {...dragProps}
-          >
-            Click or Drop here
-          </Button>
-
-          {imageList.map((image, index) => (
-            <S.ImageItem key={index}>
-              <img src={image.dataURL} alt="img" width="100" />
-              <Button
-                style={{ border: "none", transform: "scale(1.2)" }}
-                icon={<DeleteOutlined />}
-                onClick={() => onImageRemove(index)}
-              ></Button>
-            </S.ImageItem>
-          ))}
+          <>
+            <Button
+              icon={<UploadOutlined />}
+              style={isDragging ? { color: "red" } : undefined}
+              onClick={() => {
+                if (imageList.length >= 2) {
+                  alert("사진은 한 장만 업로드 가능합니다");
+                  return;
+                }
+                onImageUpload();
+              }}
+              {...dragProps}
+            >
+              Click or Drop here
+            </Button>
+            {imageList.length > 0 && renderImageItem(imageList, onImageRemove)}
+          </>
         </S.UploadImageWrapper>
       )}
     </ImageUploading>
