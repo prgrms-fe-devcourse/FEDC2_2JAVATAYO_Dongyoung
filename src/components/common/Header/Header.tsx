@@ -1,13 +1,13 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as Logo } from "../../../assets/logos/Logo.svg";
-import { ReactComponent as Bell } from "../../../assets/icons/icon_bell.svg";
+import { ReactComponent as Logo } from "@assets/logos/Logo.svg";
+import { ReactComponent as Bell } from "@assets/icons/icon_bell.svg";
 import { useEffect, useState } from "react";
 import storage from "@utils/storage";
-import { ProfileImage } from "..";
 import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
 import { authAPI } from "@utils/apis";
+import ProfileImage from "../ProfileImage";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ const Header: React.FC = () => {
   const userInfo = async () => {
     const { data } = await authAPI.checkAuthUser();
     setUserData(data);
-    console.log(data);
   };
   useEffect(() => {
     userInfo();
