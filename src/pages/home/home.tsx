@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Footer, Header } from "@components/common";
 import Filter from "@components/home/Filter";
 import * as S from "./style";
-import { authAPI } from "@utils/apis";
+import { authAPI, postAPI } from "@utils/apis";
+import CHANNELS from "@constants/channel";
 
 const Home: React.FC = () => {
   // contextAPI로 변경 (로그인확인부분)
@@ -17,6 +18,24 @@ const Home: React.FC = () => {
   }, []);
   // contextAPI로 변경 (로그인확인부분)
 
+  const channelChange = (id: string) => {
+    channelSearch(id);
+  };
+
+  const channelSearch = async (id) => {
+    try {
+      const { data } = await postAPI.getChannelPostList(id);
+      setPosts(data);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    channelSearch(CHANNELS.front._id);
+  }, []);
+
   return (
     <>
       <Header />
@@ -25,7 +44,7 @@ const Home: React.FC = () => {
         <h2>이런 프로젝트가 올라왔어요</h2>
       </S.Wrapper>
       <S.FilterWrapper>
-        <Filter setPost={setPosts} />
+        <Filter channelChange={channelChange} />
       </S.FilterWrapper>
       <S.Wrapper>
         <S.CardBox>

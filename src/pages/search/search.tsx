@@ -12,7 +12,7 @@ const Search: React.FC = () => {
     <AppLayout banner>
       <S.Search>
         <S.H2>{posts.length}개의 프로젝트를 찾았습니다. 🚐</S.H2>
-        <Filter setPost={setPosts} />
+        {/* <Filter setPost={setPosts} /> */}
         <S.CardBox>
           {posts.map((post, i) => (
             <Card post={post} key={i} />
