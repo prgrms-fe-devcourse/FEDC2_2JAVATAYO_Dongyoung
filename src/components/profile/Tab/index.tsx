@@ -1,10 +1,11 @@
-import React, { ReactElement, useMemo, useState } from "react";
+import React, { CSSProperties, ReactElement, useMemo, useState } from "react";
 import TabItem, { TabItemInterface } from "./TabItem";
 import * as S from "./style";
 
 interface TabInterface {
   children: React.ReactNode;
   active?: number;
+  style?: CSSProperties;
 }
 
 type TabCompositionType = {
@@ -39,10 +40,10 @@ const Tab: React.FC<TabInterface> & TabCompositionType = ({
   );
 
   return (
-    <div>
-      <S.TabWrapper>{tabItemList}</S.TabWrapper>
-      <div>{activeTabItem.props.children}</div>
-    </div>
+    <>
+      <S.TabWrapper style={{ ...props.style }}>{tabItemList}</S.TabWrapper>
+      <div style={{ width: "100%" }}>{activeTabItem.props.children}</div>
+    </>
   );
 };
 
