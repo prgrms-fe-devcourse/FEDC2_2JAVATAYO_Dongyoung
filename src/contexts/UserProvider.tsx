@@ -1,49 +1,35 @@
-import { createContext, useContext, useReducer } from "react";
+import { useEffect, createContext, useContext, useReducer } from "react";
+import storage from "../utils/storage";
+import { authAPI } from "../utils/apis";
+
 interface UserProviderInterface {
   children: React.ReactNode;
 }
-const initialUser = {
-  coverImage: null,
-  image: null,
-  posts: null,
-  likes: null,
-  comments: null,
-  followers: null,
-  following: null,
-  notifications: null,
-  messages: null,
-  _id: null,
-  fullName: null,
-  email: null,
-  createdAt: null,
-  updatedAt: null,
-  token: null,
-  isLoggedIn: false
-};
 
+const initialUser = { isLoggedIn: false };
 const UserContext = createContext(null);
 export const useUser = () => useContext(UserContext);
-
 const reducer = (state, { type, payload }) => {
   switch (type) {
-    case "saveLoginInfo": {
+    case "INIT": {
       return {
-        coverImage: payload.userData.coverImage,
-        image: payload.userData.image,
-        posts: payload.userData.posts,
-        likes: payload.userData.likes,
-        comments: payload.userData.comments,
-        followers: payload.userData.followers,
-        following: payload.userData.following,
-        notifications: payload.userData.notifications,
-        messages: payload.userData.messages,
-        _id: payload.userData._id,
-        fullName: payload.userData.fullName,
-        email: payload.userData.email,
-        createdAt: payload.userData.createdAt,
-        updatedAt: payload.userData.updatedAt,
-        token: payload.token,
-        isLoggedIn: true
+        ...state
+      };
+    }
+    case "LOGIN": {
+      return {
+        ...state,
+        ...payload
+      };
+    }
+    case "LOGOUT": {
+      return {
+        ...payload
+      };
+    }
+    case "onUpdate": {
+      return {
+        ...payload
       };
     }
     default: {
@@ -54,11 +40,31 @@ const reducer = (state, { type, payload }) => {
 
 const UserProvider: React.FC<UserProviderInterface> = ({ children }) => {
   const [userInfo, dispatch] = useReducer(reducer, initialUser);
-  const onSaveUserInfo = ({ userData, token }) => {
-    dispatch({ type: "saveLoginInfo", payload: { userData, token } });
+  const handleInit = async () => {
+    const data = await authAPI.checkAuthUser().then((res) => {
+      return res.data;
+    });
+    return data;
   };
+  useEffect(() => {
+    const token = storage.getItem("TOKEN", "");
+
+    if (token) dispatch({ type: "INIT", payload: "" });
+    else dispatch({ type: "LOGOUT", payload: initialUser });
+  }, []);
+
+  const onLogin = (user) => {
+    dispatch({ type: "LOGIN", payload: user });
+  };
+  const onLogOut = () => {
+    dispatch({ type: "LOGOUT", payload: initialUser });
+  };
+  const onUpdate = (newInfo) => {
+    dispatch({ type: "UPDATE_USER_INFO", payload: newInfo });
+  };
+
   return (
-    <UserContext.Provider value={{ userInfo, onSaveUserInfo }}>
+    <UserContext.Provider value={{ userInfo, onLogin, onLogOut, onUpdate }}>
       {children}
     </UserContext.Provider>
   );
