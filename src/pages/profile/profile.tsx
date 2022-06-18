@@ -8,7 +8,8 @@ import {
   Tab,
   ProfileImageBox,
   CoverImageBox,
-  EditFullName
+  EditFullName,
+  Modal
 } from "@components/profile";
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
@@ -18,6 +19,7 @@ const Profile: React.FC = () => {
   const user = DUMMY_USER;
 
   const [isMine, setIsMine] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -98,7 +100,15 @@ const Profile: React.FC = () => {
           </Button>
         </S.Wrapper>
 
-        <EditFullName />
+        <Modal
+          height="294px"
+          visible={visible}
+          onClose={() => setVisible(false)}
+        >
+          <EditFullName />
+        </Modal>
+
+        <button onClick={() => setVisible(true)}>모달 얍</button>
       </S.Layout>
 
       <Footer />

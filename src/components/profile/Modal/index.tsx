@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
-import { useClickAway } from "../../../hooks";
+import { useClickAway } from "@hooks";
+import closeSvg from "@assets/icons/icon_close.svg";
 import * as S from "./style";
-import closeSvg from "../../../assets/icons/icon_close.svg";
 
 interface ModalInterface {
   children: React.ReactNode;
@@ -24,6 +24,7 @@ export const Modal: React.FC<ModalInterface> = ({
 
   const el = useMemo(() => document.createElement("div"), []);
   useEffect(() => {
+    el.style.height = "100%";
     document.body.appendChild(el);
     return () => {
       document.body.removeChild(el);

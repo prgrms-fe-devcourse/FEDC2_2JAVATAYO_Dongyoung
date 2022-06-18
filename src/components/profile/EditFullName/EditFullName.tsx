@@ -3,6 +3,7 @@ import Button from "@components/common/Button";
 import InputBox from "@components/create/InputBox/InputBox";
 import { searchAPI, settingAPI } from "@utils/apis";
 import { IUser } from "src/types/model";
+import * as S from "./style";
 
 const isValidFullName = (fullName: string) => {
   return /^[가-힣|a-z|A-Z|\d]{2,8}$/.test(fullName);
@@ -53,6 +54,7 @@ const EditFullName: FC = () => {
 
   return (
     <Fragment>
+      <S.Strong>닉네임 변경</S.Strong>
       <div style={{ display: "flex", gap: "10px" }}>
         <InputBox
           width={246}

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const BackgroundDim = styled.div<{ visible: boolean }>`
   display: ${({ visible }) => (visible ? "block" : "none")};
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
