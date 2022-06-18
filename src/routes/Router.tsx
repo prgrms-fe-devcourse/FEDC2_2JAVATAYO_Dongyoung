@@ -5,7 +5,7 @@ import Detail from "../pages/detail";
 import Edit from "../pages/edit";
 import Home from "../pages/home";
 import Profile from "../pages/profile/profile";
-import Result from "../pages/result";
+import Result from "../pages/search";
 import SignIn from "../pages/signIn";
 import SignUp from "../pages/signUp";
 
@@ -20,8 +20,7 @@ const AppRouter: React.FC = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/edit/:id" element={<Edit />} />
-        <Route path="/result/:id" element={<Result />} />
-
+        <Route path="/search/:keyword" element={<Result />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
