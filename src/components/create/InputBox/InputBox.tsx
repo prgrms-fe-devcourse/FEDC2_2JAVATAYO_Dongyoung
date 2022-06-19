@@ -4,6 +4,8 @@ import Input from "../../common/Input";
 import ErrorMessage from "../../common/ErrorMessage";
 
 interface InputBoxInterface {
+  name?: string;
+  type?: string;
   label?: string;
   errorMessage?: string;
   width?: number;
@@ -12,7 +14,9 @@ interface InputBoxInterface {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 const InputBox: React.FC<InputBoxInterface> = ({
+  name,
   label,
+  type,
   width,
   placeholder,
   value,
@@ -22,7 +26,13 @@ const InputBox: React.FC<InputBoxInterface> = ({
   return (
     <S.InputBox style={{ width }}>
       <Label>{label}</Label>
-      <Input placeholder={placeholder} value={value} onChange={onChange} />
+      <Input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
       <ErrorMessage>{errorMessage}</ErrorMessage>
     </S.InputBox>
   );
