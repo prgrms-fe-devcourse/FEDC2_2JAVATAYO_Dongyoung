@@ -1,7 +1,7 @@
 import AppLayout from "@components/common/AppLayout";
 import Button from "@components/common/Button";
 import Card from "@components/common/Card";
-import Filter from "@components/home/Filter";
+import Filter from "@components/search/Filter";
 import { searchAPI } from "@utils/apis";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -10,6 +10,7 @@ import * as S from "./style";
 
 const Search: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [filterPost, setFilterPost] = useState<IPost[]>([]);
   const params = useParams();
 
   const search = async () => {
@@ -27,6 +28,7 @@ const Search: React.FC = () => {
       return title.toLowerCase().includes("백엔드");
     });
     setPosts(result);
+    setFilterPost(result);
   };
 
   useEffect(() => {
@@ -36,10 +38,10 @@ const Search: React.FC = () => {
   return (
     <AppLayout banner>
       <S.Search>
-        <S.H2>{posts.length}개의 프로젝트를 찾았습니다. 🚐</S.H2>
-        {/* <Filter setPost={setPosts} /> */}
+        <S.H2>{filterPost.length}개의 프로젝트를 찾았습니다. 🚐</S.H2>
+        <Filter posts={posts} setFilterPost={setFilterPost} />
         <S.CardBox>
-          {posts.map((post, i) => (
+          {filterPost.map((post, i) => (
             <Card post={post} key={i} />
           ))}
         </S.CardBox>
