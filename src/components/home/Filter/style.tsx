@@ -36,7 +36,7 @@ export const SelectLabel = styled.label`
   display: block;
   margin-right: 8px;
   height: 40px;
-  padding: 0 30px;
+  padding: 0 24px;
   border-radius: 40px;
   border: 1px solid ${theme.$red};
   background-color: ${theme.$red};
@@ -52,7 +52,7 @@ export const Label = styled.label`
   display: block;
   margin-right: 8px;
   height: 40px;
-  padding: 0 30px;
+  padding: 0 24px;
   border-radius: 40px;
   background-color: #fff;
   border: 1px solid ${theme.$red};
