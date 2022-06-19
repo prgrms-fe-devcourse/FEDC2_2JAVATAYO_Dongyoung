@@ -4,7 +4,7 @@ interface InputInterface {
   type?: string;
   width?: number;
   placeholder?: string;
-  value: string;
+  value?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   name?: string;
 }
