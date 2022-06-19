@@ -6,16 +6,17 @@ interface TextareaInterface {
   isIntroduction: boolean;
   children?: React.ReactNode;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  textAreaRef?: React.MutableRefObject<HTMLTextAreaElement>;
 }
 
 const Textarea: React.FC<TextareaInterface> = ({
   isLogin,
   isIntroduction,
   children,
-  onChange
+  onChange,
+  textAreaRef
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [ContentValue, setContentValue] = useState(""); // 수정 페이지에서 불러올 value관리
 
   const handleResizeHeight = useCallback(() => {
     if (
@@ -44,7 +45,7 @@ const Textarea: React.FC<TextareaInterface> = ({
       placeholder={placeholderText}
       onChange={children !== null ? onChange : null}
       onInput={isIntroduction ? handleResizeHeight : null}
-      ref={isIntroduction ? ref : null}
+      ref={textAreaRef}
     >
       {children}
     </S.Textarea>
