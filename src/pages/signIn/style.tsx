@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const LogInWrapper = styled.div`
-  height: 100vh;
   margin: 20px 25%;
 `;
 

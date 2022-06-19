@@ -1,15 +1,16 @@
 import * as S from "./style";
-import { InputBox, Button, AppLayout, logoImg } from "./index";
+import {
+  InputBox,
+  Button,
+  AppLayout,
+  logoImg
+} from "../../components/signIn/index";
 import { useNavigate } from "react-router-dom";
-import useForm from "../../hooks/useSignIn";
-
+import useSignIn from "../../hooks/useSignIn";
+import type { error } from "../../hooks/useSignIn";
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
-  type error = {
-    email?: string;
-    password?: string;
-  };
-  const { values, errors, handleChange, handleSubmit } = useForm({
+  const { values, errors, handleChange, handleSubmit } = useSignIn({
     initialValues: {
       email: "",
       password: ""
@@ -21,7 +22,7 @@ const SignIn: React.FC = () => {
         errors.email = "올바른 이메일 형식이 아닙니다 ";
 
       if (!password) errors.password = "비밀번호를 입력해주세요";
-      else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password))
+      else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]$/.test(password))
         errors.password = "비밀번호는 하나 이상의 문자와 숫자여야 합니다";
       else if (password.length < 6 || password.length > 12)
         errors.password = "비밀번호는 6자리 이상 12자리 이하여야 합니다";
