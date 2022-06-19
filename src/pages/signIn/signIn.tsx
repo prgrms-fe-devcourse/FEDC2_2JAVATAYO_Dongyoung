@@ -56,7 +56,7 @@ const SignIn: React.FC = () => {
           />
         </S.MarginWrapper>
         <S.MarginWrapper>
-          <Button onClick={handleSubmit}>로그인</Button>
+          <Button onClick={handleSubmit}>Login</Button>
         </S.MarginWrapper>
         <S.CheckId>
           <span>회원이 아니신가요?</span>
