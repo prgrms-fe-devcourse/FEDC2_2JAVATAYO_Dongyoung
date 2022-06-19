@@ -1,4 +1,4 @@
-import useHover from "./useHover";
-import useClickAway from "./useClickAway";
-
-export { useHover, useClickAway };
+export { default as useAxios } from "./useAxios";
+export { default as useAxiosFn } from "./useAxiosFn";
+export { default as useClickAway } from "./useClickAway";
+export { default as useHover } from "./useHover";
