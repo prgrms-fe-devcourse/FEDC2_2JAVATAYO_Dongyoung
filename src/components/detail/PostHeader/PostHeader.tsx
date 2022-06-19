@@ -12,10 +12,12 @@ interface PostHeaderInterface {
   authorId: string;
   createdAt: string;
   channel: string;
+  people: string;
   email: string;
   place: string;
   startDate: string;
   expectedDate: string;
+  skills: [];
 }
 
 const PostHeader: React.FC<PostHeaderInterface> = ({
@@ -23,10 +25,12 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   authorId,
   createdAt,
   channel,
+  people,
   email,
   place,
   startDate,
-  expectedDate
+  expectedDate,
+  skills
 }) => {
   return (
     <>
@@ -51,10 +55,12 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
       <S.PostSection>요약</S.PostSection>
       <PostSummary
         channel={channel}
+        people={people}
         email={email}
         place={place}
         startDate={startDate}
         expectedDate={expectedDate}
+        skills={skills}
       ></PostSummary>
     </>
   );

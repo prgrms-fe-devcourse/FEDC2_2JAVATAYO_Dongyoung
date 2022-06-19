@@ -1,40 +1,147 @@
-import AppLayout from "../components/common/AppLayout";
-import PostHeader from "../components/detail/PostHeader";
-import PostBody from "../components/detail/PostBody";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import AppLayout from "@components/common/AppLayout";
+import PostHeader from "@components/detail/PostHeader";
+import PostBody from "@components/detail/PostBody";
 import PostFooter from "@components/detail/PostFooter";
-//import postAPI from "../utils/apis/post";
+import postAPI from "@utils/apis/post";
+import commentAPI from "@utils/apis/comment";
 
 const Detail: React.FC = () => {
+  const [postDetail, setPostDetail] = useState(DUMMY_DETAIL);
+  const [titleObj, setTitleObj] = useState({});
+  const [comments, setComments] = useState([]);
+  const editNavigate = useNavigate();
+  const location = useLocation();
+  const postId = location.pathname.substring(8);
+  let paramTitle;
+  let paramIntroduction;
+  let paramEmail;
+  let paramExpectedDate;
+  let paramPlace;
+  let paramStartDate;
+  let paramChannel;
+  let paramSkills;
+  let paramPeople;
+
+  const getPostDetail = async (id) => {
+    try {
+      const { data } = await postAPI.getPostDetail(id);
+      setPostDetail(data);
+      const titleObject = JSON.parse(data.title);
+      setTitleObj(titleObject);
+      setComments(data.comments);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteComment = async (event, id) => {
+    if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      try {
+        await commentAPI.deleteComment(id);
+        setComments(comments.filter((comment) => comment._id !== id));
+      } catch (error) {
+        console.error(error);
+        console.log(error);
+      }
+    }
+  };
+
+  const editHandler = () => {
+    editNavigate("/edit/" + `${postId}`, {
+      state: {
+        title: paramTitle,
+        place: paramPlace,
+        email: paramEmail,
+        startDate: paramStartDate,
+        expectedDate: paramExpectedDate,
+        introduction: paramIntroduction
+      }
+    });
+  };
+
+  useEffect(() => {
+    getPostDetail(postId);
+  }, []);
+
+  const getChannel = (channel) => {
+    switch (channel) {
+      case "front":
+        return "프론트엔드";
+      case "back":
+        return "백엔드";
+      case "AI":
+        return "AI";
+      case "ios":
+        return "iOS";
+      case "android":
+        return "안드로이드";
+      case "designer":
+        return "디자이너";
+      default:
+        return channel;
+    }
+  };
+
+  const string1 = JSON.parse(JSON.stringify(postDetail.title));
+  let prop;
+  for (prop in titleObj) {
+    if (Object.prototype.hasOwnProperty.call(titleObj, prop)) {
+      switch (prop) {
+        case "title":
+          paramTitle = titleObj[prop];
+          break;
+        case "introduction":
+          paramIntroduction = titleObj[prop];
+          break;
+        case "email":
+          paramEmail = titleObj[prop];
+          break;
+        case "expectedDate":
+          paramExpectedDate = titleObj[prop];
+          break;
+        case "place":
+          paramPlace = titleObj[prop];
+          break;
+        case "startDate":
+          paramStartDate = titleObj[prop].replaceAll("/", ".");
+          break;
+        case "parts":
+          paramChannel = getChannel(titleObj[prop].channel);
+          paramSkills = titleObj[prop].skills;
+          paramPeople = titleObj[prop].people;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  const author = postDetail.author.fullName;
+  const updatedAt = postDetail.updatedAt;
   const detail = DUMMY_DETAIL;
-
-  const baseURL = `${process.env.REACT_APP_END_POINT}:${process.env.REACT_APP_PORT}`;
-
-  const introduction = `안녕하세요. 현재 서울에서 개발을 하고 있는 개발자입니다.
-    사이드 프로젝트 경험을 쌓고 싶어 팀을 구해봅니다.
-    서울에서 근무중이라 온/오프라인 상관 없습니다.
-    
-    기술 스택은
-    Front: React, Next.js, TS
-    Back: Express, Nestjs, Django
-    Back보다는 Front를 더 선호합니다.
-  `;
-
   return (
     <AppLayout>
       <div>
         <PostHeader
-          title={detail.title}
-          authorId={detail.author.fullName}
-          createdAt={detail.createdAt}
-          channel={"프론트엔드"}
-          email={"test@test.com"}
-          place={"온라인"}
-          startDate={"2022/06/06"}
-          expectedDate={"3주"}
+          title={paramTitle}
+          authorId={postDetail.author.fullName}
+          createdAt={postDetail.updatedAt.substring(0, 10).replaceAll("-", ".")}
+          channel={paramChannel}
+          people={paramPeople}
+          email={paramEmail}
+          place={paramPlace}
+          startDate={paramStartDate}
+          expectedDate={paramExpectedDate}
+          skills={paramSkills}
         />
-        <PostBody introduction={introduction} />
-        <PostFooter comments={detail.comments} />
-        <PostBody introduction={introduction} />
+        <PostBody introduction={paramIntroduction} postEdit={editHandler} />
+        <PostFooter
+          comments={comments}
+          postId={postId}
+          setComments={setComments}
+          deleteComment={deleteComment}
+        />
       </div>
     </AppLayout>
   );
