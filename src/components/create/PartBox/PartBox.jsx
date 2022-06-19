@@ -90,7 +90,11 @@ const PartBox = ({
         options={stackOptions}
         setSelectedValues={setSkills}
       />
-      {!disabled && <Button onClick={handleDelete}>삭제</Button>}
+      {!disabled && (
+        <Button onClick={handleDelete} width="120">
+          삭제
+        </Button>
+      )}
     </S.PartBox>
   );
 };
