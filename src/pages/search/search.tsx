@@ -36,7 +36,7 @@ const Search: React.FC = () => {
   const searchPosts = (data) => {
     const result = data.filter((post) => {
       const { title } = JSON.parse(post.title);
-      return title.toLowerCase().includes("백엔드");
+      return title.toLowerCase().includes(params.keyword);
     });
     setPosts(result);
     setFilterPost(result);
