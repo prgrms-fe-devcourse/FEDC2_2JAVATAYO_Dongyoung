@@ -1,7 +1,7 @@
 import AppLayout from "@components/common/AppLayout";
 import Button from "@components/common/Button";
 import Card from "@components/common/Card";
-import Filter from "@components/search/Filter";
+import SearchFilter from "@components/search/SearchFilter";
 import { searchAPI } from "@utils/apis";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -39,7 +39,7 @@ const Search: React.FC = () => {
     <AppLayout banner>
       <S.Search>
         <S.H2>{filterPost.length}개의 프로젝트를 찾았습니다. 🚐</S.H2>
-        <Filter posts={posts} setFilterPost={setFilterPost} />
+        <SearchFilter posts={posts} setFilterPost={setFilterPost} />
         <S.CardBox>
           {filterPost.map((post, i) => (
             <Card post={post} key={i} />

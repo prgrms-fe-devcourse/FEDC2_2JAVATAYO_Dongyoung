@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Footer, Header } from "@components/common";
-import Filter from "@components/home/Filter";
+import HomeFilter from "@components/home/HomeFilter";
 import * as S from "./style";
 import { authAPI, postAPI } from "@utils/apis";
 
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
         <h2>이런 프로젝트가 올라왔어요</h2>
       </S.Wrapper>
       <S.FilterWrapper>
-        <Filter channelChange={channelChange} getAllPost={getAllPost} />
+        <HomeFilter channelChange={channelChange} getAllPost={getAllPost} />
       </S.FilterWrapper>
       <S.Wrapper>
         <S.CardBox>
