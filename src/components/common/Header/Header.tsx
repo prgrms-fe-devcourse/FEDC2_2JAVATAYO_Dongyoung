@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import storage from "@utils/storage";
 import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
+import SearchBar from "../SearchBar";
 import { authAPI, notificationAPI } from "@utils/apis";
 import ProfileImage from "../ProfileImage";
 import DropDown from "../DropDown";
@@ -67,6 +68,7 @@ const Header: React.FC = () => {
       {/* 임시 */}
       {isLoggedIn ? (
         <S.LoggedIn>
+          <SearchBar />
           <Link to={"/create"}>새글쓰기</Link>
           <DropDown contents={noticeContents}>
             <S.Notice isGetAlarm={noticeContents.length !== 0}>
