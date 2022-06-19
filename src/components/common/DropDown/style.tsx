@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import theme from "src/styles/theme";
+import theme from "../../../styles/theme";
 
 export const DropDown = styled.div`
   position: relative;
@@ -20,7 +20,7 @@ export const DropBox = styled.div<{
   padding: 5px 0;
   flex-direction: column;
   border-radius: 8px;
-  color: #fff;
+  background-color: #fff;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   z-index: 50;
