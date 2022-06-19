@@ -19,7 +19,9 @@ const DatePicker: React.FC<DatePickerInterface> = ({ setSelectedValue }) => {
       defaultValue={moment("2022/06/11", dateFormat)}
       onChange={onChange}
       format={dateFormat}
-      style={{ width: "100%" }}
+      style={{
+        width: "100%"
+      }}
     />
   );
 };

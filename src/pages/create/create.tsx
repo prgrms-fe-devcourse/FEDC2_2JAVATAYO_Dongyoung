@@ -10,6 +10,9 @@ import Textarea from "@components/common/Textarea";
 import { usePrompt } from "../../routes/Blocker";
 import ImageUploader from "@components/create/ImageUploader/ImageUploader";
 import PartBoxList from "@components/create/PartBoxList";
+import { ErrorMessage } from "@components/common";
+import { Input } from "antd";
+import Select from "@components/create/Select";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -34,10 +37,21 @@ const Create: React.FC = () => {
   const [email, setEmail] = useState("");
   const [startDate, setStartDate] = useState("");
   const [expectedDate, setExpectedDate] = useState("");
-  const [introduction, setIntroduction] = useState("냥냥");
+  const [introduction, setIntroduction] = useState("");
   const [parts, setParts] = useState([
     { channel: "front", people: "1", skills: [] }
   ]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleCreate = () => {
+    if (title === "") {
+      setErrorMessage("제목을 입력해주세요");
+      return;
+    } else if (email === "") {
+      setErrorMessage("이메일을 입력해주세요");
+      return;
+    }
+  };
 
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   useEffect(() => {
@@ -66,9 +80,9 @@ const Create: React.FC = () => {
   return (
     <AppLayout>
       <div>
-        <InputBox
-          label="제목"
-          placeholder="제목을 입력해주세요"
+        <Label>제목</Label>
+        <Input
+          aria-label="제목"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -84,8 +98,8 @@ const Create: React.FC = () => {
           />
         </S.InnerWrapper>
         <S.InnerWrapper>
-          <InputBox
-            label="연락 이메일"
+          <Label>이메일</Label>
+          <Input
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -98,12 +112,12 @@ const Create: React.FC = () => {
           <DatePicker setSelectedValue={setStartDate} />
         </S.InnerWrapper>
         <S.InnerWrapper>
-          <SelectBox
+          <Label>예상기간</Label>
+          <Select
             disabled={false}
-            label={"예상기간"}
             defaultValue={"1개월"}
             options={expectedDateOptions}
-            canAllowClear={true}
+            canAllowClear={false}
             setSelectedValue={setExpectedDate}
           />
         </S.InnerWrapper>
@@ -124,9 +138,10 @@ const Create: React.FC = () => {
       >
         {introduction}
       </Textarea>
-      <Button isRound={true} width="300">
+      <Button isRound={true} width="300" onClick={handleCreate}>
         생성하기
       </Button>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <ImageUploader />
     </AppLayout>
   );
