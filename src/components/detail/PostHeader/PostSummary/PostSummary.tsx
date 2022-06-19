@@ -4,6 +4,7 @@ interface PostSummaryInterface {
   channel: string;
   email: string;
   place: string;
+  people: string;
   startDate: string;
   expectedDate: string;
   [skills: string]: any;
@@ -13,6 +14,7 @@ const PostSummary: React.FC<PostSummaryInterface> = ({
   channel,
   email,
   place,
+  people,
   startDate,
   expectedDate,
   skills
@@ -26,6 +28,10 @@ const PostSummary: React.FC<PostSummaryInterface> = ({
       <tr>
         <td>모집분야</td>
         <td>{channel}</td>
+      </tr>
+      <tr>
+        <td>모집인원</td>
+        <td>{people}</td>
       </tr>
       <tr>
         <td>연락 방법</td>
@@ -48,9 +54,10 @@ const PostSummary: React.FC<PostSummaryInterface> = ({
         {/* <td>{skills}</td> */}
         <td>
           <S.FlexBetween>
-            <SkillIcon name="type_script" alt="TypeScript" />
-            <SkillIcon name="react" alt="React" />
-            <SkillIcon name="redux" alt="Redux" />
+            {skills &&
+              skills.map((skill) => {
+                return <SkillIcon key="" name={skill.toString()} alt={skill} />;
+              })}
           </S.FlexBetween>
         </td>
       </tr>

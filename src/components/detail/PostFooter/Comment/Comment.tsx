@@ -1,23 +1,23 @@
 import * as S from "./style";
 import ProfileImage from "../../../common/ProfileImage";
 import theme from "../../../../styles/theme";
-
+import { useState } from "react";
 interface CommentInterface {
+  key: string;
+  commentId: string;
   comment: string;
+  comments: object[];
   author: string;
   updatedAt: string;
+  deleteComment: (value: object, id: string) => void;
 }
 
-const deleteComment = () => {
-  if (window.confirm("댓글을 삭제하시겠습니까?")) {
-    alert("삭제 구현중!!");
-  }
-};
-
 const Comment: React.FC<CommentInterface> = ({
+  commentId,
   comment,
   author,
-  updatedAt
+  updatedAt,
+  deleteComment
 }) => {
   return (
     <div>
@@ -32,7 +32,7 @@ const Comment: React.FC<CommentInterface> = ({
       <S.DeleteCommetDiv>
         <span></span>
         <span
-          onClick={deleteComment}
+          onClick={(e) => deleteComment(e, commentId)}
           style={{ textDecoration: "underline", color: theme.$gray600 }}
         >
           댓글삭제
