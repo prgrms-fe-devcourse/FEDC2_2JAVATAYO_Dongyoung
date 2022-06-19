@@ -13,7 +13,7 @@ type LikeBtnInterface = {
 
 const LikeBtn: React.FC<LikeBtnInterface> = ({ likes, postId, userId }) => {
   const [likeId, setLikeId] = useState<string>(null);
-  const [totalLike, setTotalLike] = useState(likes.length);
+  const [totalLike, setTotalLike] = useState(0);
 
   const clickLikeBtn = async (e) => {
     e.stopPropagation();
@@ -37,7 +37,8 @@ const LikeBtn: React.FC<LikeBtnInterface> = ({ likes, postId, userId }) => {
       return like.user === userId;
     });
     setLikeId(userLike[0] ? userLike[0]._id : null);
-  }, [likes, userId]);
+    setTotalLike(likes.length);
+  }, [likes]);
 
   return (
     <S.LikeBtn onClick={userId ? clickLikeBtn : null} userId={userId}>
