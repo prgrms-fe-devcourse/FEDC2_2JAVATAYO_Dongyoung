@@ -15,12 +15,12 @@ const PartBox = ({
   disabled
 }) => {
   const channelOption = [
-    { id: 1, value: "front", label: "프론트엔드" },
+    { id: 1, value: "front", label: "프론트" },
     { id: 2, value: "back", label: "백엔드" },
     { id: 3, value: "ios", label: "ios" },
     { id: 4, value: "android", label: "android" },
     { id: 5, value: "designer", label: "디자인" },
-    { id: 6, value: "AI", label: "AI" }
+    { id: 6, value: "ai", label: "AI" }
   ];
 
   const peopleOption = [
