@@ -1,4 +1,3 @@
-export {};
 import * as S from "./style";
 import { InputBox, Button, AppLayout, logoImg } from "./index";
 import authAPI from "../../utils/apis/auth";
@@ -64,29 +63,37 @@ const SignIn: React.FC = () => {
   return (
     <AppLayout>
       <S.LogInWrapper>
-        <S.Image src={logoImg} alt="로고" onClick={() => navigate("/")} />
+        <S.Image>
+          <img src={logoImg} alt="로고" onClick={() => navigate("/")} />
+        </S.Image>
         <S.H2>로그인</S.H2>
-        <S.InputBox>
-          <Label>이메일</Label>
-          <Input
+        <S.MarginWrapper>
+          <InputBox
+            label="이메일"
             name="email"
             type="email"
             value={values.email}
             onChange={handleChange}
+            errorMessage={errors.email}
           />
-          <ErrorMessage>{errors.email}</ErrorMessage>
-        </S.InputBox>
-        <S.InputBox>
-          <Label>비밀번호</Label>
-          <Input
+        </S.MarginWrapper>
+        <S.MarginWrapper>
+          <InputBox
+            label="비밀번호"
             name="password"
             type="password"
             value={values.password}
             onChange={handleChange}
+            errorMessage={errors.password}
           />
-          <ErrorMessage>{errors.password}</ErrorMessage>
-        </S.InputBox>
-        <Button onClick={handleSubmit}>로그인</Button>
+        </S.MarginWrapper>
+        <S.MarginWrapper>
+          <Button onClick={handleSubmit}>로그인</Button>
+        </S.MarginWrapper>
+        <S.CheckId>
+          <span>회원이 아니신가요?</span>
+          <span>회원가입</span>
+        </S.CheckId>
       </S.LogInWrapper>
     </AppLayout>
   );

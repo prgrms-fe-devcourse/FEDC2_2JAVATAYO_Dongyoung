@@ -6,7 +6,7 @@ import Edit from "../pages/edit/edit";
 import Home from "../pages/home";
 import Profile from "../pages/profile/profile";
 import Result from "../pages/search";
-import SignIn from "../pages/signIn";
+import SignIn from "../pages/signIn/signIn";
 import SignUp from "../pages/signUp";
 
 const AppRouter: React.FC = () => {
