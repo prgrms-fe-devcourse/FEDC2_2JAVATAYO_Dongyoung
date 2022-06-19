@@ -10,7 +10,14 @@ import useSignUp from "../../hooks/useSignUp";
 import type { error } from "../../hooks/useSignUp";
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const { values, errors, handleChange, handleSubmit } = useSignUp({
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleDuplicate,
+    testSubmit
+  } = useSignUp({
     initialValues: {
       fullName: "",
       email: "",
@@ -46,7 +53,9 @@ const SignUp: React.FC = () => {
             onChange={handleChange}
             errorMessage={errors.fullName}
           />
-          <Button buttonType="red-line">중복 확인</Button>
+          <Button buttonType="red-line" onClick={handleDuplicate}>
+            중복 확인
+          </Button>
         </S.ConfirmWrapper>
         <S.MarginWrapper>
           <InputBox
@@ -78,9 +87,10 @@ const SignUp: React.FC = () => {
           />
         </S.MarginWrapper>
         <S.MarginWrapper>
-          <Button>로그인</Button>
+          <Button onClick={testSubmit}>Sign Up</Button>
         </S.MarginWrapper>
       </S.SignUpWrapper>
+      <button onClick={handleDuplicate}>get user</button>
     </AppLayout>
   );
 };
