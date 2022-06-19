@@ -1,7 +1,7 @@
 import * as S from "./style";
 import { InputBox, Button, AppLayout, logoImg } from "./index";
 import { useNavigate } from "react-router-dom";
-import useForm from "../../hooks/useForm";
+import useForm from "../../hooks/useSignIn";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const SignIn: React.FC = () => {
     email?: string;
     password?: string;
   };
-  const { values, errors, isLoading, handleChange, handleSubmit } = useForm({
+  const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: "",
       password: ""
