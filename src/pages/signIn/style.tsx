@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const LogInWrapper = styled.div`
   height: 100vh;
-  margin: 40px 25%;
+  margin: 20px 25%;
 `;
 
 export const Image = styled.div`
@@ -28,5 +28,5 @@ export const CheckId = styled.div`
 `;
 
 export const MarginWrapper = styled.div`
-  margin: 20px 0;
+  margin: 30px 0;
 `;

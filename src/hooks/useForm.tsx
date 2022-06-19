@@ -2,8 +2,10 @@ import { useState } from "react";
 import { authAPI } from "../utils/apis";
 import storage from "../utils/storage";
 import { useNavigate } from "react-router-dom";
-const useForm = ({ initialValues, onSubmit, isError }) => {
+import { useAuth } from "../contexts/AuthProvider";
+const useForm = ({ initialValues, isError }) => {
   const navigate = useNavigate();
+  const { onLogin } = useAuth();
   type error = {
     email?: string;
     password?: string;
@@ -26,9 +28,9 @@ const useForm = ({ initialValues, onSubmit, isError }) => {
       })
       .then((res) => {
         const { user, token } = res.data;
-        // onSaveUserInfo({ userData: user, token });
-        storage.setItem("token", token);
-        storage.setItem("_id", user._id);
+        onLogin(user);
+        storage.setItem("TOKEN", token);
+        storage.setItem("_ID", user._id);
         navigate("/");
       })
       .catch((err) => {
