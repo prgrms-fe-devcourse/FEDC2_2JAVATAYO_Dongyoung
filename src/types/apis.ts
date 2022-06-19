@@ -30,3 +30,8 @@ export interface ICreateNotification {
   userId: string;
   postId?: string;
 }
+
+export interface IOffsetLimit {
+  offset?: number;
+  limit?: number;
+}
