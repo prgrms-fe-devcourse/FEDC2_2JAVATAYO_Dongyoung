@@ -50,66 +50,27 @@ const Create: React.FC = () => {
       return;
     }
 
-    // parts.forEach((part) => {
-    // const currentChannelId = CHANNELS[part.channel]._id;
-    const title = JSON.stringify({
-      title: "기술뱃지 많이많이",
-      introduction: `2JAVATAYO 이라는 서비스를 만들고 있는 스타트업 입니다. 현재 팀원은 PM, 모바일 개발자, 디자이너 이렇게 총 세명인 상태이고, 백엔드 개발자 분을 현재 찾고 있습니다.
-      
-        현재 팀원들 모두 사이드 프로젝트 형식으로 진행중이니 참고바랍니다!
-      
-        자세한 내용은 아래 노션페이지에서 확인 부탁드립니다!`,
-      email: "puh0128@naver.com",
-      expectedDate: "6개월 이상",
-      place: "notyet",
-      startDate: "2022/06/17",
-      parts: {
-        channel: "back",
-        people: "미정",
-        skills: [
-          ["NodeJs"],
-          ["Firebase"],
-          ["Django"],
-          ["Spring"],
-          ["PostgreSql"],
-          ["GraphQl"]
-        ]
-      }
+    parts.forEach((part) => {
+      const currentChannelId = CHANNELS[part.channel]._id;
+      const title = JSON.stringify({
+        title: _title,
+        introduction,
+        email,
+        expectedDate,
+        place,
+        startDate,
+        parts: part
+      });
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("image", null);
+      formData.append("channelId", currentChannelId);
+      const getPost = async (formData: FormData) => {
+        const res = await postAPI.createPost(formData);
+        console.log(res);
+      };
+      getPost(formData);
     });
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("image", null);
-    formData.append("channelId", "62a55de1c882bf3a287f961c");
-
-    const getPost = async (formData: FormData) => {
-      const response = await postAPI.createPost(formData);
-      console.log(response.data);
-    };
-
-    // const title = JSON.stringify({
-    //   title: _title,
-    //   introduction,
-    //   email,
-    //   expectedDate,
-    //   place,
-    //   startDate,
-    //   parts
-    // });
-    // const formData = new FormData();
-    // formData.append("title", title);
-    // formData.append("image", null);
-    // formData.append("channelId", currentChannelId);
-
-    // console.log(formData.get("title"));
-    // console.log(formData.get("image"));
-    // console.log(formData.get("channelId"));
-    // const getPost = async (formData: FormData) => {
-    //   const res = await postAPI.createPost(formData);
-    //   console.log(res);
-    // };
-    getPost(formData);
-    // });
   };
 
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
