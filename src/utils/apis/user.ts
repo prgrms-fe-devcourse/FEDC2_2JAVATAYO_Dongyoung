@@ -1,7 +1,13 @@
 import { unauthRequest, authRequest } from "./common";
+import { IOffsetLimit } from "../../types/apis";
 
 const userAPI = {
-  getUserList: () => unauthRequest.get("/users/get-users"),
+  getUserList: ({ offset, limit }: IOffsetLimit = {}) => {
+    const hasParams = offset !== undefined && limit !== undefined;
+    return hasParams
+      ? unauthRequest.get("/users/get-users", { params: { offset, limit } })
+      : unauthRequest.get("/users/get-users");
+  },
   getOnlineUserList: () => unauthRequest.get("/users/online-users"),
   getUser: (id: string) => unauthRequest.get(`/users/${id}`),
   changeProfileImage: (formData: FormData) => {
