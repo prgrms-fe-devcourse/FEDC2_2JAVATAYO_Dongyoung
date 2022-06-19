@@ -1,27 +1,34 @@
 import * as S from "./style";
 import TextareaBox from "./TextareaBox";
 import Comment from "./Comment";
+import { useEffect, useState } from "react";
 
 interface PostFooterInterface {
   comments: object[];
+  postId: string;
+  setComments: (value: object) => void;
+  deleteComment: (value: object, id: string) => void;
 }
 
-const PostFooter: React.FC<PostFooterInterface> = ({ comments }) => {
+const PostFooter: React.FC<PostFooterInterface> = ({
+  comments,
+  postId,
+  setComments,
+  deleteComment
+}) => {
   let paramComment;
   let paramAuthor;
   let paramUpdatedAt;
   let paramKey;
-  /* for (let i = 0; i < comments.length; i += 1) {
-    let prop;
-    for (prop in comments[i]) {
-      if (Object.prototype.hasOwnProperty.call(comments[i], prop)) {
-        console.log(comments[i][prop]);
-      }
-    }
-  } */
+
   return (
     <S.PostFooter>
-      <TextareaBox length={comments.length}></TextareaBox>
+      <TextareaBox
+        length={comments.length}
+        postId={postId}
+        comments={comments}
+        setComments={setComments}
+      ></TextareaBox>
       <div>
         {comments.map((comment) => {
           let prop;
@@ -32,10 +39,12 @@ const PostFooter: React.FC<PostFooterInterface> = ({ comments }) => {
                   paramComment = comment[prop];
                   break;
                 case "author":
-                  paramAuthor = comment[prop];
+                  paramAuthor = comment[prop].fullName;
                   break;
                 case "updatedAt":
-                  paramUpdatedAt = comment[prop];
+                  paramUpdatedAt = comment[prop]
+                    .substring(0, 10)
+                    .replaceAll("-", ".");
                   break;
                 case "_id":
                   paramKey = comment[prop];
@@ -47,10 +56,13 @@ const PostFooter: React.FC<PostFooterInterface> = ({ comments }) => {
           }
           return (
             <Comment
+              key={paramKey}
+              commentId={paramKey}
               comment={paramComment}
               author={paramAuthor}
               updatedAt={paramUpdatedAt}
-              key={paramKey}
+              deleteComment={deleteComment}
+              comments={comments}
             />
           );
         })}
