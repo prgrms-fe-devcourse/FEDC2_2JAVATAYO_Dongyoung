@@ -6,7 +6,7 @@ export const LogInWrapper = styled.div`
 
 export const Image = styled.div`
   text-align: center;
-  margin: 40px 0;
+  padding: 40px 0;
   cursor: pointer;
 `;
 
