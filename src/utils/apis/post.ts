@@ -28,7 +28,12 @@ const postAPI = {
     authRequest.put("/posts/update", formData),
   deletePost: (postId: string) =>
     authRequest.delete("/posts/delete", { data: { id: postId } }),
-  allPost: () => unauthRequest.get("/posts")
+  allPost: ({ offset, limit }: IOffsetLimit = {}) => {
+    const hasParams = offset !== undefined && limit !== undefined;
+    return hasParams
+      ? unauthRequest.get("/posts", { params: { offset, limit } })
+      : unauthRequest.get("/posts");
+  }
 };
 
 export default postAPI;
