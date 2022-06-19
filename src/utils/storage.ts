@@ -1,12 +1,8 @@
 const storage = {
   getItem: <T>(key: string, initialValue: T) => {
-    try {
-      const value = localStorage.getItem(key);
-      return JSON.parse(value);
-    } catch (error) {
-      console.error(error);
-      return initialValue;
-    }
+    const value = localStorage.getItem(key);
+
+    return value === null ? initialValue : JSON.parse(value);
   },
   setItem: <T>(key: string, value: T) => {
     try {
@@ -16,11 +12,7 @@ const storage = {
     }
   },
   removeItem: (key: string) => {
-    try {
-      localStorage.removeItem(key);
-    } catch (error) {
-      console.error(error);
-    }
+    localStorage.removeItem(key);
   }
 };
 
