@@ -42,7 +42,7 @@ const Textarea: React.FC<TextareaInterface> = ({
       isIntroduction={isIntroduction}
       disabled={!isLogin}
       placeholder={placeholderText}
-      onChange={isIntroduction ? onChange : null}
+      onChange={children !== null ? onChange : null}
       onInput={isIntroduction ? handleResizeHeight : null}
       ref={isIntroduction ? ref : null}
     >
