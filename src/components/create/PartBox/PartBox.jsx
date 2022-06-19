@@ -38,7 +38,7 @@ const PartBox = ({
   const [stackOptions, setStackOptions] = React.useState(
     SKILL_OPTIONS[0].options
   );
-  const [skills, setSkills] = React.useState(null);
+  const [skills, setSkills] = React.useState([]);
 
   React.useEffect(() => {
     handleUpdate({
@@ -56,7 +56,7 @@ const PartBox = ({
   };
 
   React.useEffect(() => {
-    setSkills(null);
+    setSkills([]);
     getSkillOptions(channel);
   }, [channel]);
 

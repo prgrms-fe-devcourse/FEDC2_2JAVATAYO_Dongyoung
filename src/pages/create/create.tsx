@@ -10,6 +10,7 @@ import { Input } from "antd";
 import Select from "@components/create/Select";
 import { postAPI } from "@utils/apis";
 import CHANNELS from "@constants/channel";
+import { useNavigate } from "react-router";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -29,6 +30,8 @@ const expectedDateOptions = [
 ];
 
 const Create: React.FC = () => {
+  const navigate = useNavigate();
+
   const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
@@ -38,6 +41,8 @@ const Create: React.FC = () => {
   const [parts, setParts] = useState([
     { channel: "front", people: "1", skills: [] }
   ]);
+  const [canNavigate, setCanNavigate] = useState(true);
+  const [alertMessage, setAlertMessage] = useState("메인페이지로 이동합니다");
   const titleRef = useRef(null);
   const emailRef = useRef(null);
 
@@ -50,6 +55,8 @@ const Create: React.FC = () => {
       return;
     }
 
+    //TODO : 형진님의 TextArea focus 추가
+    //TODO : blocker.js 멘트 수정?
     parts.forEach((part) => {
       const currentChannelId = CHANNELS[part.channel]._id;
       const title = JSON.stringify({
@@ -66,23 +73,17 @@ const Create: React.FC = () => {
       formData.append("image", null);
       formData.append("channelId", currentChannelId);
       const getPost = async (formData: FormData) => {
-        const res = await postAPI.createPost(formData);
-        console.log(res);
+        await postAPI.createPost(formData).then((res) => {
+          if (res.statusText === "OK") {
+            navigate("/");
+          }
+        });
       };
       getPost(formData);
     });
   };
 
-  usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
-  useEffect(() => {
-    console.log("title", _title);
-    console.log("email", email);
-    console.log("place", place);
-    console.log("startDate", startDate);
-    console.log("expectedDate", expectedDate);
-    console.log("introduction", introduction);
-    console.log("parts", parts);
-  }, [_title, email, place, startDate, expectedDate, introduction, parts]);
+  usePrompt(alertMessage, canNavigate);
 
   const handleAddParts = () => {
     const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
