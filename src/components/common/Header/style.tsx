@@ -28,7 +28,7 @@ export const Header = styled.header`
   position: fixed;
   justify-content: space-between;
   box-sizing: border-box;
-  z-index: 10000;
+  z-index: 200;
 
   svg {
     width: 180px;

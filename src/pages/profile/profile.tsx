@@ -4,7 +4,13 @@ import Header from "@components/common/Header";
 import Footer from "@components/common/Footer";
 import Card from "@components/common/Card";
 import Button from "@components/common/Button";
-import { Tab, ProfileImageBox, CoverImageBox } from "@components/profile";
+import {
+  Tab,
+  ProfileImageBox,
+  CoverImageBox,
+  EditFullName,
+  Modal
+} from "@components/profile";
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 
@@ -13,6 +19,7 @@ const Profile: React.FC = () => {
   const user = DUMMY_USER;
 
   const [isMine, setIsMine] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -92,6 +99,16 @@ const Profile: React.FC = () => {
             더보기
           </Button>
         </S.Wrapper>
+
+        <Modal
+          height="294px"
+          visible={visible}
+          onClose={() => setVisible(false)}
+        >
+          <EditFullName />
+        </Modal>
+
+        <button onClick={() => setVisible(true)}>모달 얍</button>
       </S.Layout>
 
       <Footer />
