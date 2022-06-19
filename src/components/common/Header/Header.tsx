@@ -7,6 +7,7 @@ import storage from "@utils/storage";
 import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
 import { authAPI } from "@utils/apis";
+import SearchBar from "../SearchBar";
 import ProfileImage from "../ProfileImage";
 
 const Header: React.FC = () => {
@@ -42,6 +43,7 @@ const Header: React.FC = () => {
       {/* 임시 */}
       {isLoggedIn ? (
         <S.LoggedIn>
+          <SearchBar />
           <Link to={"/create"}>새글쓰기</Link>
           <S.Notice isGetAlarm={true} onClick={() => alert("알림")}>
             <Bell />
