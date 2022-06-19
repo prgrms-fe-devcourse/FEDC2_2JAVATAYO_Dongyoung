@@ -23,7 +23,7 @@ const Detail: React.FC = () => {
   let paramChannel;
   let paramSkills;
   let paramPeople;
-
+  let editParamChannel;
   const getPostDetail = async (id) => {
     try {
       const { data } = await postAPI.getPostDetail(id);
@@ -43,20 +43,24 @@ const Detail: React.FC = () => {
         setComments(comments.filter((comment) => comment._id !== id));
       } catch (error) {
         console.error(error);
-        console.log(error);
       }
     }
   };
 
   const editHandler = () => {
-    editNavigate("/edit/" + `${postId}`, {
+    editNavigate("/edit/" + `${titleObj[prop].channel}` + "/" + `${postId}`, {
       state: {
-        title: paramTitle,
-        place: paramPlace,
-        email: paramEmail,
-        startDate: paramStartDate,
-        expectedDate: paramExpectedDate,
-        introduction: paramIntroduction
+        postId: postId != null ? postId : "",
+        title: paramTitle != null ? paramTitle : "",
+        place: paramPlace != null ? paramPlace : "",
+        email: paramEmail != null ? paramEmail : "",
+        startDate: paramStartDate != null ? paramStartDate : "",
+        expectedDate: paramExpectedDate != null ? paramExpectedDate : "",
+        channel: editParamChannel != null ? editParamChannel : "",
+        people: paramPeople != null ? paramPeople : "",
+        skills: paramSkills != null ? paramSkills : "",
+        introduction: paramIntroduction != null ? paramIntroduction : "",
+        image: postDetail.image != null ? postDetail.image : ""
       }
     });
   };
@@ -66,6 +70,7 @@ const Detail: React.FC = () => {
   }, []);
 
   const getChannel = (channel) => {
+    editParamChannel = channel;
     switch (channel) {
       case "front":
         return "프론트엔드";
@@ -169,38 +174,6 @@ const DUMMY_DETAIL = {
       post: "62a62988c882bf3a287f9c8a", // 포스트 id
       createdAt: "2022.06.14",
       updatedAt: "2022.06.14"
-    },
-    {
-      _id: "2",
-      comment: `안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 
-        혹시 프로젝트는 어떤 기획은 정해져 있나요? 어떤 주제로 할 생각이신가요? 
-        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 
-        혹시 프로젝트는 어떤 기획은 정해져 있나요? 어떤 주제로 할 생각이신가요? 
-        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요안녕하세요 
-        개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 혹시 프로젝트는 어떤 기획은 정해져 있나요? 
-        어떤 주제로 할 생각이신가요? 디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요`,
-      author: "마혜경",
-      post: "62a62988c882bf3a287f9c8a", // 포스트 id
-      createdAt: "2022.06.15",
-      updatedAt: "2022.06.15"
-    },
-    {
-      _id: "3",
-      comment: `프로젝트 기간안에 다 할 수 있을까요?? ㅠㅠ`,
-      author: "박유현",
-      post: "62a62988c882bf3a287f9c8a", // 포스트 id
-      createdAt: "2022.06.15",
-      updatedAt: "2022.06.15"
-    },
-    {
-      _id: "4",
-      comment: `안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요. 
-        혹시 프로젝트는 어떤 기획은 정해져 있나요? 어떤 주제로 할 생각이신가요? 
-        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요`,
-      author: "정현진",
-      post: "62a62988c882bf3a287f9c8a", // 포스트 id
-      createdAt: "2022.06.15",
-      updatedAt: "2022.06.15"
     }
   ],
   _id: "62a62988c882bf3a287f9c8a",
@@ -249,5 +222,6 @@ const DUMMY_DETAIL = {
   },
   createdAt: "2022-06-12T17:59:36.277Z",
   updatedAt: "2022-06-12T18:02:42.434Z",
-  __v: 0
+  __v: 0,
+  image: ""
 };
