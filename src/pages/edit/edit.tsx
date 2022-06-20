@@ -10,6 +10,7 @@ import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
 import PartBoxList from "@components/create/PartBoxList";
 import { useParams } from "react-router";
+import { useLocation } from "react-router-dom";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -28,15 +29,34 @@ const expectedDateOptions = [
   { id: 7, value: "notyet", label: "미정" }
 ];
 
+interface StateType {
+  channel: string;
+  email: string;
+  expectedDate: string;
+  image: string;
+  introduction: string;
+  people: string;
+  postId: string;
+  skills: Array<string>;
+  startDate: string;
+  title: string;
+  place: string;
+}
+
+interface LocationParams {
+  state: StateType;
+}
 const Edit: React.FC = () => {
+  const location = useLocation();
+  const state = location.state as StateType;
   const { channel, id } = useParams<Record<string, string>>();
-  const [title, setTitle] = useState("");
-  const [place, setPlace] = useState("online");
-  const [email, setEmail] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [expectedDate, setExpectedDate] = useState("");
-  const [introduction, setIntroduction] = useState("냥냥");
-  const [parts, setParts] = useState([]);
+  const [_title, setTitle] = useState(state.title);
+  const [place, setPlace] = useState(state.place);
+  const [email, setEmail] = useState(state.email);
+  const [startDate, setStartDate] = useState(state.startDate);
+  const [expectedDate, setExpectedDate] = useState(state.expectedDate);
+  const [introduction, setIntroduction] = useState(state.introduction);
+  const [parts, setParts] = useState(state.skills);
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
   console.log(channel, id);
 
@@ -45,14 +65,14 @@ const Edit: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("title", title);
+    console.log("title", _title);
     console.log("email", email);
     console.log("place", place);
     console.log("startDate", startDate);
     console.log("expectedDate", expectedDate);
     console.log("introduction", introduction);
     console.log("parts", parts);
-  }, [title, email, place, startDate, expectedDate, introduction, parts]);
+  }, [_title, email, place, startDate, expectedDate, introduction, parts]);
 
   return (
     <AppLayout>
@@ -60,7 +80,7 @@ const Edit: React.FC = () => {
         <InputBox
           label="제목"
           placeholder="제목을 입력해주세요"
-          value={title}
+          value={_title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
