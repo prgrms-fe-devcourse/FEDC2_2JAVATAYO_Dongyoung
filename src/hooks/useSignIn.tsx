@@ -21,31 +21,33 @@ const useSignIn = ({ initialValues, isError }) => {
   };
 
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
-    await authAPI
-      .signIn({
-        email: values.email,
-        password: values.password
-      })
-      .then((res) => {
-        const { user, token } = res.data;
-        onLogin(user);
-        storage.setItem("TOKEN", token);
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          const newErrors = isError ? isError(values) : {};
-          if (Object.keys(newErrors).length !== 0) {
-            setErrors(newErrors);
-          } else {
+    setIsLoading(true);
+    const newErrors = isError(values);
+
+    if (Object.keys(newErrors).length !== 0) {
+      setErrors(newErrors);
+    } else {
+      await authAPI
+        .signIn({
+          email: values.email,
+          password: values.password
+        })
+        .then((res) => {
+          const { user, token } = res.data;
+          onLogin(user);
+          storage.setItem("TOKEN", token);
+          navigate("/");
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
             alert("이메일 또는 비밀번호를 확인해주세요");
             setValues({ email: "", password: "" });
+            setErrors({});
           }
-        }
-      });
-    setIsLoading(false);
+        });
+      setIsLoading(false);
+    }
   };
 
   return {

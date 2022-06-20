@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const LogInWrapper = styled.div`
-  margin: 20px 25%;
+  margin: 0 25%;
 `;
 
 export const Image = styled.div`
   text-align: center;
-  margin: 40px 0;
+  padding: 40px 0;
   cursor: pointer;
 `;
 
