@@ -12,10 +12,8 @@ type CardInterface = { post?: IPost } & { userId?: string };
 const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
   const postTitle = post ? JSON.parse(post.title) : dummy;
   const { _id, author, likes } = post;
-  const { title, parts, expectedDate } = postTitle;
+  const { title, parts, expectedDate, startDate } = postTitle;
   const navigate = useNavigate();
-
-  const createDate = formatDate(post.createdAt, ".");
 
   const onClickCard = (id) => {
     navigate(`/detail/${id}`);
@@ -32,9 +30,10 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
       <S.Title>{title}</S.Title>
       <span>모집인원: {parts.people}</span>
       <S.SkillIcons>
-        {parts.skills.map((skill) => (
-          <SkillIcon key={skill[0]} name={skill[0]} alt={skill[0]} />
-        ))}
+        {parts.skills.map((skill, i) => {
+          if (i > 5) return;
+          return <SkillIcon key={skill[0]} name={skill[0]} alt={skill[0]} />;
+        })}
       </S.SkillIcons>
       <S.FlexBetween>
         <S.Profile>
@@ -46,8 +45,8 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
           <span>{author.fullName}</span>
         </S.Profile>
         <S.Date>
-          <p>프로젝트 기간: {expectedDate}</p>
-          <p>{createDate}</p>
+          <p>시작 : {startDate.replaceAll("/", ".")}</p>
+          <p>기간 : {expectedDate}</p>
         </S.Date>
       </S.FlexBetween>
     </S.Card>

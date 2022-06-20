@@ -69,6 +69,7 @@ export const Title = styled.p`
 
 export const SkillIcons = styled.div`
   margin: 20px 0 30px;
+  height: 41px;
   & > div {
     margin-right: 6px;
   }
@@ -80,7 +81,7 @@ export const Profile = styled.div`
   span {
     font-weight: bold;
     margin-left: 10px;
-    width: 130px;
+    width: 100px;
     @media (max-width: 400px) {
       width: 100px;
     }
