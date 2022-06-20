@@ -33,6 +33,7 @@ const expectedDateOptions = [
 const Create: React.FC = () => {
   const navigate = useNavigate();
 
+  const [images, setImages] = useState([]);
   const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
@@ -46,17 +47,27 @@ const Create: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState("메인페이지로 이동합니다");
   const titleRef = useRef(null);
   const emailRef = useRef(null);
+  const textAreaRef = useRef(null);
+
+  const validateEmail = (email) => {
+    const re =
+      /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    console.log(re.test(email));
+    return re.test(email);
+  };
 
   const handleCreate = () => {
     if (_title === "") {
       titleRef.current.focus();
       return;
-    } else if (email === "") {
+    } else if (email === "" || !validateEmail(email)) {
       emailRef.current.focus();
+      return;
+    } else if (introduction.length < 2) {
+      textAreaRef.current.focus();
       return;
     }
 
-    //TODO : 형진님의 TextArea focus 추가
     //TODO : blocker.js 멘트 수정?
     parts.forEach((part) => {
       const currentChannelId = CHANNELS[part.channel]._id;
@@ -71,7 +82,7 @@ const Create: React.FC = () => {
       });
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("image", null);
+      formData.append("image", images.length !== 0 ? images[0].file : null);
       formData.append("channelId", currentChannelId);
       const getPost = async (formData: FormData) => {
         await postAPI.createPost(formData).then((res) => {
@@ -101,7 +112,7 @@ const Create: React.FC = () => {
   };
   return (
     <AppLayout>
-      <div>
+      <S.DivWrapper>
         <Label>제목</Label>
         <Input
           ref={titleRef}
@@ -109,7 +120,7 @@ const Create: React.FC = () => {
           value={_title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </div>
+      </S.DivWrapper>
       <S.Wrapper>
         <S.InnerWrapper>
           <SelectBox
@@ -123,6 +134,9 @@ const Create: React.FC = () => {
         <S.InnerWrapper>
           <Label>이메일</Label>
           <Input
+            pattern=".+@globex\.com"
+            type="email"
+            ref={emailRef}
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -132,7 +146,10 @@ const Create: React.FC = () => {
       <S.Wrapper>
         <S.InnerWrapper>
           <Label> 시작일</Label>
-          <DatePicker setSelectedValue={setStartDate} />
+          <DatePicker
+            defaultValue={currentDate()}
+            setSelectedValue={setStartDate}
+          />
         </S.InnerWrapper>
         <S.InnerWrapper>
           <Label>예상기간</Label>
@@ -145,7 +162,7 @@ const Create: React.FC = () => {
           />
         </S.InnerWrapper>
       </S.Wrapper>
-      <h3>모집 분야</h3>
+      <S.H3>모집 분야</S.H3>
       <PartBoxList
         disabled={false}
         parts={parts}
@@ -155,18 +172,21 @@ const Create: React.FC = () => {
       <Button buttonType="red-line" onClick={handleAddParts}>
         모집분야 추가
       </Button>
-      <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
+      <S.H3>프로젝트 소개</S.H3>
       <Textarea
         isIntroduction={true}
         isLogin={true}
+        textAreaRef={textAreaRef}
         onChange={(e) => setIntroduction(e.target.value)}
       >
         {introduction}
       </Textarea>
-      <Button isRound={true} width="300" onClick={handleCreate}>
-        생성하기
-      </Button>
-      <ImageUploader />
+      <ImageUploader images={images} setImages={setImages} />
+      <S.Wrapper>
+        <Button isRound={true} width="300" onClick={handleCreate}>
+          생성하기
+        </Button>
+      </S.Wrapper>
     </AppLayout>
   );
 };

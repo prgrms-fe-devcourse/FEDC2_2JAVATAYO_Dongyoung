@@ -84,11 +84,8 @@ const Edit: React.FC = () => {
     formData.append("channelId", currentChannelId);
     formData.append("postId", id);
 
-    console.log(formData.get("title"));
-    console.log(formData.get("channelId"));
     const editPost = async (formData: FormData) => {
       await postAPI.updatePost(formData).then((res) => {
-        console.log(res);
         if (res.statusText === "OK") {
           const ret = confirm(
             "수정이 완료되었습니다. 메인페이지로 이동합니다."
@@ -100,26 +97,16 @@ const Edit: React.FC = () => {
     editPost(formData);
   };
 
-  useEffect(() => {
-    console.log("title", _title);
-    console.log("email", email);
-    console.log("place", place);
-    console.log("startDate", startDate);
-    console.log("expectedDate", expectedDate);
-    console.log("introduction", introduction);
-    console.log("parts", parts);
-  }, [_title, email, place, startDate, expectedDate, introduction, parts]);
-
   return (
     <AppLayout>
-      <div>
+      <S.DivWrapper>
         <Label>제목</Label>
         <Input
           placeholder={"제목을 입력해주세요"}
           value={_title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </div>
+      </S.DivWrapper>
       <S.Wrapper>
         <S.InnerWrapper>
           <SelectBox
@@ -142,7 +129,10 @@ const Edit: React.FC = () => {
       <S.Wrapper>
         <S.InnerWrapper>
           <Label> 시작일</Label>
-          <DatePicker setSelectedValue={setStartDate} />
+          <DatePicker
+            defaultValue={startDate}
+            setSelectedValue={setStartDate}
+          />
         </S.InnerWrapper>
         <S.InnerWrapper>
           <SelectBox
@@ -154,7 +144,7 @@ const Edit: React.FC = () => {
           />
         </S.InnerWrapper>
       </S.Wrapper>
-      <h3>모집 분야</h3>
+      <S.H3>모집 분야</S.H3>
       <PartBox
         initialChannel={parts.channel}
         initialPeople={parts.people}
@@ -165,7 +155,7 @@ const Edit: React.FC = () => {
         }}
         disabled={true}
       />
-      <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
+      <S.H3>프로젝트 소개</S.H3>
       <Textarea
         isIntroduction={true}
         isLogin={true}
@@ -173,9 +163,11 @@ const Edit: React.FC = () => {
       >
         {introduction}
       </Textarea>
-      <Button isRound={true} width="300" onClick={handleEdit}>
-        수정하기
-      </Button>
+      <S.Wrapper>
+        <Button isRound={true} width="300" onClick={handleEdit}>
+          수정하기
+        </Button>
+      </S.Wrapper>
     </AppLayout>
   );
 };
