@@ -11,6 +11,7 @@ import LikeBtn from "./LikeBtn";
 import ProfileImage from "./ProfileImage";
 import SkillIcon from "./SkillIcon";
 import Textarea from "./Textarea";
+import PageLoading from "./PageLoading";
 
 export {
   AppLayout,
@@ -25,5 +26,6 @@ export {
   Label,
   LikeBtn,
   Textarea,
-  Header
+  Header,
+  PageLoading
 };
