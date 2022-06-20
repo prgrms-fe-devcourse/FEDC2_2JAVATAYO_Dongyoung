@@ -2,8 +2,7 @@ import * as S from "./style";
 import Button from "../../../common/Button";
 import Textarea from "../../../common/Textarea";
 import commentAPI from "../../../../utils/apis/comment";
-import { useState } from "react";
-import { render } from "@testing-library/react";
+import { useState, useRef } from "react";
 interface TextareaBoxInterface {
   length: number;
   postId: string;
@@ -19,11 +18,16 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
 }) => {
   const isLoggedIn = true; // 추후 Context API로 변경
   const [commentText, setCommentText] = useState("");
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const onCommentChange = (event) => {
     setCommentText(event.currentTarget.value);
   };
 
   const createComment = async (event) => {
+    if (commentText.length === 0) {
+      textAreaRef.current.focus();
+      return;
+    }
     if (confirm("댓글을 등록하시겠습니까?")) {
       try {
         await commentAPI.createComment({
@@ -55,6 +59,7 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
               isIntroduction={false}
               isLogin={true}
               onChange={onCommentChange}
+              textAreaRef={textAreaRef}
             ></Textarea>
           </S.Textarea>
           <S.SubmitDiv>
