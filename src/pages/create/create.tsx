@@ -102,7 +102,7 @@ const Create: React.FC = () => {
   };
   return (
     <AppLayout>
-      <div>
+      <S.DivWrapper>
         <Label>제목</Label>
         <Input
           ref={titleRef}
@@ -110,7 +110,7 @@ const Create: React.FC = () => {
           value={_title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </div>
+      </S.DivWrapper>
       <S.Wrapper>
         <S.InnerWrapper>
           <SelectBox
@@ -149,7 +149,7 @@ const Create: React.FC = () => {
           />
         </S.InnerWrapper>
       </S.Wrapper>
-      <h3>모집 분야</h3>
+      <S.H3>모집 분야</S.H3>
       <PartBoxList
         disabled={false}
         parts={parts}
@@ -168,9 +168,11 @@ const Create: React.FC = () => {
         {introduction}
       </Textarea>
       <ImageUploader images={images} setImages={setImages} />
-      <Button isRound={true} width="300" onClick={handleCreate}>
-        생성하기
-      </Button>
+      <S.Wrapper>
+        <Button isRound={true} width="300" onClick={handleCreate}>
+          생성하기
+        </Button>
+      </S.Wrapper>
     </AppLayout>
   );
 };
