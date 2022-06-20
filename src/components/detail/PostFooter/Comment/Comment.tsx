@@ -6,8 +6,10 @@ interface CommentInterface {
   key: string;
   commentId: string;
   comment: string;
+  userId: string;
   comments: object[];
   author: string;
+  authorId: string;
   updatedAt: string;
   deleteComment: (value: object, id: string) => void;
 }
@@ -15,7 +17,9 @@ interface CommentInterface {
 const Comment: React.FC<CommentInterface> = ({
   commentId,
   comment,
+  userId,
   author,
+  authorId,
   updatedAt,
   deleteComment
 }) => {
@@ -31,12 +35,20 @@ const Comment: React.FC<CommentInterface> = ({
       <S.CommentText>{comment}</S.CommentText>
       <S.DeleteCommetDiv>
         <span></span>
-        <span
-          onClick={(e) => deleteComment(e, commentId)}
-          style={{ textDecoration: "underline", color: theme.$gray600 }}
-        >
-          댓글삭제
-        </span>
+        {userId === authorId ? (
+          <span
+            onClick={(e) => deleteComment(e, commentId)}
+            style={{
+              height: "14px",
+              textDecoration: "underline",
+              color: theme.$gray600
+            }}
+          >
+            댓글삭제
+          </span>
+        ) : (
+          <span style={{ height: "14px" }}></span>
+        )}
       </S.DeleteCommetDiv>
       <S.CommentHorizontalRule color={theme.$gray200} />
     </div>

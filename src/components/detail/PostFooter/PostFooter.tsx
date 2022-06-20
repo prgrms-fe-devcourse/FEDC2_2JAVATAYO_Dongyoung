@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 interface PostFooterInterface {
   comments: object[];
   postId: string;
+  userId: string;
+  isLoggedIn: boolean;
   setComments: (value: object) => void;
   deleteComment: (value: object, id: string) => void;
 }
@@ -13,11 +15,14 @@ interface PostFooterInterface {
 const PostFooter: React.FC<PostFooterInterface> = ({
   comments,
   postId,
+  userId,
+  isLoggedIn,
   setComments,
   deleteComment
 }) => {
   let paramComment;
   let paramAuthor;
+  let paramAuthorId;
   let paramUpdatedAt;
   let paramKey;
 
@@ -28,6 +33,8 @@ const PostFooter: React.FC<PostFooterInterface> = ({
         postId={postId}
         comments={comments}
         setComments={setComments}
+        isLoggedIn={isLoggedIn}
+        userId={userId}
       ></TextareaBox>
       <div>
         {comments.map((comment) => {
@@ -40,6 +47,7 @@ const PostFooter: React.FC<PostFooterInterface> = ({
                   break;
                 case "author":
                   paramAuthor = comment[prop].fullName;
+                  paramAuthorId = comment[prop]._id;
                   break;
                 case "updatedAt":
                   paramUpdatedAt = comment[prop]
@@ -57,6 +65,8 @@ const PostFooter: React.FC<PostFooterInterface> = ({
           return (
             <Comment
               key={paramKey}
+              userId={userId}
+              authorId={paramAuthorId}
               commentId={paramKey}
               comment={paramComment}
               author={paramAuthor}
