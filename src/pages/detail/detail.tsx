@@ -183,6 +183,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
           introduction={paramIntroduction}
           postEdit={postEditHandler}
           postDelete={postDeleteHandler}
+          imageSrc={postDetail.image}
           isAuthor={postAuth}
         />
         <PostFooter

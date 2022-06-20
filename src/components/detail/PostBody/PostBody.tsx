@@ -5,6 +5,7 @@ interface PostBodyInterface {
   introduction: string;
   postEdit: React.MouseEventHandler<HTMLButtonElement>;
   postDelete: React.MouseEventHandler<HTMLButtonElement>;
+  imageSrc?: string;
   isAuthor: boolean;
 }
 
@@ -12,6 +13,7 @@ const PostBody: React.FC<PostBodyInterface> = ({
   introduction,
   postEdit,
   postDelete,
+  imageSrc,
   isAuthor
 }) => {
   return (
@@ -20,6 +22,9 @@ const PostBody: React.FC<PostBodyInterface> = ({
       <S.Section>프로젝트 소개</S.Section>
       <hr color={theme.$yellow} />
       <S.IntroductionDiv>{introduction}</S.IntroductionDiv>
+      <S.ImageWrapper>
+        <S.Image src={imageSrc} width="400px" />
+      </S.ImageWrapper>
       {isAuthor ? (
         <S.Wrapper>
           <Button buttonType="gray-line" width="100" onClick={postEdit}>
