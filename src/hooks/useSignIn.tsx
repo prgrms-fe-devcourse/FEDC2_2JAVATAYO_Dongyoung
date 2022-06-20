@@ -43,6 +43,7 @@ const useSignIn = ({ initialValues, isError }) => {
           if (err.response.status === 400) {
             alert("이메일 또는 비밀번호를 확인해주세요");
             setValues({ email: "", password: "" });
+            setErrors({});
           }
         });
       setIsLoading(false);

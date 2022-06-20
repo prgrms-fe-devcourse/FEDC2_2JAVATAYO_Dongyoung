@@ -24,7 +24,7 @@ const SignIn: React.FC = () => {
       if (!password) errors.password = "비밀번호를 입력해주세요";
       else if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/.test(password))
         errors.password =
-          "비밀번호는 숫자, 문자로 이루어진 6~12자리여야 합니다";
+          "비밀번호는 숫자, 영문자로 이루어진 6~12자리여야 합니다";
       return errors;
     }
   });
@@ -41,6 +41,7 @@ const SignIn: React.FC = () => {
             label="이메일"
             name="email"
             value={values.email}
+            placeholder="이메일을 입력해주세요"
             onChange={handleChange}
             errorMessage={errors.email}
           />
@@ -51,6 +52,7 @@ const SignIn: React.FC = () => {
             name="password"
             type="password"
             value={values.password}
+            placeholder="비밀번호를 입력해주세요"
             onChange={handleChange}
             errorMessage={errors.password}
           />
