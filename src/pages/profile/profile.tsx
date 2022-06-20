@@ -32,7 +32,15 @@ const Profile: React.FC = () => {
 
       <S.Layout>
         <S.Wrapper margin="-32px 0 11px">
-          <ProfileImageBox isMine={isMine} imgSrc={user.image} />
+          <ProfileImageBox
+            isMine={isMine}
+            imgSrc={user.image}
+            id={{
+              profile: "1",
+              visitor: "2"
+            }}
+            profileFullName={user.fullName}
+          />
         </S.Wrapper>
 
         <button onClick={() => setIsMine(!isMine)}>

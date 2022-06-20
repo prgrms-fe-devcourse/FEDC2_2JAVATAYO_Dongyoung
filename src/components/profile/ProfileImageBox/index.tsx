@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { ProfileImage, ImageUpload } from "@components/common";
+import { FollowIcon } from "@components/profile";
 import { ReactComponent as SettingComponent } from "@assets/icons/icon_setting.svg";
 import { userAPI } from "@utils/apis";
 import * as S from "./style";
@@ -7,9 +8,21 @@ import * as S from "./style";
 interface ProfileImageBoxInterface {
   isMine: boolean;
   imgSrc: string;
+  id: Id;
+  profileFullName: string;
 }
 
-const ProfileImageBox: FC<ProfileImageBoxInterface> = ({ isMine, imgSrc }) => {
+export type Id = {
+  profile: string;
+  visitor: string;
+};
+
+const ProfileImageBox: FC<ProfileImageBoxInterface> = ({
+  isMine,
+  imgSrc,
+  id,
+  profileFullName
+}) => {
   const [src, setSrc] = useState(imgSrc);
 
   const handleImageUpload = async (file) => {
@@ -38,7 +51,9 @@ const ProfileImageBox: FC<ProfileImageBoxInterface> = ({ isMine, imgSrc }) => {
             right: "-3px"
           }}
         />
-      ) : null}
+      ) : (
+        <FollowIcon id={id} profileFullName={profileFullName} />
+      )}
     </S.ProfileImageWrapper>
   );
 };
