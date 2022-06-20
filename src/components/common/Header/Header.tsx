@@ -26,7 +26,7 @@ const Header: React.FC = () => {
 
     let num = 0;
     const filterData = data.filter((data) => {
-      if (data.comment !== null && num < 5) {
+      if (data.comment !== null && num < 3) {
         num++;
         return true;
       }
@@ -65,12 +65,11 @@ const Header: React.FC = () => {
   const notificationNav = noticeContents.map((item) => ({
     label: (
       <div>
-        <p>#{item.channel}</p>
-        <p>{item.title}</p>
-        <p>댓글이 달렸습니다.</p>
+        <p className="channel">#{item.channel}</p>
+        <p className="title">{item.title}에 댓글이 달렸습니다.</p>
       </div>
     ),
-    event: () => navigate(`/profile/${item.postId}`)
+    event: () => navigate(`/detail/${item.postId}`)
   }));
 
   const subNav = [
@@ -105,7 +104,7 @@ const Header: React.FC = () => {
         <S.LoggedIn>
           <SearchBar />
           <Link to={"/create"}>새글쓰기</Link>
-          <DropDown contents={notificationNav}>
+          <DropDown contents={notificationNav} left={-150}>
             <S.Notice
               onClick={() => {
                 getNoticeSeen();
