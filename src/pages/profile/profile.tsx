@@ -17,22 +17,23 @@ import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 import { postAPI, userAPI } from "@utils/apis";
 import { IPost, IUser } from "src/types/model";
-import axios, { AxiosResponse } from "axios";
-
-const LIMIT = 6;
+import axios from "axios";
+import { useAuth } from "@contexts/AuthProvider";
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { id: profileUserId } = useParams<Record<string, string>>();
+  const { userInfo } = useAuth();
 
-  const [user, setUser] = useState<IUser>();
+  const [profileUser, setProfileUser] = useState<IUser>();
   const [writtenPosts, setWrittenPosts] = useState<IPost[]>();
   const [likedPosts, setLikedPosts] = useState<IPost[]>();
+  const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
 
   const getUser = async () => {
     try {
       const response = await userAPI.getUser(profileUserId);
-      setUser(response.data);
+      setProfileUser(response.data);
     } catch (error) {
       console.error(error);
       navigate("/404");
@@ -65,7 +66,6 @@ const Profile: React.FC = () => {
     axios.all([getUser(), getPosts()]);
   }, []);
 
-  const [isMine, setIsMine] = useState(false);
   const [editFullNameVisible, setEditFullNameVisible] = useState(false);
   const [editPasswordVisible, setEditPasswordVisible] = useState(false);
 
@@ -73,51 +73,48 @@ const Profile: React.FC = () => {
     <>
       <Header />
 
-      {user === undefined ||
+      {profileUser === undefined ||
       likedPosts === undefined ||
       writtenPosts === undefined ? (
         "로딩 중..."
       ) : (
         <>
           <S.Wrapper padding="60px 0 0">
-            <CoverImageBox
-              isMine={profileUserId === user._id}
-              imgSrc={user.coverImage}
-            />
+            <CoverImageBox isMine={isMine} imgSrc={profileUser.coverImage} />
           </S.Wrapper>
 
           <S.Layout>
             <S.Wrapper margin="-32px 0 11px">
               <ProfileImageBox
-                isMine={profileUserId === user._id}
-                imgSrc={user.image}
+                isMine={isMine}
+                imgSrc={profileUser.image}
                 id={{
                   profile: profileUserId,
-                  visitor: user._id
+                  visitor: userInfo.isLoggedIn ? "" : userInfo._id
                 }}
-                profileFullName={user.fullName}
+                profileFullName={profileUser.fullName}
               />
             </S.Wrapper>
 
             <S.FlexContainer direction="column" gap="6px">
-              <S.FullName>{user.fullName}</S.FullName>
-              <S.Email>{user.email}</S.Email>
+              <S.FullName>{profileUser.fullName}</S.FullName>
+              <S.Email>{profileUser.email}</S.Email>
             </S.FlexContainer>
 
             <S.DefinitionList>
               <S.DefinitionItem>
                 <dt>팔로워</dt>
-                <dd>{user.followers.length}</dd>
+                <dd>{profileUser.followers.length}</dd>
               </S.DefinitionItem>
 
               <S.DefinitionItem>
-                <dt>팔로워</dt>
-                <dd>{user.following.length}</dd>
+                <dt>팔로잉</dt>
+                <dd>{profileUser.following.length}</dd>
               </S.DefinitionItem>
 
               <S.DefinitionItem>
                 <dt>게시글</dt>
-                <dd>{user.posts.length}</dd>
+                <dd>{profileUser.posts.length}</dd>
               </S.DefinitionItem>
             </S.DefinitionList>
 
@@ -125,14 +122,26 @@ const Profile: React.FC = () => {
               <Tab.Item active title="작성한 글 목록">
                 <SCardBox>
                   {writtenPosts.map((post, i) => {
-                    return <Card post={post} key={i} userId={user._id} />;
+                    return (
+                      <Card
+                        post={post}
+                        key={i}
+                        userId={userInfo.isLoggedIn ? userInfo._id : null}
+                        clickable={false}
+                      />
+                    );
                   })}
                 </SCardBox>
               </Tab.Item>
               <Tab.Item title="좋아요 한 글">
                 <SCardBox>
                   {likedPosts.map((post, i) => (
-                    <Card post={post} key={i} userId={user._id} />
+                    <Card
+                      post={post}
+                      key={i}
+                      userId={userInfo.isLoggedIn ? userInfo._id : null}
+                      clickable={false}
+                    />
                   ))}
                 </SCardBox>
               </Tab.Item>
