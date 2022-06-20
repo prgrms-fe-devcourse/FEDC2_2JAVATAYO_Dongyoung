@@ -18,7 +18,7 @@ const useSignUp = ({ initialValues, isError }) => {
   const [errors, setErrors] = useState<error>({});
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-
+  const newErrors = isError(values);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -27,11 +27,11 @@ const useSignUp = ({ initialValues, isError }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const newErrors = isError(values);
 
     if (Object.keys(newErrors).length !== 0) {
       setErrors(newErrors);
     } else {
+      setErrors({});
       isChecked === false
         ? alert("닉네임 중복확인을 해주세요")
         : await authAPI
@@ -65,14 +65,17 @@ const useSignUp = ({ initialValues, isError }) => {
   const handleDuplicate = async () => {
     const response = await userAPI.getUserList();
     const names = response.data.map((x) => x.fullName);
-    if (isError(values).fullName === undefined) {
+    if (Object.keys(newErrors).length === 0) {
       if (names.includes(values.fullName)) {
-        setValues({ fullName: "" });
+        setErrors({});
+        setValues({ ...values, fullName: "" });
         alert("이미 있는 이름입니다.");
       } else {
-        setIsChecked(true);
         alert("사용가능한 이름입니다.");
+        setIsChecked(true);
       }
+    } else {
+      alert("닉네임 외 정보를 확인해주세요");
     }
   };
   return {
