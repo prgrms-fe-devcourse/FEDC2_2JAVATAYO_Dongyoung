@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./style";
 
 type content = {
-  label: string;
+  label: string | React.ReactNode;
   event: () => void;
 };
 interface DropDownInterface {
