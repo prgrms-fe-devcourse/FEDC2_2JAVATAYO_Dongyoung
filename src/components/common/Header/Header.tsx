@@ -2,8 +2,7 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "@assets/logos/Logo.svg";
 import { ReactComponent as Bell } from "@assets/icons/icon_bell.svg";
-import { useEffect, useState } from "react";
-import storage from "@utils/storage";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
 import SearchBar from "../SearchBar";
@@ -15,37 +14,25 @@ import { useAuth } from "@contexts/AuthProvider";
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const { onLogOut, userInfo } = useAuth();
+  console.log(userInfo);
 
-  //이후 contextAPI로 변경
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [noticeContents, setNoticeContents] = useState([]);
 
-  const logOut = () => {
-    storage.removeItem("TOKEN");
-    onLogOut();
-  };
-
   const notice = async () => {
+    if (!userInfo.isLoggedIn) return;
     const { data } = await notificationAPI.getNotificationList();
-    console.log(data);
   };
 
   const subNav = [
     {
       label: "마이페이지",
-      event: () => navigate(`/profile/${userInfo._id}`)
+      event: () => navigate(`/profile/${userInfo.user._id}`)
     },
     {
       label: "로그아웃",
-      event: () => logOut()
+      event: () => onLogOut()
     }
   ];
-
-  useEffect(() => {
-    const hasToken = storage.getItem("TOKEN", false) ? true : false;
-    setIsLoggedIn(hasToken);
-    notice();
-  }, []);
 
   return (
     <S.Header>
@@ -54,9 +41,9 @@ const Header: React.FC = () => {
         <Logo />
       </Link>
       {/* 임시 */}
-      <TempLogin setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+      <TempLogin />
       {/* 임시 */}
-      {isLoggedIn ? (
+      {userInfo.isLoggedIn ? (
         <S.LoggedIn>
           <SearchBar />
           <Link to={"/create"}>새글쓰기</Link>
@@ -67,8 +54,12 @@ const Header: React.FC = () => {
           </DropDown>
           <DropDown contents={subNav}>
             <S.User>
-              <ProfileImage size="sm" />
-              <S.UserFullName>{userInfo.fullName} 님</S.UserFullName>
+              <ProfileImage
+                size="sm"
+                imgAlt={userInfo.user.fullName}
+                imgSrc={userInfo.user.image}
+              />
+              <S.UserFullName>{userInfo.user.fullName} 님</S.UserFullName>
             </S.User>
           </DropDown>
         </S.LoggedIn>

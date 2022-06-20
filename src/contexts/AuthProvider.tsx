@@ -59,6 +59,7 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
     dispatch({ type: "LOGIN", payload: user });
   };
   const onLogOut = () => {
+    storage.removeItem("TOKEN");
     dispatch({ type: "LOGOUT", payload: initialUser });
   };
   const onUpdate = (newInfo) => {
