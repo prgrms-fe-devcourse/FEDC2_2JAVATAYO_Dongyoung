@@ -24,7 +24,6 @@ export const Modal: React.FC<ModalInterface> = ({
 
   const el = useMemo(() => document.createElement("div"), []);
   useEffect(() => {
-    el.style.height = "100%";
     document.body.appendChild(el);
     return () => {
       document.body.removeChild(el);

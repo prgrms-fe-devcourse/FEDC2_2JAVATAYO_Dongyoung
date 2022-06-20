@@ -9,6 +9,7 @@ import {
   ProfileImageBox,
   CoverImageBox,
   EditFullName,
+  EditPassword,
   Modal
 } from "@components/profile";
 import * as S from "./style";
@@ -19,7 +20,8 @@ const Profile: React.FC = () => {
   const user = DUMMY_USER;
 
   const [isMine, setIsMine] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [editFullNameVisible, setEditFullNameVisible] = useState(false);
+  const [editPasswordVisible, setEditPasswordVisible] = useState(false);
 
   return (
     <>
@@ -102,13 +104,25 @@ const Profile: React.FC = () => {
 
         <Modal
           height="294px"
-          visible={visible}
-          onClose={() => setVisible(false)}
+          visible={editFullNameVisible}
+          onClose={() => setEditFullNameVisible(false)}
         >
           <EditFullName />
         </Modal>
+        <button onClick={() => setEditFullNameVisible(true)}>
+          닉네임 변경 모달 얍
+        </button>
 
-        <button onClick={() => setVisible(true)}>모달 얍</button>
+        <Modal
+          height="384px"
+          visible={editPasswordVisible}
+          onClose={() => setEditPasswordVisible(false)}
+        >
+          <EditPassword />
+        </Modal>
+        <button onClick={() => setEditPasswordVisible(true)}>
+          비밀번호 변경 모달 얍
+        </button>
       </S.Layout>
 
       <Footer />
