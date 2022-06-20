@@ -83,7 +83,9 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
         people: paramPeople != null ? paramPeople : "",
         skills: paramSkills != null ? paramSkills : "",
         introduction: paramIntroduction != null ? paramIntroduction : "",
-        image: postDetail.image != null ? postDetail.image : ""
+        image: postDetail.image != null ? postDetail.image : "",
+        imagePublicId:
+          postDetail.imagePublicId != null ? postDetail.imagePublicId : ""
       }
     });
   };
@@ -267,5 +269,6 @@ const DUMMY_DETAIL = {
   createdAt: "2022-06-12T17:59:36.277Z",
   updatedAt: "2022-06-12T18:02:42.434Z",
   __v: 0,
-  image: ""
+  image: "",
+  imagePublicId: ""
 };
