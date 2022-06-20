@@ -84,11 +84,8 @@ const Edit: React.FC = () => {
     formData.append("channelId", currentChannelId);
     formData.append("postId", id);
 
-    console.log(formData.get("title"));
-    console.log(formData.get("channelId"));
     const editPost = async (formData: FormData) => {
       await postAPI.updatePost(formData).then((res) => {
-        console.log(res);
         if (res.statusText === "OK") {
           const ret = confirm(
             "수정이 완료되었습니다. 메인페이지로 이동합니다."
@@ -99,16 +96,6 @@ const Edit: React.FC = () => {
     };
     editPost(formData);
   };
-
-  useEffect(() => {
-    console.log("title", _title);
-    console.log("email", email);
-    console.log("place", place);
-    console.log("startDate", startDate);
-    console.log("expectedDate", expectedDate);
-    console.log("introduction", introduction);
-    console.log("parts", parts);
-  }, [_title, email, place, startDate, expectedDate, introduction, parts]);
 
   return (
     <AppLayout>
@@ -142,7 +129,10 @@ const Edit: React.FC = () => {
       <S.Wrapper>
         <S.InnerWrapper>
           <Label> 시작일</Label>
-          <DatePicker setSelectedValue={setStartDate} />
+          <DatePicker
+            defaultValue={startDate}
+            setSelectedValue={setStartDate}
+          />
         </S.InnerWrapper>
         <S.InnerWrapper>
           <SelectBox
