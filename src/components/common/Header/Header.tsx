@@ -37,7 +37,6 @@ const Header: React.FC = () => {
 
   const notice = async () => {
     const { data } = await notificationAPI.getNotificationList();
-    console.log(data);
   };
 
   const subNav = [
