@@ -6,9 +6,10 @@ import { AppLayout, Label, Button, Textarea } from "@components/common";
 import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
 import PartBox from "@components/create/PartBox";
-import PartBoxList from "@components/create/PartBoxList";
-import { useParams } from "react-router";
+import CHANNELS from "@constants/channel";
+import { useNavigate, useParams } from "react-router";
 import { useLocation } from "react-router-dom";
+import { postAPI } from "@utils/apis";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -43,6 +44,7 @@ interface StateType {
 
 const Edit: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const state = location.state as StateType;
   console.log(state.skills);
   const { channel, id } = useParams<Record<string, string>>();
@@ -58,10 +60,44 @@ const Edit: React.FC = () => {
     skills: Object.values(state.skills)
   });
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
-  console.log(channel, id);
 
   const handleUpdateParts = (part) => {
-    console.log("update");
+    const newParts = { ...part };
+    setParts(newParts);
+  };
+
+  const handleEdit = () => {
+    const currentChannelId = CHANNELS[parts.channel]._id;
+    const title = JSON.stringify({
+      title: _title,
+      introduction,
+      email,
+      expectedDate,
+      place,
+      startDate,
+      parts
+    });
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("image", null);
+    formData.append("channelId", currentChannelId);
+    formData.append("postId", id);
+
+    console.log(formData.get("title"));
+    console.log(formData.get("channelId"));
+    const editPost = async (formData: FormData) => {
+      await postAPI.updatePost(formData).then((res) => {
+        console.log(res);
+        if (res.statusText === "OK") {
+          const ret = confirm(
+            "수정이 완료되었습니다. 메인페이지로 이동합니다."
+          );
+          if (ret) navigate("/");
+        }
+      });
+    };
+    editPost(formData);
   };
 
   useEffect(() => {
@@ -137,7 +173,7 @@ const Edit: React.FC = () => {
       >
         {introduction}
       </Textarea>
-      <Button isRound={true} width="300">
+      <Button isRound={true} width="300" onClick={handleEdit}>
         수정하기
       </Button>
     </AppLayout>

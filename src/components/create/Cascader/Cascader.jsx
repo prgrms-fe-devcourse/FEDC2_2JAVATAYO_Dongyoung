@@ -10,13 +10,8 @@ const Cascader = ({
   setSelectedValues
 }) => {
   const onChange = (value) => {
-    console.log("value", value);
     setSelectedValues(value);
   };
-  useEffect(() => {
-    console.log("stacks", stacks);
-  }, []);
-
   return (
     <>
       <AntdCascader
