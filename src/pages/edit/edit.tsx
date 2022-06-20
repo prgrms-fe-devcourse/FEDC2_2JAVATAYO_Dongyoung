@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Input } from "antd";
 import SelectBox from "@components/create/SelectBox";
 import DatePicker from "@components/create/DatePicker";
-import Label from "@components/common/Label";
-import AppLayout from "@components/common/AppLayout";
-import Button from "@components/common/Button";
-import InputBox from "@components/create/InputBox/InputBox";
-import Textarea from "@components/common/Textarea";
+import { AppLayout, Label, Button, Textarea } from "@components/common";
 import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
-import PartBoxList from "@components/create/PartBoxList";
-import { useParams } from "react-router";
+import PartBox from "@components/create/PartBox";
+import CHANNELS from "@constants/channel";
+import { useNavigate, useParams } from "react-router";
+import { useLocation } from "react-router-dom";
+import { postAPI } from "@utils/apis";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -28,39 +28,95 @@ const expectedDateOptions = [
   { id: 7, value: "notyet", label: "미정" }
 ];
 
-const Edit: React.FC = () => {
-  const { channel, id } = useParams<Record<string, string>>();
-  const [title, setTitle] = useState("");
-  const [place, setPlace] = useState("online");
-  const [email, setEmail] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [expectedDate, setExpectedDate] = useState("");
-  const [introduction, setIntroduction] = useState("냥냥");
-  const [parts, setParts] = useState([]);
-  usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
-  console.log(channel, id);
+interface StateType {
+  channel: string;
+  email: string;
+  expectedDate: string;
+  image: string;
+  introduction: string;
+  people: string;
+  postId: string;
+  skills: object;
+  startDate: string;
+  title: string;
+  place: string;
+}
 
-  const handleUpdateParts = (id, part) => {
-    setParts(parts.map((_part, idx) => (idx === id ? { ...part } : _part)));
+const Edit: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state as StateType;
+  console.log(state.skills);
+  const { channel, id } = useParams<Record<string, string>>();
+  const [_title, setTitle] = useState(state.title);
+  const [place, setPlace] = useState(state.place);
+  const [email, setEmail] = useState(state.email);
+  const [startDate, setStartDate] = useState(state.startDate);
+  const [expectedDate, setExpectedDate] = useState(state.expectedDate);
+  const [introduction, setIntroduction] = useState(state.introduction);
+  const [parts, setParts] = useState({
+    channel: state.channel,
+    people: state.people,
+    skills: Object.values(state.skills)
+  });
+  usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
+
+  const handleUpdateParts = (part) => {
+    const newParts = { ...part };
+    setParts(newParts);
+  };
+
+  const handleEdit = () => {
+    const currentChannelId = CHANNELS[parts.channel]._id;
+    const title = JSON.stringify({
+      title: _title,
+      introduction,
+      email,
+      expectedDate,
+      place,
+      startDate,
+      parts
+    });
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("image", null);
+    formData.append("channelId", currentChannelId);
+    formData.append("postId", id);
+
+    console.log(formData.get("title"));
+    console.log(formData.get("channelId"));
+    const editPost = async (formData: FormData) => {
+      await postAPI.updatePost(formData).then((res) => {
+        console.log(res);
+        if (res.statusText === "OK") {
+          const ret = confirm(
+            "수정이 완료되었습니다. 메인페이지로 이동합니다."
+          );
+          if (ret) navigate("/");
+        }
+      });
+    };
+    editPost(formData);
   };
 
   useEffect(() => {
-    console.log("title", title);
+    console.log("title", _title);
     console.log("email", email);
     console.log("place", place);
     console.log("startDate", startDate);
     console.log("expectedDate", expectedDate);
     console.log("introduction", introduction);
     console.log("parts", parts);
-  }, [title, email, place, startDate, expectedDate, introduction, parts]);
+  }, [_title, email, place, startDate, expectedDate, introduction, parts]);
 
   return (
     <AppLayout>
       <div>
-        <InputBox
-          label="제목"
-          placeholder="제목을 입력해주세요"
-          value={title}
+        <Label>제목</Label>
+        <Input
+          placeholder={"제목을 입력해주세요"}
+          value={_title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
@@ -75,8 +131,8 @@ const Edit: React.FC = () => {
           />
         </S.InnerWrapper>
         <S.InnerWrapper>
-          <InputBox
-            label="연락 이메일"
+          <Label>이메일</Label>
+          <Input
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -99,13 +155,15 @@ const Edit: React.FC = () => {
         </S.InnerWrapper>
       </S.Wrapper>
       <h3>모집 분야</h3>
-      <PartBoxList
-        disabled={true}
-        parts={parts}
-        handleDeleteParts={() => {
+      <PartBox
+        initialChannel={parts.channel}
+        initialPeople={parts.people}
+        initialSkills={parts.skills}
+        handleUpdate={handleUpdateParts}
+        handleDelete={() => {
           console.log("hi");
         }}
-        handleUpdateParts={handleUpdateParts}
+        disabled={true}
       />
       <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
@@ -115,7 +173,7 @@ const Edit: React.FC = () => {
       >
         {introduction}
       </Textarea>
-      <Button isRound={true} width="300">
+      <Button isRound={true} width="300" onClick={handleEdit}>
         수정하기
       </Button>
     </AppLayout>

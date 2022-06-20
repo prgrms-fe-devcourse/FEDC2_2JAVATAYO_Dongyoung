@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "antd/dist/antd.css";
 import { Cascader as AntdCascader } from "antd";
 
-const Cascader = ({ stacks, isMultiple, options, setSelectedValues }) => {
+const Cascader = ({
+  defaultValue,
+  stacks,
+  isMultiple,
+  options,
+  setSelectedValues
+}) => {
   const onChange = (value) => {
     setSelectedValues(value);
   };
-
   return (
     <>
       <AntdCascader
+        defaultValue={defaultValue}
         multiple={isMultiple}
         style={{
           marginTop: "10px",
