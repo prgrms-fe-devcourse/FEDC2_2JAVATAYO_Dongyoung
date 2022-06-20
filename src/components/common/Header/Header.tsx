@@ -7,28 +7,18 @@ import storage from "@utils/storage";
 import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
 import SearchBar from "../SearchBar";
-import { authAPI, notificationAPI } from "@utils/apis";
+import { notificationAPI } from "@utils/apis";
 import ProfileImage from "../ProfileImage";
 import DropDown from "../DropDown";
 import { useAuth } from "@contexts/AuthProvider";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
-  const { onLogOut } = useAuth();
+  const { onLogOut, userInfo } = useAuth();
 
   //이후 contextAPI로 변경
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ fullName: "test", _id: "" });
   const [noticeContents, setNoticeContents] = useState([]);
-  const { fullName, _id } = userData;
-  const userInfo = async () => {
-    const { data } = await authAPI.checkAuthUser();
-    setUserData(data);
-  };
-  useEffect(() => {
-    userInfo();
-  }, [isLoggedIn]);
-  //이후 contextAPI로 변경
 
   const logOut = () => {
     storage.removeItem("TOKEN");
@@ -37,12 +27,13 @@ const Header: React.FC = () => {
 
   const notice = async () => {
     const { data } = await notificationAPI.getNotificationList();
+    console.log(data);
   };
 
   const subNav = [
     {
       label: "마이페이지",
-      event: () => navigate(`/profile/${_id}`)
+      event: () => navigate(`/profile/${userInfo._id}`)
     },
     {
       label: "로그아웃",
@@ -77,7 +68,7 @@ const Header: React.FC = () => {
           <DropDown contents={subNav}>
             <S.User>
               <ProfileImage size="sm" />
-              <S.UserFullName>{fullName} 님</S.UserFullName>
+              <S.UserFullName>{userInfo.fullName} 님</S.UserFullName>
             </S.User>
           </DropDown>
         </S.LoggedIn>
