@@ -24,59 +24,34 @@ const useSignUp = ({ initialValues, isError }) => {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
-    e.preventDefault();
-    await authAPI
-      .signUp({
-        email: values.email,
-        fullName: values.fullName,
-        password: values.password
-      })
-      .then((res) => {
-        const { user, token } = res.data;
-        onLogin(user);
-        storage.setItem("TOKEN", token);
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          const newErrors = isError ? isError(values) : {};
-          if (Object.keys(newErrors).length !== 0) {
-            setErrors(newErrors);
-          } else {
-            alert("이메일 또는 비밀번호를 확인해주세요");
-            setValues({ email: "", password: "" });
-          }
-        }
-      });
-    setIsLoading(false);
-  };
-  const testSubmit = async (e) => {
-    e.preventDefault();
-    await authAPI
-      .signUp({
-        email: values.email,
-        fullName: values.fullName,
-        password: values.password
-      })
-      .then((res) => {
-        const { user, token } = res.data;
-        console.log(user);
-        // onLogin(user);
-        // storage.setItem("TOKEN", token);
-        // navigate("/");
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          const newErrors = isError ? isError(values) : {};
-          if (Object.keys(newErrors).length !== 0) {
-            setErrors(newErrors);
-          } else {
+    const newErrors = isError(values);
+
+    if (Object.keys(newErrors).length !== 0) {
+      setErrors(newErrors);
+    } else {
+      await authAPI
+        .signUp({
+          email: values.email,
+          fullName: values.fullName,
+          password: values.password
+        })
+        .then((res) => {
+          const { user, token } = res.data;
+          onLogin(user);
+          storage.setItem("TOKEN", token);
+          navigate("/");
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
             alert("이메일 또는 비밀번호를 확인해주세요");
             setValues({ fullName: "", email: "", password: "", secondPwd: "" });
+            setErrors({});
           }
-        }
-      });
+        });
+      setIsLoading(false);
+    }
   };
 
   const handleDuplicate = async () => {
@@ -93,8 +68,7 @@ const useSignUp = ({ initialValues, isError }) => {
     isLoading,
     handleChange,
     handleSubmit,
-    handleDuplicate,
-    testSubmit
+    handleDuplicate
   };
 };
 

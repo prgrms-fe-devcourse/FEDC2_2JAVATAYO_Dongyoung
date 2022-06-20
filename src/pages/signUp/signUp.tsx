@@ -10,34 +10,27 @@ import useSignUp from "../../hooks/useSignUp";
 import type { error } from "../../hooks/useSignUp";
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-    handleDuplicate,
-    testSubmit
-  } = useSignUp({
-    initialValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      secondPwd: ""
-    },
-    isError: ({ fullName, email, password }) => {
-      const errors: error = {};
-      if (!email) errors.email = "이메일을 입력해주세요";
-      else if (!/^.+@.+\..+$/.test(email))
-        errors.email = "올바른 이메일 형식이 아닙니다 ";
+  const { values, errors, handleChange, handleSubmit, handleDuplicate } =
+    useSignUp({
+      initialValues: {
+        fullName: "",
+        email: "",
+        password: "",
+        secondPwd: ""
+      },
+      isError: ({ fullName, email, password }) => {
+        const errors: error = {};
+        if (!email) errors.email = "이메일을 입력해주세요";
+        else if (!/^.+@.+\..+$/.test(email))
+          errors.email = "올바른 이메일 형식이 아닙니다 ";
 
-      if (!password) errors.password = "비밀번호를 입력해주세요";
-      else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]$/.test(password))
-        errors.password = "비밀번호는 하나 이상의 문자와 숫자여야 합니다";
-      else if (password.length < 6 || password.length > 12)
-        errors.password = "비밀번호는 6자리 이상 12자리 이하여야 합니다";
-      return errors;
-    }
-  });
+        if (!password) errors.password = "비밀번호를 입력해주세요";
+        else if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/.test(password))
+          errors.password =
+            "비밀번호는 숫자, 영문자로 이루어진 6~12자리여야 합니다";
+        return errors;
+      }
+    });
   return (
     <AppLayout>
       <S.SignUpWrapper>
@@ -50,10 +43,11 @@ const SignUp: React.FC = () => {
             label="닉네임"
             name="fullName"
             value={values.fullName}
+            placeholder="닉네임을 입력해주세요"
             onChange={handleChange}
             errorMessage={errors.fullName}
           />
-          <Button buttonType="red-line" onClick={handleDuplicate}>
+          <Button buttonType="red-line" width={"120"} onClick={handleDuplicate}>
             중복 확인
           </Button>
         </S.ConfirmWrapper>
@@ -62,6 +56,7 @@ const SignUp: React.FC = () => {
             label="이메일"
             name="email"
             value={values.email}
+            placeholder="이메일을 입력해주세요"
             onChange={handleChange}
             errorMessage={errors.email}
           />
@@ -72,6 +67,7 @@ const SignUp: React.FC = () => {
             name="password"
             type="password"
             value={values.password}
+            placeholder="비밀번호를 입력해주세요"
             onChange={handleChange}
             errorMessage={errors.password}
           />
@@ -82,12 +78,13 @@ const SignUp: React.FC = () => {
             name="secondPwd"
             type="password"
             value={values.secondPwd}
+            placeholder="비밀번호를 다시 입력해주세요"
             onChange={handleChange}
             errorMessage={errors.secondPwd}
           />
         </S.MarginWrapper>
         <S.MarginWrapper>
-          <Button onClick={testSubmit}>Sign Up</Button>
+          <Button>Sign Up</Button>
         </S.MarginWrapper>
       </S.SignUpWrapper>
       <button onClick={handleDuplicate}>get user</button>
