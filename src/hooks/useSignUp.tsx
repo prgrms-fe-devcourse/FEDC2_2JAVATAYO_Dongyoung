@@ -8,7 +8,7 @@ export type error = {
   fullName?: string;
   email?: string;
   password?: string;
-  secondPwd?: string;
+  passwordConfirm?: string;
 };
 const useSignUp = ({ initialValues, isError }) => {
   const navigate = useNavigate();
@@ -45,8 +45,13 @@ const useSignUp = ({ initialValues, isError }) => {
         })
         .catch((err) => {
           if (err.response.status === 400) {
-            alert("이메일 또는 비밀번호를 확인해주세요");
-            setValues({ fullName: "", email: "", password: "", secondPwd: "" });
+            alert("입력하신 정보를 확인해주세요");
+            setValues({
+              fullName: "",
+              email: "",
+              password: "",
+              passwordConfirm: ""
+            });
             setErrors({});
           }
         });
@@ -57,9 +62,13 @@ const useSignUp = ({ initialValues, isError }) => {
   const handleDuplicate = async () => {
     const response = await userAPI.getUserList();
     const names = response.data.map((x) => x.fullName);
-    if (names.includes(values.fullName)) {
-      alert("이미 있는 이름입니다.");
-      setValues({ fullName: "" });
+    if (isError(values).fullName === undefined) {
+      if (names.includes(values.fullName)) {
+        alert("이미 있는 이름입니다.");
+        setValues({ fullName: "" });
+      } else {
+        alert("사용가능한 이름입니다.");
+      }
     }
   };
   return {

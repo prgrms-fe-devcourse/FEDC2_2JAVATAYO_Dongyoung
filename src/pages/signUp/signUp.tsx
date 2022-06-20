@@ -16,10 +16,13 @@ const SignUp: React.FC = () => {
         fullName: "",
         email: "",
         password: "",
-        secondPwd: ""
+        passwordConfirm: ""
       },
-      isError: ({ fullName, email, password }) => {
+      isError: ({ fullName, email, password, passwordConfirm }) => {
         const errors: error = {};
+        if (!fullName) errors.fullName = "닉네임을 입력해주세요";
+        else if (!/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|].{2,8}$/.test(fullName))
+          errors.fullName = "닉네임은 2~8자리여야 합니다";
         if (!email) errors.email = "이메일을 입력해주세요";
         else if (!/^.+@.+\..+$/.test(email))
           errors.email = "올바른 이메일 형식이 아닙니다 ";
@@ -28,6 +31,11 @@ const SignUp: React.FC = () => {
         else if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/.test(password))
           errors.password =
             "비밀번호는 숫자, 영문자로 이루어진 6~12자리여야 합니다";
+
+        if (!passwordConfirm)
+          errors.passwordConfirm = "비밀번호 확인을 입력해주세요";
+        else if (passwordConfirm != password)
+          errors.passwordConfirm = "위에 입력한 비밀번호와 같지 않습니다";
         return errors;
       }
     });
@@ -75,19 +83,18 @@ const SignUp: React.FC = () => {
         <S.MarginWrapper>
           <InputBox
             label="비밀번호 확인"
-            name="secondPwd"
+            name="passwordConfirm"
             type="password"
-            value={values.secondPwd}
+            value={values.passwordConfirm}
             placeholder="비밀번호를 다시 입력해주세요"
             onChange={handleChange}
-            errorMessage={errors.secondPwd}
+            errorMessage={errors.passwordConfirm}
           />
         </S.MarginWrapper>
         <S.MarginWrapper>
-          <Button>Sign Up</Button>
+          <Button onClick={handleSubmit}>Sign Up</Button>
         </S.MarginWrapper>
       </S.SignUpWrapper>
-      <button onClick={handleDuplicate}>get user</button>
     </AppLayout>
   );
 };
