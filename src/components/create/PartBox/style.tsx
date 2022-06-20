@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  gap: 8px;
 `;
 
 export const PartBox = styled.div`
