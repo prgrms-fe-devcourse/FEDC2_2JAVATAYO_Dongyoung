@@ -4,10 +4,16 @@ import theme from "../../../styles/theme";
 interface PostBodyInterface {
   introduction: string;
   postEdit: React.MouseEventHandler<HTMLButtonElement>;
+  postDelete: React.MouseEventHandler<HTMLButtonElement>;
+  isAuthor: boolean;
 }
 
-const PostBody: React.FC<PostBodyInterface> = ({ introduction, postEdit }) => {
-  const isAuthor = true; // 추후 Context API로 구현
+const PostBody: React.FC<PostBodyInterface> = ({
+  introduction,
+  postEdit,
+  postDelete,
+  isAuthor
+}) => {
   return (
     <S.PostBody>
       {/* 추후 global font로 교체 예정 */}
@@ -19,7 +25,7 @@ const PostBody: React.FC<PostBodyInterface> = ({ introduction, postEdit }) => {
           <Button buttonType="gray-line" width="100" onClick={postEdit}>
             수정
           </Button>
-          <Button buttonType="gray-line" width="100">
+          <Button buttonType="gray-line" width="100" onClick={postDelete}>
             삭제
           </Button>
         </S.Wrapper>

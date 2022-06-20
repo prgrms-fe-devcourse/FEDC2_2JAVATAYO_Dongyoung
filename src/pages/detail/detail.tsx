@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import AppLayout from "@components/common/AppLayout";
 import PostHeader from "@components/detail/PostHeader";
 import PostBody from "@components/detail/PostBody";
 import PostFooter from "@components/detail/PostFooter";
 import postAPI from "@utils/apis/post";
 import commentAPI from "@utils/apis/comment";
+import authAPI from "@utils/apis/auth";
+import { IPost, IComment } from "../../types/model";
+import storage from "@utils/storage";
 
-const Detail: React.FC = () => {
-  const [postDetail, setPostDetail] = useState(DUMMY_DETAIL);
+type DetailInterface = { post?: IPost };
+
+const Detail: React.FC<DetailInterface> = ({ post = null }) => {
+  const [postDetail, setPostDetail] = useState(DUMMY_DETAIL); // 이후 Dummy Data 제거
   const [titleObj, setTitleObj] = useState({});
   const [comments, setComments] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const editNavigate = useNavigate();
+  const homeNavigate = useNavigate();
   const location = useLocation();
   const postId = location.pathname.substring(8);
+  const { author, likes } = postDetail;
   let paramTitle;
   let paramIntroduction;
   let paramEmail;
@@ -24,6 +33,20 @@ const Detail: React.FC = () => {
   let paramSkills;
   let paramPeople;
   let editParamChannel;
+  const postAuth = author._id === userId;
+  useEffect(() => {
+    const hasToken = storage.getItem("TOKEN", false) ? true : false;
+    setIsLoggedIn(hasToken);
+    checkUser();
+    getPostDetail(postId);
+    window.scrollTo(0, 0);
+  }, []);
+
+  const checkUser = async () => {
+    const { data } = await authAPI.checkAuthUser();
+    setUserId(data._id);
+  };
+
   const getPostDetail = async (id) => {
     try {
       const { data } = await postAPI.getPostDetail(id);
@@ -47,8 +70,8 @@ const Detail: React.FC = () => {
     }
   };
 
-  const editHandler = () => {
-    editNavigate("/edit/" + `${titleObj[prop].channel}` + "/" + `${postId}`, {
+  const postEditHandler = () => {
+    editNavigate(`/edit/${titleObj[prop].channel}/${postId}`, {
       state: {
         postId: postId != null ? postId : "",
         title: paramTitle != null ? paramTitle : "",
@@ -65,9 +88,23 @@ const Detail: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    getPostDetail(postId);
-  }, []);
+  const postDeleteHandler = async () => {
+    if (
+      window.confirm(
+        `게시글을 정말로 삭제하시겠습니까?
+게시물이 삭제되면 복구할 수 없습니다.`
+      )
+    ) {
+      try {
+        await postAPI.deletePost(postId);
+        homeNavigate("/");
+      } catch (error) {
+        alert("잘못된 접근입니다!!");
+        console.error(error);
+        window.location.reload();
+      }
+    }
+  };
 
   const getChannel = (channel) => {
     editParamChannel = channel;
@@ -122,13 +159,13 @@ const Detail: React.FC = () => {
       }
     }
   }
-  const author = postDetail.author.fullName;
-  const updatedAt = postDetail.updatedAt;
-  const detail = DUMMY_DETAIL;
   return (
     <AppLayout>
       <div>
         <PostHeader
+          postId={postId}
+          userId={userId}
+          likes={likes}
           title={paramTitle}
           authorId={postDetail.author.fullName}
           createdAt={postDetail.updatedAt.substring(0, 10).replaceAll("-", ".")}
@@ -140,10 +177,17 @@ const Detail: React.FC = () => {
           expectedDate={paramExpectedDate}
           skills={paramSkills}
         />
-        <PostBody introduction={paramIntroduction} postEdit={editHandler} />
+        <PostBody
+          introduction={paramIntroduction}
+          postEdit={postEditHandler}
+          postDelete={postDeleteHandler}
+          isAuthor={postAuth}
+        />
         <PostFooter
           comments={comments}
+          userId={userId}
           postId={postId}
+          isLoggedIn={isLoggedIn}
           setComments={setComments}
           deleteComment={deleteComment}
         />
