@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const LogInWrapper = styled.div`
-  margin: 20px 25%;
+  margin: 0 25%;
 `;
 
 export const Image = styled.div`
