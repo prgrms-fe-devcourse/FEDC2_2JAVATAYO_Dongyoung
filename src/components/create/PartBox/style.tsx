@@ -16,3 +16,9 @@ export const PartBox = styled.div`
   background-color: ${theme.$gray100};
   margin-bottom: 20px;
 `;
+
+export const DivWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
