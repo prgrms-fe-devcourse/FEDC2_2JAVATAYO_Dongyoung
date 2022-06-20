@@ -3,8 +3,15 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button, Upload } from "antd";
 import * as S from "./style";
-const ImageUploader: React.FC = () => {
-  const [images, setImages] = React.useState([]);
+
+interface ImageUploaderInterface {
+  images: any[];
+  setImages: React.Dispatch<React.SetStateAction<any[]>>;
+}
+const ImageUploader: React.FC<ImageUploaderInterface> = ({
+  images,
+  setImages
+}) => {
   const maxNumber = 69;
 
   const onChange = (

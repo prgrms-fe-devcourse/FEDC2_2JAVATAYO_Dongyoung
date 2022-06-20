@@ -33,6 +33,7 @@ const expectedDateOptions = [
 const Create: React.FC = () => {
   const navigate = useNavigate();
 
+  const [images, setImages] = useState([]);
   const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
@@ -71,7 +72,7 @@ const Create: React.FC = () => {
       });
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("image", null);
+      formData.append("image", images[0].file);
       formData.append("channelId", currentChannelId);
       const getPost = async (formData: FormData) => {
         await postAPI.createPost(formData).then((res) => {
@@ -166,10 +167,10 @@ const Create: React.FC = () => {
       >
         {introduction}
       </Textarea>
+      <ImageUploader images={images} setImages={setImages} />
       <Button isRound={true} width="300" onClick={handleCreate}>
         생성하기
       </Button>
-      <ImageUploader />
     </AppLayout>
   );
 };
