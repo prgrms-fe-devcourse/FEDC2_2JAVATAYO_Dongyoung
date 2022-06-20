@@ -11,6 +11,7 @@ import Select from "@components/create/Select";
 import { postAPI } from "@utils/apis";
 import CHANNELS from "@constants/channel";
 import { useNavigate } from "react-router";
+import { currentDate } from "@utils/Date";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -35,7 +36,7 @@ const Create: React.FC = () => {
   const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(currentDate);
   const [expectedDate, setExpectedDate] = useState("1개월");
   const [introduction, setIntroduction] = useState("");
   const [parts, setParts] = useState([
