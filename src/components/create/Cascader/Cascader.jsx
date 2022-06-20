@@ -18,7 +18,6 @@ const Cascader = ({
         defaultValue={defaultValue}
         multiple={isMultiple}
         style={{
-          marginTop: "10px",
           marginBottom: "20px",
           width: "100%"
         }}

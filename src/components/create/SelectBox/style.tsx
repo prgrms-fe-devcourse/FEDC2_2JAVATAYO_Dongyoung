@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SelectBox = styled.div`
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
 `;

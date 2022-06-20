@@ -52,9 +52,6 @@ const PartBox = ({
     });
   }, [channel, people, skills]);
 
-  console.log("skills", skills);
-  console.log("initial", initialSkills);
-
   const getSkillOptions = (channel) => {
     let idx = SKILL_OPTIONS.findIndex(
       (skillOption) => skillOption.channel === channel
@@ -99,9 +96,11 @@ const PartBox = ({
         setSelectedValues={setSkills}
       />
       {!disabled && (
-        <Button onClick={handleDelete} width="120">
-          삭제
-        </Button>
+        <S.DivWrapper>
+          <Button onClick={handleDelete} width="120">
+            삭제
+          </Button>
+        </S.DivWrapper>
       )}
     </S.PartBox>
   );
