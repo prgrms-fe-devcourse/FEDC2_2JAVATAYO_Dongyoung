@@ -82,7 +82,7 @@ const Create: React.FC = () => {
       });
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("image", images[0].file);
+      formData.append("image", images.length !== 0 ? images[0].file : null);
       formData.append("channelId", currentChannelId);
       const getPost = async (formData: FormData) => {
         await postAPI.createPost(formData).then((res) => {
