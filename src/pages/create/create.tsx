@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SelectBox from "@components/create/SelectBox";
 import DatePicker from "@components/create/DatePicker";
-import Label from "@components/common/Label";
-import AppLayout from "@components/common/AppLayout";
-import Button from "@components/common/Button";
+import { AppLayout, Label, Button, Textarea } from "@components/common";
 import * as S from "./style";
-import InputBox from "@components/create/InputBox/InputBox";
-import Textarea from "@components/common/Textarea";
 import { usePrompt } from "../../routes/Blocker";
 import ImageUploader from "@components/create/ImageUploader/ImageUploader";
 import PartBoxList from "@components/create/PartBoxList";
+import { Input } from "antd";
+import Select from "@components/create/Select";
+import { postAPI } from "@utils/apis";
+import CHANNELS from "@constants/channel";
+import { useNavigate } from "react-router";
+import { currentDate } from "@utils/Date";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -29,26 +31,60 @@ const expectedDateOptions = [
 ];
 
 const Create: React.FC = () => {
-  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
+
+  const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [expectedDate, setExpectedDate] = useState("");
-  const [introduction, setIntroduction] = useState("냥냥");
+  const [startDate, setStartDate] = useState(currentDate);
+  const [expectedDate, setExpectedDate] = useState("1개월");
+  const [introduction, setIntroduction] = useState("");
   const [parts, setParts] = useState([
     { channel: "front", people: "1", skills: [] }
   ]);
+  const [canNavigate, setCanNavigate] = useState(true);
+  const [alertMessage, setAlertMessage] = useState("메인페이지로 이동합니다");
+  const titleRef = useRef(null);
+  const emailRef = useRef(null);
 
-  usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
-  useEffect(() => {
-    console.log("title", title);
-    console.log("email", email);
-    console.log("place", place);
-    console.log("startDate", startDate);
-    console.log("expectedDate", expectedDate);
-    console.log("introduction", introduction);
-    console.log("parts", parts);
-  }, [title, email, place, startDate, expectedDate, introduction, parts]);
+  const handleCreate = () => {
+    if (_title === "") {
+      titleRef.current.focus();
+      return;
+    } else if (email === "") {
+      emailRef.current.focus();
+      return;
+    }
+
+    //TODO : 형진님의 TextArea focus 추가
+    //TODO : blocker.js 멘트 수정?
+    parts.forEach((part) => {
+      const currentChannelId = CHANNELS[part.channel]._id;
+      const title = JSON.stringify({
+        title: _title,
+        introduction,
+        email,
+        expectedDate,
+        place,
+        startDate,
+        parts: part
+      });
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("image", null);
+      formData.append("channelId", currentChannelId);
+      const getPost = async (formData: FormData) => {
+        await postAPI.createPost(formData).then((res) => {
+          if (res.statusText === "OK") {
+            navigate("/");
+          }
+        });
+      };
+      getPost(formData);
+    });
+  };
+
+  usePrompt(alertMessage, canNavigate);
 
   const handleAddParts = () => {
     const newParts = [...parts, { channel: "front", people: "1", skills: [] }];
@@ -66,10 +102,11 @@ const Create: React.FC = () => {
   return (
     <AppLayout>
       <div>
-        <InputBox
-          label="제목"
-          placeholder="제목을 입력해주세요"
-          value={title}
+        <Label>제목</Label>
+        <Input
+          ref={titleRef}
+          placeholder={"제목을 입력해주세요"}
+          value={_title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
@@ -84,8 +121,8 @@ const Create: React.FC = () => {
           />
         </S.InnerWrapper>
         <S.InnerWrapper>
-          <InputBox
-            label="연락 이메일"
+          <Label>이메일</Label>
+          <Input
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -98,12 +135,12 @@ const Create: React.FC = () => {
           <DatePicker setSelectedValue={setStartDate} />
         </S.InnerWrapper>
         <S.InnerWrapper>
-          <SelectBox
+          <Label>예상기간</Label>
+          <Select
             disabled={false}
-            label={"예상기간"}
             defaultValue={"1개월"}
             options={expectedDateOptions}
-            canAllowClear={true}
+            canAllowClear={false}
             setSelectedValue={setExpectedDate}
           />
         </S.InnerWrapper>
@@ -115,7 +152,9 @@ const Create: React.FC = () => {
         handleUpdateParts={handleUpdateParts}
         handleDeleteParts={handleDeleteParts}
       />
-      <Button onClick={handleAddParts}>모집분야 추가</Button>
+      <Button buttonType="red-line" onClick={handleAddParts}>
+        모집분야 추가
+      </Button>
       <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
       <Textarea
         isIntroduction={true}
@@ -124,7 +163,7 @@ const Create: React.FC = () => {
       >
         {introduction}
       </Textarea>
-      <Button isRound={true} width="300">
+      <Button isRound={true} width="300" onClick={handleCreate}>
         생성하기
       </Button>
       <ImageUploader />

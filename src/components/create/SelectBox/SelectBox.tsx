@@ -8,7 +8,7 @@ interface SelectInterface {
   options: Array<object>;
   canAllowClear: boolean;
   setSelectedValue: Dispatch<SetStateAction<string>>;
-  label: string;
+  label?: string;
   disabled?: boolean;
 }
 
