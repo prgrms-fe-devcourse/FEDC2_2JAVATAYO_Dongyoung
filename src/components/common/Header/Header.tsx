@@ -14,7 +14,6 @@ import { useAuth } from "@contexts/AuthProvider";
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const { onLogOut, userInfo } = useAuth();
-  console.log(userInfo);
 
   const [noticeContents, setNoticeContents] = useState([]);
 
@@ -26,7 +25,7 @@ const Header: React.FC = () => {
   const subNav = [
     {
       label: "마이페이지",
-      event: () => navigate(`/profile/${userInfo.user._id}`)
+      event: () => navigate(`/profile/${userInfo._id}`)
     },
     {
       label: "로그아웃",
@@ -56,10 +55,12 @@ const Header: React.FC = () => {
             <S.User>
               <ProfileImage
                 size="sm"
-                imgAlt={userInfo.user.fullName}
-                imgSrc={userInfo.user.image}
+                imgAlt={userInfo ? userInfo.fullName : null}
+                imgSrc={userInfo ? userInfo.image : null}
               />
-              <S.UserFullName>{userInfo.user.fullName} 님</S.UserFullName>
+              <S.UserFullName>
+                {userInfo ? userInfo.fullName : null}님
+              </S.UserFullName>
             </S.User>
           </DropDown>
         </S.LoggedIn>

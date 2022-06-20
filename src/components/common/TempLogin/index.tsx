@@ -1,6 +1,7 @@
 import { useAuth } from "@contexts/AuthProvider";
 import styled from "@emotion/styled";
 import { authAPI } from "@utils/apis";
+import storage from "@utils/storage";
 import React from "react";
 
 const TempLogin = () => {
@@ -30,8 +31,13 @@ const TempLogin = () => {
       }
     ];
 
-    const { data } = await authAPI.signIn(user[num]);
-    onLogin(data);
+    try {
+      const { data } = await authAPI.signIn(user[num]);
+      storage.setItem("TOKEN", data.token);
+      onLogin(data.user);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

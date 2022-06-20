@@ -48,9 +48,9 @@ const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
 
   useEffect(() => {
     const getInit = async () => {
-      const response = await authAPI.checkAuthUser();
+      const { data } = await authAPI.checkAuthUser();
       if (token === "") dispatch({ type: "LOGOUT", payload: {} });
-      else await dispatch({ type: "INIT", payload: response.data });
+      else await dispatch({ type: "INIT", payload: data });
     };
     getInit();
   }, []);
