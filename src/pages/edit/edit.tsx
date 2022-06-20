@@ -142,7 +142,10 @@ const Edit: React.FC = () => {
       <S.Wrapper>
         <S.InnerWrapper>
           <Label> 시작일</Label>
-          <DatePicker setSelectedValue={setStartDate} />
+          <DatePicker
+            defaultValue={startDate}
+            setSelectedValue={setStartDate}
+          />
         </S.InnerWrapper>
         <S.InnerWrapper>
           <SelectBox
