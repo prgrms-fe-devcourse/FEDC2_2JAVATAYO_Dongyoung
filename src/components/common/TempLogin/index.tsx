@@ -1,10 +1,11 @@
+import { useAuth } from "@contexts/AuthProvider";
 import styled from "@emotion/styled";
 import { authAPI } from "@utils/apis";
 import storage from "@utils/storage";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const TempLogin = ({ setIsLoggedIn, isLoggedIn }) => {
-  const [user, setUser] = useState("");
+const TempLogin = () => {
+  const { onLogin, onLogOut, userInfo } = useAuth();
 
   const logIn = async (num) => {
     const user = [
@@ -30,28 +31,20 @@ const TempLogin = ({ setIsLoggedIn, isLoggedIn }) => {
       }
     ];
 
-    const { data } = await authAPI.signIn(user[num]);
-    storage.setItem("TOKEN", data.token);
-    setIsLoggedIn(true);
-    setUser(user[num].fullName);
+    try {
+      const { data } = await authAPI.signIn(user[num]);
+      storage.setItem("TOKEN", data.token);
+      onLogin(data.user);
+    } catch (e) {
+      console.error(e);
+    }
   };
-
-  const logOut = () => {
-    authAPI.logOut();
-    storage.removeItem("TOKEN");
-    setIsLoggedIn(false);
-  };
-
-  useEffect(() => {
-    const login = storage.getItem("TOKEN", false);
-    setIsLoggedIn(login ? true : false);
-  }, []);
 
   return (
     <>
-      {isLoggedIn ? (
+      {userInfo.isLoggedIn ? (
         <div>
-          <button onClick={logOut}>로그아웃</button>
+          <button onClick={() => onLogOut()}>로그아웃</button>
         </div>
       ) : (
         <Form>

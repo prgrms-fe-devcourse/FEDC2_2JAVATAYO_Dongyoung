@@ -2,60 +2,36 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "@assets/logos/Logo.svg";
 import { ReactComponent as Bell } from "@assets/icons/icon_bell.svg";
-import { useEffect, useState } from "react";
-import storage from "@utils/storage";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import TempLogin from "../TempLogin";
 import SearchBar from "../SearchBar";
-import { authAPI, notificationAPI } from "@utils/apis";
+import { notificationAPI } from "@utils/apis";
 import ProfileImage from "../ProfileImage";
 import DropDown from "../DropDown";
 import { useAuth } from "@contexts/AuthProvider";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
-  const { onLogOut } = useAuth();
+  const { onLogOut, userInfo } = useAuth();
 
-  //이후 contextAPI로 변경
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ fullName: "test", _id: "" });
   const [noticeContents, setNoticeContents] = useState([]);
-  const { fullName, _id } = userData;
-  const userInfo = async () => {
-    const { data } = await authAPI.checkAuthUser();
-    setUserData(data);
-  };
-  useEffect(() => {
-    userInfo();
-  }, [isLoggedIn]);
-  //이후 contextAPI로 변경
-
-  const logOut = () => {
-    storage.removeItem("TOKEN");
-    onLogOut();
-  };
 
   const notice = async () => {
+    if (!userInfo.isLoggedIn) return;
     const { data } = await notificationAPI.getNotificationList();
-    console.log(data);
   };
 
   const subNav = [
     {
       label: "마이페이지",
-      event: () => navigate(`/profile/${_id}`)
+      event: () => navigate(`/profile/${userInfo._id}`)
     },
     {
       label: "로그아웃",
-      event: () => logOut()
+      event: () => onLogOut()
     }
   ];
-
-  useEffect(() => {
-    const hasToken = storage.getItem("TOKEN", false) ? true : false;
-    setIsLoggedIn(hasToken);
-    notice();
-  }, []);
 
   return (
     <S.Header>
@@ -64,9 +40,9 @@ const Header: React.FC = () => {
         <Logo />
       </Link>
       {/* 임시 */}
-      <TempLogin setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+      <TempLogin />
       {/* 임시 */}
-      {isLoggedIn ? (
+      {userInfo.isLoggedIn ? (
         <S.LoggedIn>
           <SearchBar />
           <Link to={"/create"}>새글쓰기</Link>
@@ -77,8 +53,14 @@ const Header: React.FC = () => {
           </DropDown>
           <DropDown contents={subNav}>
             <S.User>
-              <ProfileImage size="sm" />
-              <S.UserFullName>{fullName} 님</S.UserFullName>
+              <ProfileImage
+                size="sm"
+                imgAlt={userInfo ? userInfo.fullName : null}
+                imgSrc={userInfo ? userInfo.image : null}
+              />
+              <S.UserFullName>
+                {userInfo ? userInfo.fullName : null}님
+              </S.UserFullName>
             </S.User>
           </DropDown>
         </S.LoggedIn>

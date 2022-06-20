@@ -1,10 +1,4 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  useReducer
-} from "react";
+import { useEffect, createContext, useContext, useReducer } from "react";
 import storage from "../utils/storage";
 import { authAPI } from "../utils/apis";
 
@@ -12,28 +6,27 @@ interface AuthProviderInterface {
   children: React.ReactNode;
 }
 
-const initialUser = { isLoggedIn: false };
+const initialUser = {};
 const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case "INIT": {
       return {
-        ...state,
         ...payload,
         isLoggedIn: true
       };
     }
     case "LOGIN": {
       return {
-        ...state,
         ...payload,
         isLoggedIn: true
       };
     }
     case "LOGOUT": {
       return {
-        ...payload
+        ...payload,
+        isLoggedIn: false
       };
     }
     case "UPDATE_USER_INFO": {
@@ -51,23 +44,22 @@ const reducer = (state, { type, payload }) => {
 
 const AuthProvider: React.FC<AuthProviderInterface> = ({ children }) => {
   const [userInfo, dispatch] = useReducer(reducer, initialUser);
-  const [initData, setInitData] = useState({});
   const token = storage.getItem("TOKEN", "");
+
   useEffect(() => {
     const getInit = async () => {
-      const response = await authAPI.checkAuthUser();
-      setInitData(response.data);
+      const { data } = await authAPI.checkAuthUser();
+      if (token === "") dispatch({ type: "LOGOUT", payload: {} });
+      else await dispatch({ type: "INIT", payload: data });
     };
     getInit();
-
-    if (token !== "") dispatch({ type: "INIT", payload: initData });
-    else dispatch({ type: "LOGOUT", payload: initialUser });
   }, []);
 
   const onLogin = (user) => {
     dispatch({ type: "LOGIN", payload: user });
   };
   const onLogOut = () => {
+    storage.removeItem("TOKEN");
     dispatch({ type: "LOGOUT", payload: initialUser });
   };
   const onUpdate = (newInfo) => {
