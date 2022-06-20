@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.9.0",
@@ -15,8 +16,11 @@
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
+    "antd": "^4.21.0",
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-images-uploading": "^3.1.6",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -29,7 +33,18 @@
     "test": "craco test",
     "eject": "craco eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx,json}": "eslint --cache --fix",
+    "**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
   },
   "eslintConfig": {
     "extends": [
@@ -60,15 +75,15 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.5.7",
-    "@storybook/addon-essentials": "^6.5.7",
-    "@storybook/addon-interactions": "^6.5.7",
-    "@storybook/addon-links": "^6.5.7",
-    "@storybook/builder-webpack5": "^6.5.7",
-    "@storybook/manager-webpack5": "^6.5.7",
-    "@storybook/node-logger": "^6.5.7",
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-interactions": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/builder-webpack5": "^6.3.8",
+    "@storybook/manager-webpack5": "^6.3.8",
+    "@storybook/node-logger": "^6.3.8",
     "@storybook/preset-create-react-app": "^4.1.2",
-    "@storybook/react": "^6.5.7",
+    "@storybook/react": "^6.3.8",
     "@storybook/testing-library": "^0.0.11",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
@@ -80,6 +95,8 @@
     "husky": "^8.0.1",
     "prettier": "^2.6.2",
     "prop-types": "^15.8.1",
+    "react-app-alias": "^2.2.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
     "webpack": "^5.73.0"
   }
 }
