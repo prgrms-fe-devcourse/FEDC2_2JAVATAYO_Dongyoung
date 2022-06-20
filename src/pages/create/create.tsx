@@ -36,7 +36,7 @@ const Create: React.FC = () => {
   const [place, setPlace] = useState("online");
   const [email, setEmail] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [expectedDate, setExpectedDate] = useState("");
+  const [expectedDate, setExpectedDate] = useState("1개월");
   const [introduction, setIntroduction] = useState("");
   const [parts, setParts] = useState([
     { channel: "front", people: "1", skills: [] }
