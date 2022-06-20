@@ -23,3 +23,14 @@ export const Wrapper = styled.div`
   margin: 50px auto;
   gap: 10px;
 `;
+
+export const ImageWrapper = styled.div`
+  justify-content: center;
+  display: flex;
+  margin: 50px auto;
+  gap: 10px;
+`;
+
+export const Image = styled.img`
+  border-radius: 20px;
+`;
