@@ -163,6 +163,10 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
       }
     }
   }
+  const localDate = new Date(postDetail.updatedAt)
+    .toLocaleDateString()
+    .replaceAll(" ", "")
+    .substring(0, 9);
   return (
     <AppLayout>
       <div>
@@ -173,7 +177,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
           title={paramTitle}
           authorId={postDetail.author.fullName}
           authorImage={postDetail.author.image}
-          createdAt={postDetail.updatedAt.substring(0, 10).replaceAll("-", ".")}
+          updatedAt={localDate}
           channel={paramChannel}
           people={paramPeople}
           email={paramEmail}

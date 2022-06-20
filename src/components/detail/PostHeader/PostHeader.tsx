@@ -5,10 +5,7 @@ import PostSummary from "./PostSummary";
 import LikeBtn from "../../common/LikeBtn";
 import { ILike, IUser } from "src/types/model";
 import { ReactComponent as BackIcon } from "../../../assets/icons/icon_back.svg";
-import { ReactComponent as HeartIcon } from "../../../assets/icons/icon_heart.svg";
-import { ReactComponent as HeartFillIcon } from "../../../assets/icons/icon_heart_fill.svg";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@contexts/AuthProvider";
 import * as S from "./style";
 
 interface PostHeaderInterface {
@@ -18,7 +15,7 @@ interface PostHeaderInterface {
   title: string;
   authorId: string;
   authorImage: string;
-  createdAt: string;
+  updatedAt: string;
   channel: string;
   people: string;
   email: string;
@@ -35,7 +32,7 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   title,
   authorId,
   authorImage,
-  createdAt,
+  updatedAt,
   channel,
   people,
   email,
@@ -68,7 +65,7 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
           />
           <span>{authorId}</span>
         </S.CenterAlignItemSpan>
-        <span>{createdAt}</span>
+        <span>{updatedAt}</span>
       </S.FlexBetween>
       <br></br>
       <S.PostSection>요약</S.PostSection>
