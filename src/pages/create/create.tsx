@@ -172,7 +172,7 @@ const Create: React.FC = () => {
       <Button buttonType="red-line" onClick={handleAddParts}>
         모집분야 추가
       </Button>
-      <h3 style={{ margin: "20px 0" }}>프로젝트 소개</h3>
+      <S.H3>프로젝트 소개</S.H3>
       <Textarea
         isIntroduction={true}
         isLogin={true}
