@@ -2,12 +2,18 @@ import React from "react";
 import PostTitle from "./PostTitle";
 import ProfileImage from "../../common/ProfileImage/index";
 import PostSummary from "./PostSummary";
+import LikeBtn from "../../common/LikeBtn";
+import { ILike } from "src/types/model";
 import { ReactComponent as BackIcon } from "../../../assets/icons/icon_back.svg";
 import { ReactComponent as HeartIcon } from "../../../assets/icons/icon_heart.svg";
 import { ReactComponent as HeartFillIcon } from "../../../assets/icons/icon_heart_fill.svg";
+import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 
 interface PostHeaderInterface {
+  postId: string;
+  userId: string;
+  likes: ILike[];
   title: string;
   authorId: string;
   createdAt: string;
@@ -21,6 +27,9 @@ interface PostHeaderInterface {
 }
 
 const PostHeader: React.FC<PostHeaderInterface> = ({
+  postId,
+  userId,
+  likes,
   title,
   authorId,
   createdAt,
@@ -32,15 +41,18 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   expectedDate,
   skills
 }) => {
+  const homeNavigate = useNavigate();
+  const backButtonClick = () => {
+    homeNavigate("/");
+  };
   return (
     <>
       <S.FlexBetween>
-        <span>
+        <span onClick={backButtonClick}>
           <BackIcon />
         </span>
         <S.CenterAlignItemSpan>
-          <HeartIcon />
-          <span>12{/* 추후에 받아올 예정 */}</span>
+          <LikeBtn likes={likes} userId={userId} postId={postId} />
         </S.CenterAlignItemSpan>
       </S.FlexBetween>
       <PostTitle>{title}</PostTitle>
