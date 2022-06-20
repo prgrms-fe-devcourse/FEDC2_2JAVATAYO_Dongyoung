@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const SignUpWrapper = styled.div`
-  margin: 20px 25%;
+  margin: 0 25%;
 `;
 
 export const Image = styled.div`
   text-align: center;
-  margin: 40px 0;
+  padding: 20px 0;
   cursor: pointer;
 `;
 
@@ -23,4 +23,11 @@ export const MarginWrapper = styled.div`
 export const ConfirmWrapper = styled.div`
   margin: 30px 0;
   display: flex;
+  div {
+    flex-grow: 2;
+    margin-right: 10px;
+  }
+  button {
+    margin-top: 22px;
+  }
 `;
