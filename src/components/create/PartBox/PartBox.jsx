@@ -7,8 +7,8 @@ import SelectBox from "../SelectBox";
 import * as S from "./style";
 
 const PartBox = ({
-  initialChannel = "front",
-  initialPeople = "1",
+  initialChannel,
+  initialPeople,
   initialSkills,
   handleUpdate,
   handleDelete,
@@ -33,12 +33,16 @@ const PartBox = ({
     { id: 7, value: "notyet", label: "미정" }
   ];
 
-  const [channel, setChannel] = React.useState(initialChannel);
-  const [people, setPeople] = React.useState(initialPeople);
+  const [channel, setChannel] = React.useState(
+    initialChannel ? initialChannel : "front"
+  );
+  const [people, setPeople] = React.useState(
+    initialPeople ? initialPeople : "1"
+  );
   const [stackOptions, setStackOptions] = React.useState(
     SKILL_OPTIONS[0].options
   );
-  const [skills, setSkills] = React.useState([]);
+  const [skills, setSkills] = React.useState(initialSkills);
 
   React.useEffect(() => {
     handleUpdate({
@@ -48,6 +52,9 @@ const PartBox = ({
     });
   }, [channel, people, skills]);
 
+  console.log("skills", skills);
+  console.log("initial", initialSkills);
+
   const getSkillOptions = (channel) => {
     let idx = SKILL_OPTIONS.findIndex(
       (skillOption) => skillOption.channel === channel
@@ -56,7 +63,7 @@ const PartBox = ({
   };
 
   React.useEffect(() => {
-    setSkills([]);
+    if (!disabled) setSkills([]);
     getSkillOptions(channel);
   }, [channel]);
 
@@ -67,7 +74,7 @@ const PartBox = ({
           <SelectBox
             label={"모집분야"}
             disabled={disabled}
-            defaultValue={"front"}
+            defaultValue={channel}
             canAllowClear={false}
             options={channelOption}
             setSelectedValue={setChannel}
@@ -76,7 +83,7 @@ const PartBox = ({
         <div style={{ flexGrow: 1 }}>
           <SelectBox
             label={"모집인원"}
-            defaultValue={"1"}
+            defaultValue={people}
             canAllowClear={false}
             options={peopleOption}
             setSelectedValue={setPeople}
@@ -85,6 +92,7 @@ const PartBox = ({
       </S.Wrapper>
       <Label>기술 스택</Label>
       <Cascader
+        defaultValue={skills}
         stacks={skills}
         isMultiple={true}
         options={stackOptions}
