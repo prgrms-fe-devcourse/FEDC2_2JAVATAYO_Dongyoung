@@ -2,7 +2,6 @@ import React from "react";
 import "antd/dist/antd.css";
 import { DatePicker as AntdDatePicker } from "antd";
 import moment from "moment";
-import { currentDate } from "@utils/Date";
 
 const dateFormat = "YYYY/MM/DD";
 
