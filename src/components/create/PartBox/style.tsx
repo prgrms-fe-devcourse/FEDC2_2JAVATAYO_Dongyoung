@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  gap: 8px;
 `;
 
 export const PartBox = styled.div`
@@ -14,4 +15,10 @@ export const PartBox = styled.div`
   box-sizing: border-box;
   background-color: ${theme.$gray100};
   margin-bottom: 20px;
+`;
+
+export const DivWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

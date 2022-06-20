@@ -2,6 +2,7 @@ import * as S from "./style";
 import Button from "../../../common/Button";
 import Textarea from "../../../common/Textarea";
 import commentAPI from "../../../../utils/apis/comment";
+import notificationAPI from "../../../../utils/apis/notification";
 import { useState, useRef } from "react";
 interface TextareaBoxInterface {
   length: number;
@@ -34,12 +35,13 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
     }
     if (confirm("댓글을 등록하시겠습니까?")) {
       try {
-        await commentAPI.createComment({
+        const createCommentRespon = await commentAPI.createComment({
           comment: commentText,
           postId: postId
         });
         setCommentText(() => "");
-        setComments((comments) => [
+        const { _id } = createCommentRespon.data;
+        /* setComments((comments) => [ 이건 꼭 구현하자... ㅠㅠ
           ...comments,
           {
             comment: commentText,
@@ -48,10 +50,17 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
               _id: userId
             }
           }
-        ]);
+        ]); */
+        await notificationAPI.createNotification({
+          notificationType: "COMMENT",
+          notificationTypeId: _id,
+          userId: userId,
+          postId: postId
+        });
       } catch (error) {
         console.error(error);
       }
+      location.reload();
     }
     console.log(comments);
   };
