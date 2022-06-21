@@ -17,7 +17,8 @@ export const Wrapper = styled.div`
   }
 
   button {
-    margin: 50px auto 200px;
+    display: block;
+    margin: 50px auto 0;
   }
 `;
 
