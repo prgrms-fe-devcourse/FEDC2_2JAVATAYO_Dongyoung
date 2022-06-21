@@ -157,7 +157,7 @@ const Profile: React.FC = () => {
                     })}
                 </SCardBox>
 
-                <S.Wrapper margin="52px 0 0">
+                <S.Wrapper margin="52px 0 0" center>
                   {getEndIndex(written.countClickMore) < written.total ? (
                     <Button
                       buttonType="red"
@@ -188,7 +188,7 @@ const Profile: React.FC = () => {
                     ))}
                 </SCardBox>
 
-                <S.Wrapper margin="52px 0 0">
+                <S.Wrapper margin="52px 0 0" center>
                   {getEndIndex(written.countClickMore) < written.total ? (
                     <Button
                       buttonType="red"
