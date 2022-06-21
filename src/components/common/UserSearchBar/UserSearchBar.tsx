@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { userAPI } from "@utils/apis";
 import * as S from "./style";
-import { ReactComponent as SearchIcon } from "./icon_search.svg";
+import { ReactComponent as SearchIcon } from "@assets/icons/icon_search.svg";
 import { useNavigate } from "react-router";
 
 interface UserSearchBarInterface {
