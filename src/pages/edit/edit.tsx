@@ -10,6 +10,9 @@ import CHANNELS from "@constants/channel";
 import { useNavigate, useParams } from "react-router";
 import { useLocation } from "react-router-dom";
 import { postAPI } from "@utils/apis";
+import ImageUploader from "@components/create/ImageUploader/ImageUploader";
+import { DeleteOutlined, ScanOutlined } from "@ant-design/icons";
+import { transform } from "typescript";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -40,13 +43,14 @@ interface StateType {
   startDate: string;
   title: string;
   place: string;
+  imagePublicId?: string;
 }
 
 const Edit: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state as StateType;
-  console.log(state.skills);
+  console.log(state);
   const { channel, id } = useParams<Record<string, string>>();
   const [_title, setTitle] = useState(state.title);
   const [place, setPlace] = useState(state.place);
@@ -59,6 +63,8 @@ const Edit: React.FC = () => {
     people: state.people,
     skills: Object.values(state.skills)
   });
+  const [images, setImages] = useState([]);
+  const [imageSrc, setImageSrc] = useState(state.image);
   usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
 
   const handleUpdateParts = (part) => {
@@ -80,9 +86,12 @@ const Edit: React.FC = () => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("image", null);
+    formData.append("image", images.length !== 0 ? images[0].file : null);
     formData.append("channelId", currentChannelId);
     formData.append("postId", id);
+    if (imageSrc === "" && state.image !== "") {
+      formData.append("imageToDeletePublicId", state.imagePublicId);
+    }
 
     const editPost = async (formData: FormData) => {
       await postAPI.updatePost(formData).then((res) => {
@@ -163,6 +172,19 @@ const Edit: React.FC = () => {
       >
         {introduction}
       </Textarea>
+      {imageSrc ? (
+        <S.ImageItem>
+          <img src={imageSrc} alt="img" width="100" />
+          <DeleteOutlined
+            onClick={() => {
+              setImageSrc("");
+            }}
+            style={{ cursor: "pointer", transform: "scale(1.2)" }}
+          />
+        </S.ImageItem>
+      ) : (
+        <ImageUploader images={images} setImages={setImages} />
+      )}
       <S.Wrapper>
         <Button isRound={true} width="300" onClick={handleEdit}>
           수정하기

@@ -41,7 +41,6 @@ const Profile: React.FC = () => {
   const [profileUser, setProfileUser] = useState<IUser>();
   const [written, setWritten] = useState<Posts>(INITIAL_POSTS);
   const [liked, setLiked] = useState<Posts>(INITIAL_POSTS);
-
   const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
 
   const getUser = async () => {
@@ -68,7 +67,6 @@ const Profile: React.FC = () => {
         if (isWrittenPost) _writtenPosts.push(post);
         if (isLikedPost) _likedPosts.push(post);
       });
-
       setWritten({
         ...written,
         posts: _writtenPosts,

@@ -7,6 +7,9 @@ interface PostFooterInterface {
   comments: object[];
   postId: string;
   userId: string;
+  userName: string;
+  userImage: string;
+  postAuthorId: string;
   isLoggedIn: boolean;
   setComments: (value: object) => void;
   deleteComment: (value: object, id: string) => void;
@@ -16,6 +19,9 @@ const PostFooter: React.FC<PostFooterInterface> = ({
   comments,
   postId,
   userId,
+  userName,
+  userImage,
+  postAuthorId,
   isLoggedIn,
   setComments,
   deleteComment
@@ -23,6 +29,7 @@ const PostFooter: React.FC<PostFooterInterface> = ({
   let paramComment;
   let paramAuthor;
   let paramAuthorId;
+  let paramAuthorImage;
   let paramUpdatedAt;
   let paramKey;
 
@@ -35,6 +42,9 @@ const PostFooter: React.FC<PostFooterInterface> = ({
         setComments={setComments}
         isLoggedIn={isLoggedIn}
         userId={userId}
+        userName={userName}
+        userImage={userImage}
+        postAuthorId={postAuthorId}
       ></TextareaBox>
       <div>
         {comments.map((comment) => {
@@ -48,11 +58,13 @@ const PostFooter: React.FC<PostFooterInterface> = ({
                 case "author":
                   paramAuthor = comment[prop].fullName;
                   paramAuthorId = comment[prop]._id;
+                  paramAuthorImage = comment[prop].image;
                   break;
                 case "updatedAt":
-                  paramUpdatedAt = comment[prop]
-                    .substring(0, 10)
-                    .replaceAll("-", ".");
+                  paramUpdatedAt = new Date(comment[prop])
+                    .toLocaleDateString()
+                    .replaceAll(" ", "")
+                    .substring(0, 9);
                   break;
                 case "_id":
                   paramKey = comment[prop];
@@ -67,6 +79,7 @@ const PostFooter: React.FC<PostFooterInterface> = ({
               key={paramKey}
               userId={userId}
               authorId={paramAuthorId}
+              authorImage={paramAuthorImage}
               commentId={paramKey}
               comment={paramComment}
               author={paramAuthor}
