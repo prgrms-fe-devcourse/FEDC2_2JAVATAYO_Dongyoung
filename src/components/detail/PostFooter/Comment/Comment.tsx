@@ -10,6 +10,7 @@ interface CommentInterface {
   comments: object[];
   author: string;
   authorId: string;
+  authorImage: string;
   updatedAt: string;
   deleteComment: (value: object, id: string) => void;
 }
@@ -20,6 +21,7 @@ const Comment: React.FC<CommentInterface> = ({
   userId,
   author,
   authorId,
+  authorImage,
   updatedAt,
   deleteComment
 }) => {
@@ -27,7 +29,12 @@ const Comment: React.FC<CommentInterface> = ({
     <div>
       <S.FlexBetween>
         <S.CenterAlignItemSpan>
-          <ProfileImage block={false} size="md" />
+          {/* <ProfileImage block={false} size="md" /> */}
+          <ProfileImage
+            size="sm"
+            imgAlt={author ? author : null}
+            imgSrc={authorImage ? authorImage : null}
+          />
           <span>{author}</span>
         </S.CenterAlignItemSpan>
         <span style={{ color: theme.$gray400 }}>{updatedAt}</span>

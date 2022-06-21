@@ -3,10 +3,8 @@ import PostTitle from "./PostTitle";
 import ProfileImage from "../../common/ProfileImage/index";
 import PostSummary from "./PostSummary";
 import LikeBtn from "../../common/LikeBtn";
-import { ILike } from "src/types/model";
+import { ILike, IUser } from "src/types/model";
 import { ReactComponent as BackIcon } from "../../../assets/icons/icon_back.svg";
-import { ReactComponent as HeartIcon } from "../../../assets/icons/icon_heart.svg";
-import { ReactComponent as HeartFillIcon } from "../../../assets/icons/icon_heart_fill.svg";
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 
@@ -16,7 +14,8 @@ interface PostHeaderInterface {
   likes: ILike[];
   title: string;
   authorId: string;
-  createdAt: string;
+  authorImage: string;
+  updatedAt: string;
   channel: string;
   people: string;
   email: string;
@@ -32,7 +31,8 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   likes,
   title,
   authorId,
-  createdAt,
+  authorImage,
+  updatedAt,
   channel,
   people,
   email,
@@ -58,10 +58,14 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
       <PostTitle>{title}</PostTitle>
       <S.FlexBetween style={{ alignItems: "end" }}>
         <S.CenterAlignItemSpan>
-          <ProfileImage block={false} size={"md"}></ProfileImage>
+          <ProfileImage
+            size="sm"
+            imgAlt={authorId ? authorId : null}
+            imgSrc={authorImage ? authorImage : null}
+          />
           <span>{authorId}</span>
         </S.CenterAlignItemSpan>
-        <span>{createdAt}</span>
+        <span>{updatedAt}</span>
       </S.FlexBetween>
       <br></br>
       <S.PostSection>요약</S.PostSection>

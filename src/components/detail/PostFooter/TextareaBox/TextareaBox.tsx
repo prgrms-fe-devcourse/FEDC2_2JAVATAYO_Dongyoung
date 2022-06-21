@@ -11,6 +11,9 @@ interface TextareaBoxInterface {
   setComments: (value: object) => void;
   isLoggedIn: boolean;
   userId: string;
+  userName: string;
+  userImage: string;
+  postAuthorId: string;
 }
 
 const TextareaBox: React.FC<TextareaBoxInterface> = ({
@@ -19,7 +22,10 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
   comments,
   setComments,
   isLoggedIn,
-  userId
+  userId,
+  userName,
+  userImage,
+  postAuthorId
 }) => {
   //const isLoggedIn = true; // 추후 Context API로 변경
   const [commentText, setCommentText] = useState("");
@@ -39,30 +45,38 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
           comment: commentText,
           postId: postId
         });
-        setCommentText(() => "");
         const { _id } = createCommentRespon.data;
-        /* setComments((comments) => [ 이건 꼭 구현하자... ㅠㅠ
+        const now = new Date();
+        const today =
+          now.getFullYear() + "." + (now.getMonth() + 1) + "." + now.getDate();
+        setComments((comments) => [
           ...comments,
           {
+            _id: _id,
             comment: commentText,
             post: postId,
             author: {
-              _id: userId
-            }
+              _id: userId,
+              fullName: userName,
+              image: userImage
+            },
+            createdAt: today,
+            updatedAt: today
           }
-        ]); */
+        ]);
         await notificationAPI.createNotification({
           notificationType: "COMMENT",
           notificationTypeId: _id,
-          userId: userId,
+          userId: postAuthorId,
           postId: postId
         });
+        textAreaRef.current.value = "";
       } catch (error) {
         console.error(error);
       }
-      location.reload();
+      //location.reload();
     }
-    console.log(comments);
+    //console.log(comments);
   };
 
   return (
