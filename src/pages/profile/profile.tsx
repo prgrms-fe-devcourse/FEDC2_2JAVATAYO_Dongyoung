@@ -37,10 +37,10 @@ const Profile: React.FC = () => {
 
   const { userInfo, onUpdate } = useAuth();
 
+  const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
   const [profileUser, setProfileUser] = useState<IUser>();
   const [written, setWritten] = useState<Posts>(INITIAL_POSTS);
   const [liked, setLiked] = useState<Posts>(INITIAL_POSTS);
-  const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
 
   const handleCreateFollow = (followData) => {
     setProfileUser({
@@ -100,18 +100,17 @@ const Profile: React.FC = () => {
     }
   }, []);
 
-  const getProfileUser = useCallback(async () => {
+  const getProfileUser = async () => {
     try {
-      console.log("getProfileUser");
       const response = await userAPI.getUser(profileUserId);
       setProfileUser(response.data);
     } catch (error) {
       console.error(error);
       navigate("/404");
     }
-  }, []);
+  };
 
-  const getPosts = useCallback(async () => {
+  const getPosts = async () => {
     try {
       const { data: posts } = await postAPI.allPost();
       const _writtenPosts: IPost[] = [];
@@ -139,10 +138,13 @@ const Profile: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    axios.all([getProfileUser(), getPosts()]);
+    setWritten(INITIAL_POSTS);
+    setLiked(INITIAL_POSTS);
+    getProfileUser();
+    getPosts();
   }, [profileUserId]);
 
   useEffect(() => {
@@ -179,8 +181,10 @@ const Profile: React.FC = () => {
             </S.Wrapper>
 
             <S.FlexContainer direction="column" gap="6px">
-              <S.FullName>{profileUser.fullName}</S.FullName>
-              <S.Email>{profileUser.email}</S.Email>
+              <S.FullName>
+                {isMine ? userInfo.fullName : profileUser.fullName}
+              </S.FullName>
+              <S.Email>{isMine ? userInfo.email : profileUser.email}</S.Email>
             </S.FlexContainer>
 
             {!isMine && userInfo.isLoggedIn ? (
@@ -261,12 +265,12 @@ const Profile: React.FC = () => {
                 </SCardBox>
 
                 <S.Wrapper margin="52px 0 0" center>
-                  {getEndIndex(written.countClickMore) < written.total ? (
+                  {getEndIndex(liked.countClickMore) < liked.total ? (
                     <Button
                       buttonType="red"
                       width="300"
                       onClick={() =>
-                        setWritten({
+                        setLiked({
                           ...liked,
                           countClickMore: liked.countClickMore + 1
                         })
