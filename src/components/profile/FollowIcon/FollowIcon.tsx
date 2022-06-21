@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Id } from "../ProfileImageBox/index";
+import { Id } from "../ProfileImageBox/ProfileImageBox";
 import DeleteFollowIcon from "./DeleteFollowIcon";
 import CreateFollowIcon from "./CreateFollowIcon";
 import * as S from "./style";

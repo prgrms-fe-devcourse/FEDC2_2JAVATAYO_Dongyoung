@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Button from "@components/common/Button/Button";
 import { useClickAway } from "@hooks";
 import { ReactComponent as DeleteFollowSVG } from "@assets/icons/icon_delete_follow.svg";
-import { Id } from "../ProfileImageBox/index";
+import { Id } from "../ProfileImageBox/ProfileImageBox";
 import * as S from "./style";
 
 const DeleteFollowIcon: FC<{ profileFullName: string; id: Id; onDelete }> = ({
