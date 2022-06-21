@@ -1,6 +1,6 @@
 import * as S from "./style";
 import Button from "../Button";
-
+import SearchBar from "./UserSearchBar";
 interface BottomSheetInterface {
   buttonType?: string;
   width?: string;
@@ -47,14 +47,55 @@ const BottomSheet: React.FC<BottomSheetInterface> = ({
         /* style={{ height: "200px" }} */
       >
         <S.BottomSheet id="bottomSheet">
-          <S.elementA onClick={showBottomSheet}>Edit</S.elementA>
-          <S.elementA onClick={showBottomSheet}>Delete</S.elementA>
-          <S.elementA onClick={showBottomSheet}>New</S.elementA>
-          <S.elementA onClick={showBottomSheet}>Cancel</S.elementA>
-          <S.elementA onClick={showBottomSheet}>Cancel</S.elementA>
-          <S.elementA onClick={showBottomSheet}>Cancel</S.elementA>
-          <S.elementA onClick={showBottomSheet}>Cancel</S.elementA>
-          <S.elementA onClick={showBottomSheet}>Cancel</S.elementA>
+          <S.BottomSheetHeader>
+            <div
+              style={{
+                color: "white",
+                fontSize: "20px",
+                padding: "20px 20px 10px 30px",
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              <span
+                style={{
+                  color: "white",
+                  fontSize: "20px"
+                }}
+              >
+                같이 봉고차탈 친구 찾기!🚐
+              </span>
+              <span
+                style={{
+                  color: "white",
+                  fontSize: "20px"
+                }}
+              >
+                ▲
+              </span>
+            </div>
+            <div
+              style={{
+                color: "white",
+                fontSize: "16px",
+                padding: "0px 0px 10px 30px"
+              }}
+            >
+              친구 검색으로 프로젝트 팀원을 찾아봐요~
+            </div>
+          </S.BottomSheetHeader>
+          <S.BottomSheetContents>
+            <S.Content>
+              <SearchBar />
+            </S.Content>
+            <S.Content onClick={showBottomSheet}>Delete</S.Content>
+            <S.Content onClick={showBottomSheet}>New</S.Content>
+            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
+            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
+            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
+            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
+            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
+          </S.BottomSheetContents>
         </S.BottomSheet>
       </S.BottomSheetWrapper>
     </div>
