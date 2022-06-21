@@ -1,3 +1,4 @@
+import { PageLoading } from "@components/common";
 import AppLayout from "@components/common/AppLayout";
 import Button from "@components/common/Button";
 import Card from "@components/common/Card";
@@ -13,6 +14,7 @@ const Search: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [filterPost, setFilterPost] = useState<IPost[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const params = useParams();
   const { userInfo } = useAuth();
 
@@ -22,6 +24,8 @@ const Search: React.FC = () => {
       searchPosts(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsPageLoading(false);
     }
   };
 
@@ -59,6 +63,7 @@ const Search: React.FC = () => {
           </Button>
         ) : null}
       </S.Search>
+      <PageLoading isLoading={isPageLoading} />
     </AppLayout>
   );
 };
