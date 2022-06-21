@@ -55,4 +55,5 @@ export const Banner = styled.div`
   height: 140px;
   width: 100%;
   background-color: #eaabbf;
+  cursor: pointer;
 `;

@@ -4,11 +4,14 @@ import HomeFilter from "@components/home/HomeFilter";
 import * as S from "./style";
 import { postAPI } from "@utils/apis";
 import { useAuth } from "@contexts/AuthProvider";
+import Banner from "@components/home/Banner";
+import PageLoading from "@components/common/PageLoading";
 
 const POST_LENGTH = 10;
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(POST_LENGTH);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const { userInfo } = useAuth();
 
   const channelChange = (id: string) => {
@@ -22,6 +25,8 @@ const Home: React.FC = () => {
       setPosts(data);
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsPageLoading(false);
     }
   };
 
@@ -42,7 +47,7 @@ const Home: React.FC = () => {
     <>
       <Header />
       <S.Contents>
-        <S.Banner />
+        <Banner />
         <S.Wrapper>
           <h2>이런 프로젝트가 올라왔어요</h2>
         </S.Wrapper>
@@ -51,10 +56,14 @@ const Home: React.FC = () => {
         </S.FilterWrapper>
         <S.CardWrapper>
           <S.CardBox>
-            {posts.map((post, i) => {
-              if (i >= page) return null;
-              return <Card post={post} key={i} userId={userInfo._id} />;
-            })}
+            {posts.length === 0 ? (
+              <S.NotPost>검색결과가 없습니다 😱</S.NotPost>
+            ) : (
+              posts.map((post, i) => {
+                if (i >= page) return null;
+                return <Card post={post} key={i} userId={userInfo._id} />;
+              })
+            )}
           </S.CardBox>
           {posts.length > page ? (
             <Button width="300" onClick={() => setPage(page + POST_LENGTH)}>
@@ -63,7 +72,8 @@ const Home: React.FC = () => {
           ) : null}
         </S.CardWrapper>
       </S.Contents>
-      <Footer />
+      <PageLoading isLoading={isPageLoading} />
+      <Footer banner />
     </>
   );
 };

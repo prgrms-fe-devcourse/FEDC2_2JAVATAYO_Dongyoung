@@ -1,15 +1,30 @@
 import githubIcon from "@assets/icons/icon_github.svg";
 import youtubeIcon from "@assets/icons/icon_youtube.svg";
 import bannerImg from "@assets/imgs/search_banner.jpg";
+import { useAuth } from "@contexts/AuthProvider";
+import { useNavigate } from "react-router";
 import * as S from "./style";
+
+const GitHubURL =
+  "https://github.com/prgrms-fe-devcourse/FEDC2_2JAVATAYO_Dongyoung";
 
 type footerInterface = { banner?: boolean };
 
 const Footer: React.FC<footerInterface> = ({ banner }) => {
+  const navigate = useNavigate();
+  const { userInfo } = useAuth();
+
+  const bannerClick = () => {
+    if (userInfo.isLoggedIn) {
+      navigate("/create");
+    } else {
+      if (confirm("로그인 후 글을 생성하시겠습니까?")) navigate("/signin");
+    }
+  };
   return (
     <div>
       {banner ? (
-        <S.Banner>
+        <S.Banner onClick={bannerClick}>
           <img
             src={bannerImg}
             alt="마음에 드는 사이드 프로젝트가 없나요? 프로젝트 올리기 "
@@ -30,8 +45,12 @@ const Footer: React.FC<footerInterface> = ({ banner }) => {
           </p>
           <div>
             <S.SocialLink>
-              <img src={githubIcon} alt="github 링크" />
-              <img src={youtubeIcon} alt="youTube 발표 영상" />
+              <a href={GitHubURL}>
+                <img src={githubIcon} alt="github 링크" />
+              </a>
+              <a href="#">
+                <img src={youtubeIcon} alt="youTube 발표 영상" />
+              </a>
             </S.SocialLink>
           </div>
         </S.Wrap>
