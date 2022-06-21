@@ -30,7 +30,6 @@ const useForm = <T>({ initialValue, onSubmit, validate }: Form<T>) => {
       }
     }
     setErrors(newErrors);
-
     setIsLoading(false);
   };
 

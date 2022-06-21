@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const LogInWrapper = styled.div`
+export const LogInWrapper = styled.form`
   margin: 0 25%;
 `;
 
