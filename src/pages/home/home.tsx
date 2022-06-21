@@ -56,10 +56,14 @@ const Home: React.FC = () => {
         </S.FilterWrapper>
         <S.CardWrapper>
           <S.CardBox>
-            {posts.map((post, i) => {
-              if (i >= page) return null;
-              return <Card post={post} key={i} userId={userInfo._id} />;
-            })}
+            {posts.length === 0 ? (
+              <S.NotPost>검색결과가 없습니다 😱</S.NotPost>
+            ) : (
+              posts.map((post, i) => {
+                if (i >= page) return null;
+                return <Card post={post} key={i} userId={userInfo._id} />;
+              })
+            )}
           </S.CardBox>
           {posts.length > page ? (
             <Button width="300" onClick={() => setPage(page + POST_LENGTH)}>

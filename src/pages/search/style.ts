@@ -17,3 +17,7 @@ export const CardBox = styled.div`
   justify-content: space-between;
   margin: 30px 0 60px;
 `;
+
+export const NotPost = styled.p`
+  font-size: 18px;
+`;

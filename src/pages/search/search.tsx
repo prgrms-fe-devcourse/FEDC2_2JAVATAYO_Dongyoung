@@ -52,10 +52,14 @@ const Search: React.FC = () => {
         <S.H2>{filterPost.length}개의 프로젝트를 찾았습니다. 🚐</S.H2>
         <SearchFilter posts={posts} setFilterPost={setFilterPost} />
         <S.CardBox>
-          {filterPost.map((post, i) => {
-            if (i >= page * 10) return;
-            return <Card post={post} key={i} userId={userInfo._id} />;
-          })}
+          {filterPost.length === 0 ? (
+            <S.NotPost>검색결과가 없습니다 😱</S.NotPost>
+          ) : (
+            filterPost.map((post, i) => {
+              if (i >= page * 10) return;
+              return <Card post={post} key={i} userId={userInfo._id} />;
+            })
+          )}
         </S.CardBox>
         {filterPost.length > page * 10 ? (
           <Button width="300" onClick={clickMoreBtn}>

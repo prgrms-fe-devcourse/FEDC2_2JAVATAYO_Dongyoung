@@ -54,3 +54,6 @@ export const Card = styled.div`
   background-color: gray;
   margin-top: 15px;
 `;
+export const NotPost = styled.p`
+  font-size: 18px;
+`;
