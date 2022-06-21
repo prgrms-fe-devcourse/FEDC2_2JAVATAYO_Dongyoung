@@ -90,6 +90,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
           postDetail.imagePublicId != null ? postDetail.imagePublicId : ""
       }
     });
+    window.scrollTo(0, 0);
   };
 
   const postDeleteHandler = async () => {
@@ -175,7 +176,8 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
           userId={userId}
           likes={likes}
           title={paramTitle}
-          authorId={postDetail.author.fullName}
+          authorId={postDetail.author._id}
+          authorFullname={postDetail.author.fullName}
           authorImage={postDetail.author.image}
           updatedAt={localDate}
           channel={paramChannel}

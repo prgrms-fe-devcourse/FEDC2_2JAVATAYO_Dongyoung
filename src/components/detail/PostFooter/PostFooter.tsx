@@ -61,9 +61,10 @@ const PostFooter: React.FC<PostFooterInterface> = ({
                   paramAuthorImage = comment[prop].image;
                   break;
                 case "updatedAt":
-                  paramUpdatedAt = comment[prop]
-                    .substring(0, 10)
-                    .replaceAll("-", ".");
+                  paramUpdatedAt = new Date(comment[prop])
+                    .toLocaleDateString()
+                    .replaceAll(" ", "")
+                    .substring(0, 9);
                   break;
                 case "_id":
                   paramKey = comment[prop];

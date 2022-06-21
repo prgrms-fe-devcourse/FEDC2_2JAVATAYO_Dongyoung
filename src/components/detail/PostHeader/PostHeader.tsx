@@ -14,6 +14,7 @@ interface PostHeaderInterface {
   likes: ILike[];
   title: string;
   authorId: string;
+  authorFullname: string;
   authorImage: string;
   updatedAt: string;
   channel: string;
@@ -31,6 +32,7 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   likes,
   title,
   authorId,
+  authorFullname,
   authorImage,
   updatedAt,
   channel,
@@ -42,8 +44,14 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   skills
 }) => {
   const homeNavigate = useNavigate();
+  const userProfileNavigate = useNavigate();
   const backButtonClick = () => {
     homeNavigate("/");
+    window.scrollTo(0, 0);
+  };
+  const userProfileClick = () => {
+    userProfileNavigate(`/profile/${authorId}`);
+    window.scrollTo(0, 0);
   };
   return (
     <>
@@ -60,10 +68,11 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
         <S.CenterAlignItemSpan>
           <ProfileImage
             size="sm"
-            imgAlt={authorId ? authorId : null}
+            imgAlt={authorFullname ? authorFullname : null}
             imgSrc={authorImage ? authorImage : null}
+            onClick={userProfileClick}
           />
-          <span>{authorId}</span>
+          <span>{authorFullname}</span>
         </S.CenterAlignItemSpan>
         <span>{updatedAt}</span>
       </S.FlexBetween>
