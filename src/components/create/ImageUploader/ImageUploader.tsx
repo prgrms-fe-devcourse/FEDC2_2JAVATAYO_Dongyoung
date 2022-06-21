@@ -1,7 +1,7 @@
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Button, Upload } from "antd";
+import { Button } from "antd";
 import * as S from "./style";
 
 interface ImageUploaderInterface {
@@ -18,8 +18,6 @@ const ImageUploader: React.FC<ImageUploaderInterface> = ({
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
-    // data for submit
-    console.log(imageList);
     if (imageList.length >= 2) {
       alert("사진은 한장만 업로드 가능합니다");
       return;

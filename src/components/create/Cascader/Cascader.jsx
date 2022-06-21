@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "antd/dist/antd.css";
 import { Cascader as AntdCascader } from "antd";
 

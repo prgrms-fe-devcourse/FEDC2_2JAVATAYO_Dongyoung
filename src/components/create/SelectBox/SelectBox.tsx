@@ -1,5 +1,5 @@
 import Label from "@components/common/Label";
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Select from "../Select/Select";
 import * as S from "./style";
 
