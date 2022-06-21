@@ -5,11 +5,13 @@ import * as S from "./style";
 import { postAPI } from "@utils/apis";
 import { useAuth } from "@contexts/AuthProvider";
 import Banner from "@components/home/Banner";
+import PageLoading from "@components/common/PageLoading";
 
 const POST_LENGTH = 10;
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(POST_LENGTH);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const { userInfo } = useAuth();
 
   const channelChange = (id: string) => {
@@ -23,6 +25,8 @@ const Home: React.FC = () => {
       setPosts(data);
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsPageLoading(false);
     }
   };
 
@@ -64,6 +68,7 @@ const Home: React.FC = () => {
           ) : null}
         </S.CardWrapper>
       </S.Contents>
+      <PageLoading isLoading={isPageLoading} />
       <Footer banner />
     </>
   );
