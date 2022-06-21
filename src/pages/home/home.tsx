@@ -64,7 +64,7 @@ const Home: React.FC = () => {
           ) : null}
         </S.CardWrapper>
       </S.Contents>
-      <Footer />
+      <Footer banner />
     </>
   );
 };

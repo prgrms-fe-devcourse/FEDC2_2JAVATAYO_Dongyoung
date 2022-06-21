@@ -1,15 +1,27 @@
 import githubIcon from "@assets/icons/icon_github.svg";
 import youtubeIcon from "@assets/icons/icon_youtube.svg";
 import bannerImg from "@assets/imgs/search_banner.jpg";
+import { useAuth } from "@contexts/AuthProvider";
+import { useNavigate } from "react-router";
 import * as S from "./style";
 
 type footerInterface = { banner?: boolean };
 
 const Footer: React.FC<footerInterface> = ({ banner }) => {
+  const navigate = useNavigate();
+  const { userInfo } = useAuth();
+
+  const bannerClick = () => {
+    if (userInfo.isLoggedIn) {
+      navigate("/create");
+    } else {
+      if (confirm("로그인 후 글을 생성하시겠습니까?")) navigate("/signin");
+    }
+  };
   return (
     <div>
       {banner ? (
-        <S.Banner>
+        <S.Banner onClick={bannerClick}>
           <img
             src={bannerImg}
             alt="마음에 드는 사이드 프로젝트가 없나요? 프로젝트 올리기 "
