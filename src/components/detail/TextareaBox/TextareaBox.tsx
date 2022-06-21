@@ -38,7 +38,7 @@ const TextareaBox: React.FC<TextareaBoxInterface> = ({
       textAreaRef.current.focus();
       return;
     }
-    if (confirm("댓글을 등록하시겠습니까?")) {
+    if (window.confirm("댓글을 등록하시겠습니까?")) {
       try {
         const createCommentRespon = await commentAPI.createComment({
           comment: commentText,

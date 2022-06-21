@@ -46,22 +46,6 @@
     "**/*.{ts,tsx,js,jsx,json}": "eslint --cache --fix",
     "**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
