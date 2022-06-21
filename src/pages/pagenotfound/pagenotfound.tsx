@@ -4,7 +4,7 @@ import NotFoundImg from "@assets/imgs/404.gif";
 import { Button } from "@components/common";
 import { useNavigate } from "react-router";
 
-const NotFound: React.FC = () => {
+const PageNotFound: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -19,4 +19,4 @@ const NotFound: React.FC = () => {
     </S.NotFound>
   );
 };
-export default NotFound;
+export default PageNotFound;
