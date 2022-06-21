@@ -1,6 +1,6 @@
 import * as S from "./style";
 import InputBox from "../../components/create/InputBox/InputBox";
-import { Button, AppLayout } from "@components/common";
+import { Button, AppLayout, PageLoading } from "@components/common";
 import logoImg from "../../assets/logos/logo_favicon.svg";
 import { FC, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ const SignIn: FC = () => {
   return (
     <Fragment>
       <AppLayout>
-        <S.LogInWrapper>
+        <S.LogInWrapper action="" onSubmit={handleSubmit}>
           <S.Image>
             <img src={logoImg} alt="로고" onClick={() => navigate("/")} />
           </S.Image>
@@ -78,13 +78,14 @@ const SignIn: FC = () => {
             />
           </S.MarginWrapper>
           <S.MarginWrapper>
-            <Button onClick={handleSubmit}>Login</Button>
+            <Button>Login</Button>
           </S.MarginWrapper>
           <S.CheckId>
             <span>회원이 아니신가요?</span>
             <span onClick={() => navigate("/signUp")}>회원가입</span>
           </S.CheckId>
         </S.LogInWrapper>
+        <PageLoading isLoading={isLoading} />
       </AppLayout>
     </Fragment>
   );
