@@ -157,16 +157,18 @@ const Profile: React.FC = () => {
             </S.FlexContainer>
 
             {!isMine && userInfo.isLoggedIn ? (
-              <FollowIcon
-                following={userInfo.following}
-                profileUserId={profileUserId}
-                visitorUserId={userInfo.id}
-                handleCreateFollow={handleCreateFollow}
-                handleDeleteFollow={handleDeleteFollow}
-              />
+              <S.Wrapper margin="6px 0 10px">
+                <FollowIcon
+                  following={userInfo.following}
+                  profileUserId={profileUserId}
+                  visitorUserId={userInfo.id}
+                  handleCreateFollow={handleCreateFollow}
+                  handleDeleteFollow={handleDeleteFollow}
+                />
+              </S.Wrapper>
             ) : null}
 
-            <S.DefinitionList>
+            <S.DefinitionList existFollowIcon={!isMine && userInfo.isLoggedIn}>
               <S.DefinitionItem>
                 <dt>팔로워</dt>
                 <dd>{profileUser.followers.length}</dd>

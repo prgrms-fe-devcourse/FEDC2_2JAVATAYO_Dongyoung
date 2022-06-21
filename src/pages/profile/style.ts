@@ -47,10 +47,11 @@ export const Email = styled.div`
   color: ${theme.$gray200};
 `;
 
-export const DefinitionList = styled.dl`
+export const DefinitionList = styled.dl<{ existFollowIcon: boolean }>`
   display: flex;
   gap: 20px;
-  margin: 30px 0 60px;
+  margin: ${({ existFollowIcon }) =>
+    existFollowIcon ? "0 0 60px" : "56px 0 60px"};
 `;
 
 export const DefinitionItem = styled.div`
