@@ -12,6 +12,7 @@ import * as S from "./style";
 const Search: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [filterPost, setFilterPost] = useState<IPost[]>([]);
+  const [page, setPage] = useState<number>(1);
   const params = useParams();
   const { userInfo } = useAuth();
 
@@ -37,17 +38,26 @@ const Search: React.FC = () => {
     search();
   }, [params]);
 
+  const clickMoreBtn = () => {
+    setPage(page + 1);
+  };
+
   return (
     <AppLayout banner>
       <S.Search>
         <S.H2>{filterPost.length}개의 프로젝트를 찾았습니다. 🚐</S.H2>
         <SearchFilter posts={posts} setFilterPost={setFilterPost} />
         <S.CardBox>
-          {filterPost.map((post, i) => (
-            <Card post={post} key={i} userId={userInfo._id} />
-          ))}
+          {filterPost.map((post, i) => {
+            if (i >= page * 10) return;
+            return <Card post={post} key={i} userId={userInfo._id} />;
+          })}
         </S.CardBox>
-        <Button width="300">더보기</Button>
+        {filterPost.length > page * 10 ? (
+          <Button width="300" onClick={clickMoreBtn}>
+            더보기
+          </Button>
+        ) : null}
       </S.Search>
     </AppLayout>
   );
