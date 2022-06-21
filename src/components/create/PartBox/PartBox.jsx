@@ -53,7 +53,6 @@ const PartBox = ({
   }, [channel, people, skills]);
 
   const getSkillOptions = (channel) => {
-    console.log(channel);
     let idx = SKILL_OPTIONS.findIndex(
       (skillOption) =>
         skillOption.channel.toLowerCase() === channel.toLowerCase()
@@ -62,7 +61,6 @@ const PartBox = ({
   };
 
   React.useEffect(() => {
-    console.log(channel);
     if (!disabled) setSkills([]);
     getSkillOptions(channel);
   }, [channel]);
