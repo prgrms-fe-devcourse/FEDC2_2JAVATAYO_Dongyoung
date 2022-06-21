@@ -1,10 +1,7 @@
 import * as S from "./style";
-import {
-  InputBox,
-  Button,
-  AppLayout,
-  logoImg
-} from "../../components/signIn/index";
+import InputBox from "../../components/create/InputBox/InputBox";
+import { Button, AppLayout } from "@components/common";
+import logoImg from "../../assets/logos/logo_favicon.svg";
 import { FC, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { authAPI } from "../../utils/apis";
