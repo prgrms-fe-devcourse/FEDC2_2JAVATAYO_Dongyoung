@@ -11,12 +11,13 @@ import {
   CoverImageBox,
   EditFullName,
   EditPassword,
-  Modal
+  Modal,
+  FollowIcon
 } from "@components/profile";
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
-import { postAPI, userAPI } from "@utils/apis";
-import { IPost, IUser } from "src/types/model";
+import { authAPI, postAPI, userAPI } from "@utils/apis";
+import { IPost, IUser, IFollow } from "../../types/model";
 import axios from "axios";
 import { useAuth } from "@contexts/AuthProvider";
 
@@ -36,14 +37,47 @@ type Posts = {
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { id: profileUserId } = useParams<Record<string, string>>();
-  const { userInfo } = useAuth();
+  const { userInfo, onUpdate } = useAuth();
 
   const [profileUser, setProfileUser] = useState<IUser>();
   const [written, setWritten] = useState<Posts>(INITIAL_POSTS);
   const [liked, setLiked] = useState<Posts>(INITIAL_POSTS);
   const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
 
-  const getUser = async () => {
+  const handleCreateFollow = (followData) => {
+    setProfileUser({
+      ...profileUser,
+      followers: [followData, ...profileUser.followers]
+    });
+
+    getVisitorUser();
+  };
+
+  const handleDeleteFollow = (followData) => {
+    const deletedFollowers = [...profileUser.followers].filter(
+      (followerData) =>
+        JSON.stringify(followerData) !== JSON.stringify(followData)
+    );
+
+    setProfileUser({
+      ...profileUser,
+      followers: deletedFollowers
+    });
+
+    getVisitorUser();
+  };
+
+  const getVisitorUser = async () => {
+    try {
+      const response = await authAPI.checkAuthUser();
+      onUpdate({ ...response.data });
+      console.log(userInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getProfileUser = async () => {
     try {
       const response = await userAPI.getUser(profileUserId);
       setProfileUser(response.data);
@@ -67,6 +101,7 @@ const Profile: React.FC = () => {
         if (isWrittenPost) _writtenPosts.push(post);
         if (isLikedPost) _likedPosts.push(post);
       });
+
       setWritten({
         ...written,
         posts: _writtenPosts,
@@ -83,7 +118,7 @@ const Profile: React.FC = () => {
   };
 
   useEffect(() => {
-    axios.all([getUser(), getPosts()]);
+    axios.all([getProfileUser(), getPosts()]);
   }, []);
 
   const [editFullNameVisible, setEditFullNameVisible] = useState(false);
@@ -121,7 +156,19 @@ const Profile: React.FC = () => {
               <S.Email>{profileUser.email}</S.Email>
             </S.FlexContainer>
 
-            <S.DefinitionList>
+            {!isMine && userInfo.isLoggedIn ? (
+              <S.Wrapper margin="6px 0 10px">
+                <FollowIcon
+                  following={userInfo.following}
+                  profileUserId={profileUserId}
+                  visitorUserId={userInfo.id}
+                  handleCreateFollow={handleCreateFollow}
+                  handleDeleteFollow={handleDeleteFollow}
+                />
+              </S.Wrapper>
+            ) : null}
+
+            <S.DefinitionList existFollowIcon={!isMine && userInfo.isLoggedIn}>
               <S.DefinitionItem>
                 <dt>팔로워</dt>
                 <dd>{profileUser.followers.length}</dd>

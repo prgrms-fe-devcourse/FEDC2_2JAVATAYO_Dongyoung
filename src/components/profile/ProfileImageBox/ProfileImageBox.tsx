@@ -51,9 +51,7 @@ const ProfileImageBox: FC<ProfileImageBoxInterface> = ({
             right: "-3px"
           }}
         />
-      ) : (
-        <FollowIcon id={id} profileFullName={profileFullName} />
-      )}
+      ) : null}
     </S.ProfileImageWrapper>
   );
 };
