@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AppLayout from "@components/common/AppLayout";
-import PostHeader from "@components/detail/PostHeader";
-import PostBody from "@components/detail/PostBody";
-import PostFooter from "@components/detail/PostFooter";
+import { PostHeader, PostBody, PostFooter } from "@components/detail";
 import postAPI from "@utils/apis/post";
 import commentAPI from "@utils/apis/comment";
 import authAPI from "@utils/apis/auth";
-import { IPost, IComment } from "../../types/model";
+import { IPost } from "../../types/model";
 import storage from "@utils/storage";
 import { useAuth } from "@contexts/AuthProvider";
 
 type DetailInterface = { post?: IPost };
 
 const Detail: React.FC<DetailInterface> = ({ post = null }) => {
-  const [postDetail, setPostDetail] = useState(DUMMY_DETAIL); // 이후 Dummy Data 제거
+  const [postDetail, setPostDetail] = useState(POST_INIT); // 이후 Dummy Data 제거
   const [titleObj, setTitleObj] = useState({});
   const [comments, setComments] = useState([]);
   const [userId, setUserId] = useState("");
@@ -212,75 +210,65 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
 };
 export default Detail;
 
-const DUMMY_DETAIL = {
+const POST_INIT = {
   likes: [
     {
-      _id: "62a62a42c882bf3a287f9c99",
-      user: "62a0cf0bc882bf3a287f907c",
-      post: "62a62988c882bf3a287f9c8a",
-      createdAt: "2022-06-12T18:02:42.424Z",
-      updatedAt: "2022-06-12T18:02:42.424Z",
+      _id: "",
+      user: "",
+      post: "",
+      createdAt: "",
+      updatedAt: "",
       __v: 0
     }
   ],
   comments: [
     {
-      _id: "1",
-      comment: `안녕하세요 개인적으로 프로젝트에 궁금한 점이 있어서 질문남겨요.
-        혹시 프로젝트는 어떤 기획으로 정해져 있나요? 어떤 주제로 할 생각이신가요? 
-        디자이너는 따로 구하는 글이 없던데 이미 모집되어 있으신지요.`,
-      author: "김남경",
-      post: "62a62988c882bf3a287f9c8a", // 포스트 id
-      createdAt: "2022.06.14",
-      updatedAt: "2022.06.14"
+      _id: "",
+      comment: "",
+      author: "",
+      post: "", // 포스트 id
+      createdAt: "",
+      updatedAt: ""
     }
   ],
-  _id: "62a62988c882bf3a287f9c8a",
-  title: "[유현] 백엔드 5명타요",
+  _id: "",
+  title: "",
   channel: {
     authRequired: false,
-    posts: [
-      "62a62941c882bf3a287f9c5d",
-      "62a62943c882bf3a287f9c63",
-      "62a62946c882bf3a287f9c69",
-      "62a62948c882bf3a287f9c6f",
-      "62a6294ac882bf3a287f9c75",
-      "62a62988c882bf3a287f9c8a",
-      "62a6a0b04b451f749ea47aee"
-    ],
-    _id: "62a55de1c882bf3a287f961c",
-    name: "back",
-    description: "back",
-    createdAt: "2022-06-12T03:30:41.075Z",
-    updatedAt: "2022-06-13T02:28:00.835Z",
+    posts: [],
+    _id: "",
+    name: "",
+    description: "",
+    createdAt: "",
+    updatedAt: "",
     __v: 0
   },
   author: {
-    role: "Regular",
+    role: "",
     emailVerified: false,
     banned: false,
     isOnline: false,
     posts: [],
-    likes: ["62a62a42c882bf3a287f9c99"],
+    likes: [],
     comments: [],
     followers: [],
     following: [],
     notifications: [],
     messages: [],
-    _id: "62a0cf0bc882bf3a287f907c",
-    fullName: "유현naver",
-    email: "puh0128@naver.com",
-    createdAt: "2022-06-08T16:32:11.434Z",
-    updatedAt: "2022-06-13T06:44:06.424Z",
+    _id: "",
+    fullName: "",
+    email: "",
+    createdAt: "",
+    updatedAt: "",
     __v: 0,
-    username: "유현naver",
-    image: `https://res.cloudinary.com/learnprogrammers/image/upload/v1655058232/user/6ecb4177-78ea-4362-96a4-e95903a6e84a.png`,
-    imagePublicId: "user/6ecb4177-78ea-4362-96a4-e95903a6e84a",
-    coverImage: `https://res.cloudinary.com/learnprogrammers/image/upload/v1655058503/user/99bff83a-15db-4b49-bedc-7ae907aebbbe.jpg`,
-    coverImagePublicId: "user/99bff83a-15db-4b49-bedc-7ae907aebbbe"
+    username: "",
+    image: "",
+    imagePublicId: "",
+    coverImage: "",
+    coverImagePublicId: ""
   },
-  createdAt: "2022-06-12T17:59:36.277Z",
-  updatedAt: "2022-06-12T18:02:42.434Z",
+  createdAt: "",
+  updatedAt: "",
   __v: 0,
   image: "",
   imagePublicId: ""

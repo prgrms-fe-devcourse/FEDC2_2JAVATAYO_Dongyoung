@@ -1,5 +1,5 @@
 import * as S from "./style";
-import SkillIcon from "../../../common/SkillIcon";
+import SkillIcon from "../../common/SkillIcon";
 interface PostSummaryInterface {
   channel: string;
   email: string;
