@@ -117,7 +117,7 @@ const Edit: React.FC = () => {
         <S.InnerWrapper>
           <SelectBox
             label={"진행방식"}
-            defaultValue={"온라인"}
+            defaultValue={place}
             options={placeOptions}
             canAllowClear={false}
             setSelectedValue={setPlace}
@@ -143,7 +143,7 @@ const Edit: React.FC = () => {
         <S.InnerWrapper>
           <SelectBox
             label={"예상기간"}
-            defaultValue={"1개월"}
+            defaultValue={expectedDate}
             options={expectedDateOptions}
             canAllowClear={true}
             setSelectedValue={setExpectedDate}
