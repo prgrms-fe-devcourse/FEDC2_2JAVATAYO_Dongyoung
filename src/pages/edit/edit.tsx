@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input } from "antd";
-import SelectBox from "@components/create/SelectBox";
-import DatePicker from "@components/create/DatePicker";
+import {
+  SelectBox,
+  DatePicker,
+  PartBox,
+  ImageUploader
+} from "@components/create";
 import { AppLayout, Label, Button, Textarea } from "@components/common";
 import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
-import PartBox from "@components/create/PartBox";
 import CHANNELS from "@constants/channel";
 import { useNavigate, useParams } from "react-router";
 import { useLocation } from "react-router-dom";
 import { postAPI } from "@utils/apis";
-import ImageUploader from "@components/create/ImageUploader/ImageUploader";
-import { DeleteOutlined, ScanOutlined } from "@ant-design/icons";
-import { transform } from "typescript";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -50,7 +51,6 @@ const Edit: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state as StateType;
-  console.log(state);
   const { channel, id } = useParams<Record<string, string>>();
   const [_title, setTitle] = useState(state.title);
   const [place, setPlace] = useState(state.place);
@@ -160,6 +160,7 @@ const Edit: React.FC = () => {
         initialSkills={parts.skills}
         handleUpdate={handleUpdateParts}
         handleDelete={() => {
+          //TODO : 이건 기능 고민해봐야해서 추후에 console 삭제할게용
           console.log("hi");
         }}
         disabled={true}

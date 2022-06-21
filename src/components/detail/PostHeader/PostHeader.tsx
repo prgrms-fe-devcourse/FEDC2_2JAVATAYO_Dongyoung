@@ -1,7 +1,7 @@
 import React from "react";
-import PostTitle from "./PostTitle";
+import PostTitle from "../PostTitle";
 import ProfileImage from "../../common/ProfileImage/index";
-import PostSummary from "./PostSummary";
+import PostSummary from "../PostSummary";
 import LikeBtn from "../../common/LikeBtn";
 import { ILike, IUser } from "src/types/model";
 import { ReactComponent as BackIcon } from "../../../assets/icons/icon_back.svg";
@@ -56,10 +56,10 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   return (
     <>
       <S.FlexBetween>
-        <span onClick={backButtonClick}>
+        <span onClick={backButtonClick} style={{ cursor: "pointer" }}>
           <BackIcon />
         </span>
-        <S.CenterAlignItemSpan>
+        <S.CenterAlignItemSpan style={{ cursor: "pointer" }}>
           <LikeBtn likes={likes} userId={userId} postId={postId} />
         </S.CenterAlignItemSpan>
       </S.FlexBetween>
