@@ -1,11 +1,11 @@
-import { formatDate } from "@utils/Date";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import ProfileImage from "../ProfileImage";
 import SkillIcon from "../SkillIcon";
 import { IPost } from "../../../types/model";
 import LikeBtn from "../LikeBtn";
 import * as S from "./style";
+import { userAPI } from "@utils/apis";
 
 type CardInterface = { post?: IPost } & {
   userId?: string;
@@ -20,11 +20,29 @@ const Card: React.FC<CardInterface> = ({
   const postTitle = post ? JSON.parse(post.title) : dummy;
   const { _id, author, likes } = post;
   const { title, parts, expectedDate, startDate } = postTitle;
+  const [authorData, setAuthorData] = useState({ fullName: "", image: "" });
   const navigate = useNavigate();
+
+  const getAuthorData = async () => {
+    if (typeof post.author === "string") {
+      try {
+        const { data } = await userAPI.getUser(post.author);
+        setAuthorData({ fullName: data.fullName, image: data.image });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      setAuthorData({ fullName: author.fullName, image: author.image });
+    }
+  };
 
   const onClickCard = (id) => {
     navigate(`/detail/${id}`);
   };
+
+  useEffect(() => {
+    getAuthorData();
+  }, []);
 
   return (
     <S.Card onClick={() => onClickCard(_id)}>
@@ -51,10 +69,10 @@ const Card: React.FC<CardInterface> = ({
         <S.Profile>
           <ProfileImage
             size="sm"
-            imgAlt={author.fullName}
-            imgSrc={author.image}
+            imgAlt={authorData.fullName}
+            imgSrc={authorData.image}
           />
-          <span>{author.fullName}</span>
+          <span>{authorData.fullName}</span>
         </S.Profile>
         <S.Date>
           <p>시작 : {startDate.replaceAll("/", ".")}</p>

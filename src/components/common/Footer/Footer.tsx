@@ -18,7 +18,8 @@ const Footer: React.FC<footerInterface> = ({ banner }) => {
     if (userInfo.isLoggedIn) {
       navigate("/create");
     } else {
-      if (confirm("로그인 후 글을 생성하시겠습니까?")) navigate("/signin");
+      if (window.confirm("로그인 후 글을 생성하시겠습니까?"))
+        navigate("/signin");
     }
   };
   return (
