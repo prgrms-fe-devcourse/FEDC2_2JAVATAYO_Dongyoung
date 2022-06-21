@@ -50,8 +50,11 @@ const SignUp: FC = () => {
     validate: ({ fullName, email, password, passwordConfirm }) => {
       const errors = {};
       if (!fullName) errors["fullName"] = "닉네임을 입력해주세요";
-      else if (!/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|].{2,8}$/.test(fullName))
+      else if (!/^.{2,8}$/.test(fullName))
         errors["fullName"] = "닉네임은 2~8자리여야 합니다";
+      else if (!/^[가-힣|a-z|A-Z|\d]+$/.test(fullName))
+        errors["fullName"] = "숫자, 문자로 이루어져야 합니다";
+
       if (!email) errors["email"] = "이메일을 입력해주세요";
       else if (!/^.+@.+\..+$/.test(email))
         errors["email"] = "올바른 이메일 형식이 아닙니다 ";
