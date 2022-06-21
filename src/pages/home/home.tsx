@@ -41,26 +41,28 @@ const Home: React.FC = () => {
   return (
     <>
       <Header />
-      <S.Banner />
-      <S.Wrapper>
-        <h2>이런 프로젝트가 올라왔어요</h2>
-      </S.Wrapper>
-      <S.FilterWrapper>
-        <HomeFilter channelChange={channelChange} getAllPost={getAllPost} />
-      </S.FilterWrapper>
-      <S.Wrapper>
-        <S.CardBox>
-          {posts.map((post, i) => {
-            if (i >= page) return null;
-            return <Card post={post} key={i} userId={userInfo._id} />;
-          })}
-        </S.CardBox>
-        {posts.length > page ? (
-          <Button width="300" onClick={() => setPage(page + POST_LENGTH)}>
-            더보기
-          </Button>
-        ) : null}
-      </S.Wrapper>
+      <S.Contents>
+        <S.Banner />
+        <S.Wrapper>
+          <h2>이런 프로젝트가 올라왔어요</h2>
+        </S.Wrapper>
+        <S.FilterWrapper>
+          <HomeFilter channelChange={channelChange} getAllPost={getAllPost} />
+        </S.FilterWrapper>
+        <S.CardWrapper>
+          <S.CardBox>
+            {posts.map((post, i) => {
+              if (i >= page) return null;
+              return <Card post={post} key={i} userId={userInfo._id} />;
+            })}
+          </S.CardBox>
+          {posts.length > page ? (
+            <Button width="300" onClick={() => setPage(page + POST_LENGTH)}>
+              더보기
+            </Button>
+          ) : null}
+        </S.CardWrapper>
+      </S.Contents>
       <Footer />
     </>
   );

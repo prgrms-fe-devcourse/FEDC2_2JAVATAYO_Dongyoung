@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+export const Contents = styled.div`
+  min-height: calc(100vh - 198px);
+`;
+
 export const Wrapper = styled.div`
   max-width: 700px;
   margin: auto;
@@ -15,7 +19,15 @@ export const Wrapper = styled.div`
       font-size: 28px;
     }
   }
-
+`;
+export const CardWrapper = styled.div`
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 200px;
+  @media (max-width: 700px) {
+    padding: 0 30px;
+    box-sizing: border-box;
+  }
   button {
     display: block;
     margin: 50px auto 0;
