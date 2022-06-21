@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Header from "@components/common/Header";
@@ -9,15 +9,12 @@ import {
   Tab,
   ProfileImageBox,
   CoverImageBox,
-  EditFullName,
-  EditPassword,
-  Modal,
   FollowIcon
 } from "@components/profile";
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 import { authAPI, postAPI, userAPI } from "@utils/apis";
-import { IPost, IUser, IFollow } from "../../types/model";
+import { IPost, IUser } from "../../types/model";
 import axios from "axios";
 import { useAuth } from "@contexts/AuthProvider";
 
@@ -37,12 +34,13 @@ type Posts = {
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { id: profileUserId } = useParams<Record<string, string>>();
+
   const { userInfo, onUpdate } = useAuth();
 
+  const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
   const [profileUser, setProfileUser] = useState<IUser>();
   const [written, setWritten] = useState<Posts>(INITIAL_POSTS);
   const [liked, setLiked] = useState<Posts>(INITIAL_POSTS);
-  const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
 
   const handleCreateFollow = (followData) => {
     setProfileUser({
@@ -67,15 +65,40 @@ const Profile: React.FC = () => {
     getVisitorUser();
   };
 
-  const getVisitorUser = async () => {
+  const handleProfileImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
     try {
-      const response = await authAPI.checkAuthUser();
-      onUpdate({ ...response.data });
-      console.log(userInfo);
+      const response = await userAPI.changeProfileImage(formData);
+
+      onUpdate(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleCoverUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await userAPI.changeCoverImage(formData);
+
+      onUpdate(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getVisitorUser = useCallback(async () => {
+    try {
+      const response = await authAPI.checkAuthUser();
+      onUpdate({ ...response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   const getProfileUser = async () => {
     try {
@@ -118,11 +141,17 @@ const Profile: React.FC = () => {
   };
 
   useEffect(() => {
-    axios.all([getProfileUser(), getPosts()]);
-  }, []);
+    setWritten(INITIAL_POSTS);
+    setLiked(INITIAL_POSTS);
+    getProfileUser();
+    getPosts();
+  }, [profileUserId]);
 
-  const [editFullNameVisible, setEditFullNameVisible] = useState(false);
-  const [editPasswordVisible, setEditPasswordVisible] = useState(false);
+  useEffect(() => {
+    setWritten(INITIAL_POSTS);
+    setLiked(INITIAL_POSTS);
+    getPosts();
+  }, [userInfo.image]);
 
   return (
     <>
@@ -135,25 +164,27 @@ const Profile: React.FC = () => {
       ) : (
         <>
           <S.Wrapper padding="60px 0 0">
-            <CoverImageBox isMine={isMine} imgSrc={profileUser.coverImage} />
+            <CoverImageBox
+              isMine={isMine}
+              imgSrc={isMine ? userInfo.coverImage : profileUser.coverImage}
+              handleImageUpload={handleCoverUpload}
+            />
           </S.Wrapper>
 
           <S.Layout>
             <S.Wrapper margin="-32px 0 11px">
               <ProfileImageBox
                 isMine={isMine}
-                imgSrc={profileUser.image}
-                id={{
-                  profile: profileUserId,
-                  visitor: userInfo.isLoggedIn ? "" : userInfo._id
-                }}
-                profileFullName={profileUser.fullName}
+                imgSrc={isMine ? userInfo.image : profileUser.image}
+                handleImageUpload={handleProfileImage}
               />
             </S.Wrapper>
 
             <S.FlexContainer direction="column" gap="6px">
-              <S.FullName>{profileUser.fullName}</S.FullName>
-              <S.Email>{profileUser.email}</S.Email>
+              <S.FullName>
+                {isMine ? userInfo.fullName : profileUser.fullName}
+              </S.FullName>
+              <S.Email>{isMine ? userInfo.email : profileUser.email}</S.Email>
             </S.FlexContainer>
 
             {!isMine && userInfo.isLoggedIn ? (
@@ -234,12 +265,12 @@ const Profile: React.FC = () => {
                 </SCardBox>
 
                 <S.Wrapper margin="52px 0 0" center>
-                  {getEndIndex(written.countClickMore) < written.total ? (
+                  {getEndIndex(liked.countClickMore) < liked.total ? (
                     <Button
                       buttonType="red"
                       width="300"
                       onClick={() =>
-                        setWritten({
+                        setLiked({
                           ...liked,
                           countClickMore: liked.countClickMore + 1
                         })
@@ -251,28 +282,6 @@ const Profile: React.FC = () => {
                 </S.Wrapper>
               </Tab.Item>
             </Tab>
-
-            <Modal
-              height="294px"
-              visible={editFullNameVisible}
-              onClose={() => setEditFullNameVisible(false)}
-            >
-              <EditFullName />
-            </Modal>
-            <button onClick={() => setEditFullNameVisible(true)}>
-              닉네임 변경 모달 얍
-            </button>
-
-            <Modal
-              height="384px"
-              visible={editPasswordVisible}
-              onClose={() => setEditPasswordVisible(false)}
-            >
-              <EditPassword />
-            </Modal>
-            <button onClick={() => setEditPasswordVisible(true)}>
-              비밀번호 변경 모달 얍
-            </button>
           </S.Layout>
         </>
       )}

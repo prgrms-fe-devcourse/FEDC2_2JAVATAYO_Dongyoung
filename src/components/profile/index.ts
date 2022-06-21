@@ -5,6 +5,7 @@ import EditPassword from "./EditPassword";
 import FollowIcon from "./FollowIcon";
 import Modal from "./Modal";
 import ProfileImageBox from "./ProfileImageBox";
+import SettingDropDown from "./SettingDropDown";
 import Tab from "./Tab";
 
 export {
@@ -15,5 +16,6 @@ export {
   FollowIcon,
   Modal,
   ProfileImageBox,
+  SettingDropDown,
   Tab
 };

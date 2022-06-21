@@ -1,56 +1,43 @@
 import { FC, useState } from "react";
-import { ProfileImage, ImageUpload } from "@components/common";
-import { FollowIcon } from "@components/profile";
-import { ReactComponent as SettingComponent } from "@assets/icons/icon_setting.svg";
+import { ProfileImage } from "@components/common";
+import SettingDropDown from "../SettingDropDown";
 import { userAPI } from "@utils/apis";
+import { useAuth } from "@contexts/AuthProvider";
 import * as S from "./style";
 
 interface ProfileImageBoxInterface {
   isMine: boolean;
   imgSrc: string;
-  id: Id;
-  profileFullName: string;
+  handleImageUpload: (file: File) => void;
 }
-
-export type Id = {
-  profile: string;
-  visitor: string;
-};
 
 const ProfileImageBox: FC<ProfileImageBoxInterface> = ({
   isMine,
   imgSrc,
-  id,
-  profileFullName
+  handleImageUpload
 }) => {
-  const [src, setSrc] = useState(imgSrc);
+  // const [src, setSrc] = useState<string>(imgSrc);
+  // const { onUpdate } = useAuth();
 
-  const handleImageUpload = async (file) => {
-    const formData = new FormData();
-    formData.append("image", file);
+  // const handleImageUpload = async (file: File) => {
+  //   const formData = new FormData();
+  //   formData.append("image", file);
 
-    try {
-      const response = await userAPI.changeProfileImage(formData);
+  //   try {
+  //     const { data } = await userAPI.changeProfileImage(formData);
 
-      setSrc(response.data.image);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     onUpdate(data);
+  //     setSrc(data.image);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <S.ProfileImageWrapper>
-      <ProfileImage imgSrc={src} size="lg" />
+      <ProfileImage imgSrc={imgSrc} size="lg" />
       {isMine ? (
-        <ImageUpload
-          onImageUpload={handleImageUpload}
-          replacement={<SettingComponent width="20px" height="20px" />}
-          replacementStyle={{
-            position: "absolute",
-            bottom: "0",
-            right: "-3px"
-          }}
-        />
+        <SettingDropDown handleImageUpload={handleImageUpload} />
       ) : null}
     </S.ProfileImageWrapper>
   );
