@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import * as S from "./style";
-import { ReactComponent as SearchIcon } from "./icon_search.svg";
+import { ReactComponent as SearchIcon } from "@assets/icons/icon_search.svg";
 import { useNavigate } from "react-router";
 
 const SearchBar = () => {
