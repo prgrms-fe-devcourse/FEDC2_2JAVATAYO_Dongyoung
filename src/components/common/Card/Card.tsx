@@ -7,9 +7,16 @@ import { IPost } from "../../../types/model";
 import LikeBtn from "../LikeBtn";
 import * as S from "./style";
 
-type CardInterface = { post?: IPost } & { userId?: string };
+type CardInterface = { post?: IPost } & {
+  userId?: string;
+  clickable?: boolean;
+};
 
-const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
+const Card: React.FC<CardInterface> = ({
+  post,
+  userId = null,
+  clickable = true
+}) => {
   const postTitle = post ? JSON.parse(post.title) : dummy;
   const { _id, author, likes } = post;
   const { title, parts, expectedDate, startDate } = postTitle;
@@ -25,7 +32,12 @@ const Card: React.FC<CardInterface> = ({ post, userId = null }) => {
         <S.Tag color={channelColor[parts.channel].color}>
           {channelColor[parts.channel].title}
         </S.Tag>
-        <LikeBtn likes={likes} userId={userId} postId={_id} />
+        <LikeBtn
+          likes={likes}
+          userId={userId}
+          postId={_id}
+          clickable={clickable}
+        />
       </S.FlexBetween>
       <S.Title>{title}</S.Title>
       <span>모집인원: {parts.people}</span>

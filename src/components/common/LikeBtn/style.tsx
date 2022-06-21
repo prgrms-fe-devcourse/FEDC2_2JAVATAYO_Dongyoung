@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const LikeBtn = styled.div<{ userId: string }>`
+export const LikeBtn = styled.div<{ userId: string; clickable: boolean }>`
   display: inline-flex;
   align-items: center;
   svg {
@@ -14,6 +14,7 @@ export const LikeBtn = styled.div<{ userId: string }>`
   }
 
   &:hover svg {
-    transform: ${({ userId }) => (userId ? "scale(1.1)" : null)};
+    transform: ${({ userId, clickable }) =>
+      userId && clickable ? "scale(1.1)" : null};
   }
 `;
