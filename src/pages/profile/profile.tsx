@@ -9,9 +9,6 @@ import {
   Tab,
   ProfileImageBox,
   CoverImageBox,
-  EditFullName,
-  EditPassword,
-  Modal,
   FollowIcon
 } from "@components/profile";
 import * as S from "./style";
@@ -71,7 +68,6 @@ const Profile: React.FC = () => {
     try {
       const response = await authAPI.checkAuthUser();
       onUpdate({ ...response.data });
-      console.log(userInfo);
     } catch (error) {
       console.error(error);
     }
@@ -121,8 +117,11 @@ const Profile: React.FC = () => {
     axios.all([getProfileUser(), getPosts()]);
   }, []);
 
-  const [editFullNameVisible, setEditFullNameVisible] = useState(false);
-  const [editPasswordVisible, setEditPasswordVisible] = useState(false);
+  useEffect(() => {
+    setWritten(INITIAL_POSTS);
+    setLiked(INITIAL_POSTS);
+    getPosts();
+  }, [userInfo]);
 
   return (
     <>
@@ -140,7 +139,11 @@ const Profile: React.FC = () => {
 
           <S.Layout>
             <S.Wrapper margin="-32px 0 11px">
-              <ProfileImageBox isMine={isMine} imgSrc={profileUser.image} />
+              <ProfileImageBox
+                isMine={isMine}
+                imgSrc={profileUser.image}
+                updatePosts={getPosts}
+              />
             </S.Wrapper>
 
             <S.FlexContainer direction="column" gap="6px">
