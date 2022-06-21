@@ -95,11 +95,8 @@ const Edit: React.FC = () => {
 
     const editPost = async (formData: FormData) => {
       await postAPI.updatePost(formData).then((res) => {
-        if (res.statusText === "OK") {
-          const ret = confirm(
-            "수정이 완료되었습니다. 메인페이지로 이동합니다."
-          );
-          if (ret) navigate("/");
+        if (res.status === 200) {
+          navigate("/");
         }
       });
     };
