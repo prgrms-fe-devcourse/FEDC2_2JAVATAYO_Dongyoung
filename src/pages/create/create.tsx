@@ -16,10 +16,10 @@ import { useNavigate } from "react-router";
 import { currentDate } from "@utils/Date";
 
 const placeOptions = [
-  { id: 1, value: "online", label: "온라인" },
-  { id: 2, value: "offline", label: "오프라인" },
-  { id: 3, value: "both", label: "온오프라인 병행" },
-  { id: 4, value: "notyet", label: "미정" }
+  { id: 1, value: "온라인", label: "온라인" },
+  { id: 2, value: "오프라인", label: "오프라인" },
+  { id: 3, value: "온오프라인병행", label: "온오프라인 병행" },
+  { id: 4, value: "미정", label: "미정" }
 ];
 
 const expectedDateOptions = [
