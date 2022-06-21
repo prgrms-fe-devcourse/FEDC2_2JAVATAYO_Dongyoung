@@ -43,17 +43,6 @@ export const FilterWrapper = styled.div`
   }
 `;
 
-export const Banner = styled.div`
-  padding-top: 60px;
-  width: 100%;
-  height: 350px;
-  background-color: #fff8b8; //임시 이후 img로 변경
-  box-sizing: content-box;
-  @media (max-width: 700px) {
-    height: 300px;
-  }
-`;
-
 export const CardBox = styled.div`
   display: flex;
   flex-wrap: wrap;

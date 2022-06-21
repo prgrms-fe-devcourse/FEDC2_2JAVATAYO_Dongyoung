@@ -4,6 +4,7 @@ import HomeFilter from "@components/home/HomeFilter";
 import * as S from "./style";
 import { postAPI } from "@utils/apis";
 import { useAuth } from "@contexts/AuthProvider";
+import Banner from "@components/home/Banner";
 
 const POST_LENGTH = 10;
 const Home: React.FC = () => {
@@ -42,7 +43,7 @@ const Home: React.FC = () => {
     <>
       <Header />
       <S.Contents>
-        <S.Banner />
+        <Banner />
         <S.Wrapper>
           <h2>이런 프로젝트가 올라왔어요</h2>
         </S.Wrapper>
