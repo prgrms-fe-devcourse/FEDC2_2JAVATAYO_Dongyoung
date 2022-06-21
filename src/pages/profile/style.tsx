@@ -29,9 +29,14 @@ export const Layout = styled.div`
   }
 `;
 
-export const Wrapper = styled.div<{ margin?: string; padding?: string }>`
+export const Wrapper = styled.div<{
+  margin?: string;
+  padding?: string;
+  center?: boolean;
+}>`
   margin: ${({ margin }) => (margin ? margin : null)};
   padding: ${({ padding }) => (padding ? padding : null)};
+  text-align: ${({ center }) => (center ? "center" : null)};
 `;
 
 export const FullName = styled.h2`
