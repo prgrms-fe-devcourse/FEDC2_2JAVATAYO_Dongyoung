@@ -17,7 +17,7 @@ import {
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 import { authAPI, postAPI, userAPI } from "@utils/apis";
-import { IPost, IUser, IFollow } from "../../types/model";
+import { IPost, IUser } from "../../types/model";
 import axios from "axios";
 import { useAuth } from "@contexts/AuthProvider";
 
@@ -140,15 +140,7 @@ const Profile: React.FC = () => {
 
           <S.Layout>
             <S.Wrapper margin="-32px 0 11px">
-              <ProfileImageBox
-                isMine={isMine}
-                imgSrc={profileUser.image}
-                id={{
-                  profile: profileUserId,
-                  visitor: userInfo.isLoggedIn ? "" : userInfo._id
-                }}
-                profileFullName={profileUser.fullName}
-              />
+              <ProfileImageBox isMine={isMine} imgSrc={profileUser.image} />
             </S.Wrapper>
 
             <S.FlexContainer direction="column" gap="6px">
@@ -251,28 +243,6 @@ const Profile: React.FC = () => {
                 </S.Wrapper>
               </Tab.Item>
             </Tab>
-
-            <Modal
-              height="294px"
-              visible={editFullNameVisible}
-              onClose={() => setEditFullNameVisible(false)}
-            >
-              <EditFullName />
-            </Modal>
-            <button onClick={() => setEditFullNameVisible(true)}>
-              닉네임 변경 모달 얍
-            </button>
-
-            <Modal
-              height="384px"
-              visible={editPasswordVisible}
-              onClose={() => setEditPasswordVisible(false)}
-            >
-              <EditPassword />
-            </Modal>
-            <button onClick={() => setEditPasswordVisible(true)}>
-              비밀번호 변경 모달 얍
-            </button>
           </S.Layout>
         </>
       )}

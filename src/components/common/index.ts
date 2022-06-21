@@ -1,6 +1,7 @@
 import AppLayout from "./AppLayout";
 import Button from "./Button";
 import Card from "./Card";
+import DropDown from "./DropDown";
 import ErrorMessage from "./ErrorMessage";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -17,6 +18,7 @@ export {
   AppLayout,
   Button,
   Card,
+  DropDown,
   Footer,
   ErrorMessage,
   ProfileImage,
