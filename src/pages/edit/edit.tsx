@@ -43,6 +43,7 @@ interface StateType {
   startDate: string;
   title: string;
   place: string;
+  imagePublicId?: string;
 }
 
 const Edit: React.FC = () => {
@@ -85,9 +86,12 @@ const Edit: React.FC = () => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("image", null);
+    formData.append("image", images.length !== 0 ? images[0].file : null);
     formData.append("channelId", currentChannelId);
     formData.append("postId", id);
+    if (imageSrc === "" && state.image !== "") {
+      formData.append("imageToDeletePublicId", state.imagePublicId);
+    }
 
     const editPost = async (formData: FormData) => {
       await postAPI.updatePost(formData).then((res) => {
