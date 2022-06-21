@@ -20,14 +20,28 @@ import { IPost, IUser } from "src/types/model";
 import axios from "axios";
 import { useAuth } from "@contexts/AuthProvider";
 
+const CARD_LIMIT = 6;
+const INITIAL_POSTS = {
+  posts: [],
+  countClickMore: 0,
+  total: 0
+};
+
+type Posts = {
+  posts: IPost[];
+  countClickMore: number;
+  total: number;
+};
+
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { id: profileUserId } = useParams<Record<string, string>>();
   const { userInfo } = useAuth();
 
   const [profileUser, setProfileUser] = useState<IUser>();
-  const [writtenPosts, setWrittenPosts] = useState<IPost[]>();
-  const [likedPosts, setLikedPosts] = useState<IPost[]>();
+  const [written, setWritten] = useState<Posts>(INITIAL_POSTS);
+  const [liked, setLiked] = useState<Posts>(INITIAL_POSTS);
+
   const isMine = userInfo.isLoggedIn ? profileUserId === userInfo._id : false;
 
   const getUser = async () => {
@@ -43,10 +57,10 @@ const Profile: React.FC = () => {
   const getPosts = async () => {
     try {
       const { data: posts } = await postAPI.allPost();
-      const _writtenPosts = [];
-      const _likedPosts = [];
+      const _writtenPosts: IPost[] = [];
+      const _likedPosts: IPost[] = [];
 
-      posts.forEach((post) => {
+      posts.forEach((post: IPost) => {
         const { author, likes } = post;
         const isWrittenPost = author._id === profileUserId;
         const isLikedPost = likes.some((like) => like.user === profileUserId);
@@ -55,8 +69,16 @@ const Profile: React.FC = () => {
         if (isLikedPost) _likedPosts.push(post);
       });
 
-      setWrittenPosts(_writtenPosts);
-      setLikedPosts(_likedPosts);
+      setWritten({
+        ...written,
+        posts: _writtenPosts,
+        total: _writtenPosts.length
+      });
+      setLiked({
+        ...liked,
+        posts: _likedPosts,
+        total: _likedPosts.length
+      });
     } catch (error) {
       console.error(error);
     }
@@ -74,8 +96,8 @@ const Profile: React.FC = () => {
       <Header />
 
       {profileUser === undefined ||
-      likedPosts === undefined ||
-      writtenPosts === undefined ? (
+      written.posts === undefined ||
+      liked.posts === undefined ? (
         "로딩 중..."
       ) : (
         <>
@@ -121,43 +143,69 @@ const Profile: React.FC = () => {
             <Tab style={{ marginBottom: "30px" }}>
               <Tab.Item active title="작성한 글 목록">
                 <SCardBox>
-                  {writtenPosts.map((post, i) => {
-                    return (
+                  {written.posts
+                    .slice(0, getEndIndex(written.countClickMore))
+                    .map((post, i) => {
+                      return (
+                        <Card
+                          post={post}
+                          key={i}
+                          userId={userInfo.isLoggedIn ? userInfo._id : null}
+                          clickable={false}
+                        />
+                      );
+                    })}
+                </SCardBox>
+
+                <S.Wrapper margin="52px 0 0">
+                  {getEndIndex(written.countClickMore) < written.total ? (
+                    <Button
+                      buttonType="red"
+                      width="300"
+                      onClick={() =>
+                        setWritten({
+                          ...written,
+                          countClickMore: written.countClickMore + 1
+                        })
+                      }
+                    >
+                      더보기
+                    </Button>
+                  ) : null}
+                </S.Wrapper>
+              </Tab.Item>
+              <Tab.Item title="좋아요 한 글">
+                <SCardBox>
+                  {liked.posts
+                    .slice(0, getEndIndex(liked.countClickMore))
+                    .map((post, i) => (
                       <Card
                         post={post}
                         key={i}
                         userId={userInfo.isLoggedIn ? userInfo._id : null}
                         clickable={false}
                       />
-                    );
-                  })}
+                    ))}
                 </SCardBox>
-              </Tab.Item>
-              <Tab.Item title="좋아요 한 글">
-                <SCardBox>
-                  {likedPosts.map((post, i) => (
-                    <Card
-                      post={post}
-                      key={i}
-                      userId={userInfo.isLoggedIn ? userInfo._id : null}
-                      clickable={false}
-                    />
-                  ))}
-                </SCardBox>
+
+                <S.Wrapper margin="52px 0 0">
+                  {getEndIndex(written.countClickMore) < written.total ? (
+                    <Button
+                      buttonType="red"
+                      width="300"
+                      onClick={() =>
+                        setWritten({
+                          ...liked,
+                          countClickMore: liked.countClickMore + 1
+                        })
+                      }
+                    >
+                      더보기
+                    </Button>
+                  ) : null}
+                </S.Wrapper>
               </Tab.Item>
             </Tab>
-
-            <S.Wrapper margin="52px 0 0">
-              <Button
-                buttonType="red"
-                width="300"
-                onClick={() => {
-                  alert("onClick!");
-                }}
-              >
-                더보기
-              </Button>
-            </S.Wrapper>
 
             <Modal
               height="294px"
@@ -188,5 +236,8 @@ const Profile: React.FC = () => {
     </>
   );
 };
+
+const getEndIndex = (countClickMore: number): number =>
+  CARD_LIMIT * (countClickMore + 1);
 
 export default Profile;
