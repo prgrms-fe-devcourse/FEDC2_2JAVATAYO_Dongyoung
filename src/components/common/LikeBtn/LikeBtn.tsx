@@ -9,9 +9,15 @@ type LikeBtnInterface = {
   likes: ILike[];
   postId: string;
   userId?: string;
+  clickable?: boolean;
 };
 
-const LikeBtn: React.FC<LikeBtnInterface> = ({ likes, postId, userId }) => {
+const LikeBtn: React.FC<LikeBtnInterface> = ({
+  likes,
+  postId,
+  userId,
+  clickable = true
+}) => {
   const [likeId, setLikeId] = useState<string>(null);
   const [totalLike, setTotalLike] = useState(0);
 
@@ -41,7 +47,11 @@ const LikeBtn: React.FC<LikeBtnInterface> = ({ likes, postId, userId }) => {
   }, [likes]);
 
   return (
-    <S.LikeBtn onClick={userId ? clickLikeBtn : null} userId={userId}>
+    <S.LikeBtn
+      onClick={userId && clickable ? clickLikeBtn : null}
+      userId={userId}
+      clickable={clickable}
+    >
       {likeId ? <HeartFillIcon /> : <HeartIcon />}
       <span>{totalLike}</span>
     </S.LikeBtn>
