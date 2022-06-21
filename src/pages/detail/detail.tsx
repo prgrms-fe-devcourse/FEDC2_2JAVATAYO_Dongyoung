@@ -42,6 +42,9 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    getPostDetail(postId);
+  }, [postId]);
   const checkUser = async () => {
     const { data } = await authAPI.checkAuthUser();
     setUserId(data._id);
