@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import SelectBox from "@components/create/SelectBox";
-import DatePicker from "@components/create/DatePicker";
 import { AppLayout, Label, Button, Textarea } from "@components/common";
 import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
-import ImageUploader from "@components/create/ImageUploader/ImageUploader";
-import PartBoxList from "@components/create/PartBoxList";
+import {
+  ImageUploader,
+  Select,
+  PartBoxList,
+  SelectBox,
+  DatePicker
+} from "@components/create";
 import { Input } from "antd";
-import Select from "@components/create/Select";
 import { postAPI } from "@utils/apis";
 import CHANNELS from "@constants/channel";
 import { useNavigate } from "react-router";
