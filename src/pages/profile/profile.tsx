@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Header from "@components/common/Header";
@@ -34,6 +34,7 @@ type Posts = {
 const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { id: profileUserId } = useParams<Record<string, string>>();
+
   const { userInfo, onUpdate } = useAuth();
 
   const [profileUser, setProfileUser] = useState<IUser>();
@@ -64,26 +65,53 @@ const Profile: React.FC = () => {
     getVisitorUser();
   };
 
-  const getVisitorUser = async () => {
+  const handleProfileImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await userAPI.changeProfileImage(formData);
+
+      onUpdate(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCoverUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await userAPI.changeCoverImage(formData);
+
+      onUpdate(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getVisitorUser = useCallback(async () => {
     try {
       const response = await authAPI.checkAuthUser();
       onUpdate({ ...response.data });
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
-  const getProfileUser = async () => {
+  const getProfileUser = useCallback(async () => {
     try {
+      console.log("getProfileUser");
       const response = await userAPI.getUser(profileUserId);
       setProfileUser(response.data);
     } catch (error) {
       console.error(error);
       navigate("/404");
     }
-  };
+  }, []);
 
-  const getPosts = async () => {
+  const getPosts = useCallback(async () => {
     try {
       const { data: posts } = await postAPI.allPost();
       const _writtenPosts: IPost[] = [];
@@ -111,17 +139,17 @@ const Profile: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     axios.all([getProfileUser(), getPosts()]);
-  }, []);
+  }, [profileUserId]);
 
   useEffect(() => {
     setWritten(INITIAL_POSTS);
     setLiked(INITIAL_POSTS);
     getPosts();
-  }, [userInfo]);
+  }, [userInfo.image]);
 
   return (
     <>
@@ -134,15 +162,19 @@ const Profile: React.FC = () => {
       ) : (
         <>
           <S.Wrapper padding="60px 0 0">
-            <CoverImageBox isMine={isMine} imgSrc={profileUser.coverImage} />
+            <CoverImageBox
+              isMine={isMine}
+              imgSrc={isMine ? userInfo.coverImage : profileUser.coverImage}
+              handleImageUpload={handleCoverUpload}
+            />
           </S.Wrapper>
 
           <S.Layout>
             <S.Wrapper margin="-32px 0 11px">
               <ProfileImageBox
                 isMine={isMine}
-                imgSrc={profileUser.image}
-                updatePosts={getPosts}
+                imgSrc={isMine ? userInfo.image : profileUser.image}
+                handleImageUpload={handleProfileImage}
               />
             </S.Wrapper>
 

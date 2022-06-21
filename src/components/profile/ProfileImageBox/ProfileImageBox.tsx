@@ -8,30 +8,34 @@ import * as S from "./style";
 interface ProfileImageBoxInterface {
   isMine: boolean;
   imgSrc: string;
-  updatePosts: () => Promise<void>;
+  handleImageUpload: (file: File) => void;
 }
 
-const ProfileImageBox: FC<ProfileImageBoxInterface> = ({ isMine, imgSrc }) => {
-  const [src, setSrc] = useState<string>(imgSrc);
-  const { onUpdate } = useAuth();
+const ProfileImageBox: FC<ProfileImageBoxInterface> = ({
+  isMine,
+  imgSrc,
+  handleImageUpload
+}) => {
+  // const [src, setSrc] = useState<string>(imgSrc);
+  // const { onUpdate } = useAuth();
 
-  const handleImageUpload = async (file: File) => {
-    const formData = new FormData();
-    formData.append("image", file);
+  // const handleImageUpload = async (file: File) => {
+  //   const formData = new FormData();
+  //   formData.append("image", file);
 
-    try {
-      const { data } = await userAPI.changeProfileImage(formData);
+  //   try {
+  //     const { data } = await userAPI.changeProfileImage(formData);
 
-      onUpdate(data);
-      setSrc(data.image);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     onUpdate(data);
+  //     setSrc(data.image);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <S.ProfileImageWrapper>
-      <ProfileImage imgSrc={src} size="lg" />
+      <ProfileImage imgSrc={imgSrc} size="lg" />
       {isMine ? (
         <SettingDropDown handleImageUpload={handleImageUpload} />
       ) : null}
