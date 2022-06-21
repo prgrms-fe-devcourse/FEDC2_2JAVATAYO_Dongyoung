@@ -129,9 +129,12 @@ const Header: React.FC = () => {
           </DropDown>
         </S.LoggedIn>
       ) : (
-        <S.LoggedOut onClick={() => navigate("/signin")}>
-          로그인 / 회원가입
-        </S.LoggedOut>
+        <S.Flex>
+          <SearchBar />
+          <S.LoggedOut onClick={() => navigate("/signin")}>
+            로그인 / 회원가입
+          </S.LoggedOut>
+        </S.Flex>
       )}
     </S.Header>
   );

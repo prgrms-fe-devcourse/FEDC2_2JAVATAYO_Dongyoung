@@ -15,6 +15,11 @@ const dot = css`
   content: "";
 `;
 
+export const Flex = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const Header = styled.header`
   display: flex;
   justify-content: space-between;
@@ -83,6 +88,7 @@ export const Notice = styled.div<{ isGetAlarm: boolean }>`
 `;
 
 export const LoggedOut = styled.a`
+  margin-left: 18px;
   font-size: 16px;
   line-height: 16px;
 `;
