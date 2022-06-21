@@ -4,11 +4,16 @@ export const BottomSheet = styled.div`
   position: fixed;
   background-color: #fff;
   width: 350px;
+  height: 500px;
+  overflow: auto;
   transform: translateY(0px);
   transition: transform 0.4s ease-in-out;
   margin-right: 40px;
   .active {
     transform: translateY(0);
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -39,7 +44,7 @@ export const BottomSheetWrapper = styled.div`
 export const Content = styled.a`
   color: #333;
   text-decoration: none;
-  height: 50px;
+  height: 70px;
   display: block;
   border-bottom: 1px solid #ccc;
   padding-left: 20px;

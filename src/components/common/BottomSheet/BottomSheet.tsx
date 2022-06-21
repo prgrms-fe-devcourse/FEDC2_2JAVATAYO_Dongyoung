@@ -1,23 +1,36 @@
 import * as S from "./style";
-import Button from "../Button";
-import SearchBar from "./UserSearchBar";
-interface BottomSheetInterface {
-  buttonType?: string;
-  width?: string;
-  height?: string;
-  isRound?: boolean;
-  isDisabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-}
+import React, { useRef, useEffect, useState } from "react";
+import { userAPI } from "@utils/apis";
+import UserSearchBar from "../UserSearchBar";
+import User from "../User";
 
-const BottomSheet: React.FC<BottomSheetInterface> = ({
-  buttonType,
-  width,
-  height,
-  isRound,
-  onClick,
-  isDisabled
-}) => {
+const BottomSheet = () => {
+  const input = useRef<HTMLInputElement>(null);
+  const [userList, setUserList] = useState([]);
+  let paramUserId;
+  let paramUserFullName;
+  let paramUserImage;
+  useEffect(() => {
+    getUserList();
+  }, []);
+  const getUserList = async () => {
+    const { data } = await userAPI.getUserList({
+      offset: 0,
+      limit: 999
+    });
+    setUserList(data);
+  };
+  const search = () => {
+    if (input.current.value.length < 2) {
+      alert("2자 이상 입력해주세요");
+      return;
+    }
+    getUser();
+  };
+  const getUser = async () => {
+    console.log(input.current.value);
+    const { data } = await userAPI.getUser(input.current.value);
+  };
   const showBottomSheet = () => {
     const container = document.querySelector("#bottomSheetContainer");
     const bottomSheet = document.querySelector(
@@ -86,28 +99,42 @@ const BottomSheet: React.FC<BottomSheetInterface> = ({
           </S.BottomSheetHeader>
           <S.BottomSheetContents>
             <S.Content>
-              <SearchBar />
+              <UserSearchBar onClick={search} />
             </S.Content>
-            <S.Content onClick={showBottomSheet}>Delete</S.Content>
-            <S.Content onClick={showBottomSheet}>New</S.Content>
-            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
-            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
-            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
-            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
-            <S.Content onClick={showBottomSheet}>Cancel</S.Content>
+            {userList.map((user) => {
+              let prop;
+              console.log(user);
+              for (prop in user) {
+                if (Object.prototype.hasOwnProperty.call(user, prop)) {
+                  switch (prop) {
+                    case "_id":
+                      paramUserId = user[prop];
+                      break;
+                    case "fullName":
+                      paramUserFullName = user[prop];
+                      break;
+                    case "image":
+                      paramUserImage = user[prop];
+                      break;
+                    default:
+                      break;
+                  }
+                }
+              }
+              return (
+                <User
+                  key={paramUserId}
+                  userId={paramUserId}
+                  userFullName={paramUserFullName}
+                  userImage={paramUserImage}
+                />
+              );
+            })}
           </S.BottomSheetContents>
         </S.BottomSheet>
       </S.BottomSheetWrapper>
     </div>
   );
-};
-
-BottomSheet.defaultProps = {
-  buttonType: "red",
-  width: "100%",
-  height: "40",
-  isRound: false,
-  isDisabled: false
 };
 
 export default BottomSheet;
