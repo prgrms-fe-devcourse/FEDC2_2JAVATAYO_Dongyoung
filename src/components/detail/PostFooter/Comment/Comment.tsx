@@ -1,7 +1,7 @@
 import * as S from "./style";
 import ProfileImage from "../../../common/ProfileImage";
 import theme from "../../../../styles/theme";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 interface CommentInterface {
   key: string;
   commentId: string;
@@ -25,15 +25,20 @@ const Comment: React.FC<CommentInterface> = ({
   updatedAt,
   deleteComment
 }) => {
+  const userProfileNavigate = useNavigate();
+  const userProfileClick = () => {
+    userProfileNavigate(`/profile/${authorId}`);
+    window.scrollTo(0, 0);
+  };
   return (
     <div>
       <S.FlexBetween>
         <S.CenterAlignItemSpan>
-          {/* <ProfileImage block={false} size="md" /> */}
           <ProfileImage
             size="sm"
             imgAlt={author ? author : null}
             imgSrc={authorImage ? authorImage : null}
+            onClick={userProfileClick}
           />
           <span>{author}</span>
         </S.CenterAlignItemSpan>
