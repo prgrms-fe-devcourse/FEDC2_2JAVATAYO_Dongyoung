@@ -54,7 +54,8 @@ const PartBox = ({
 
   const getSkillOptions = (channel) => {
     let idx = SKILL_OPTIONS.findIndex(
-      (skillOption) => skillOption.channel === channel
+      (skillOption) =>
+        skillOption.channel.toLowerCase() === channel.toLowerCase()
     );
     setStackOptions(SKILL_OPTIONS[idx].options);
   };

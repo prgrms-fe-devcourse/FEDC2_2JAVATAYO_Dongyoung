@@ -87,6 +87,7 @@ const Create: React.FC = () => {
       formData.append("channelId", currentChannelId);
       const getPost = async (formData: FormData) => {
         await postAPI.createPost(formData).then((res) => {
+          console.log(res);
           if (res.statusText === "OK") {
             navigate("/");
           }
