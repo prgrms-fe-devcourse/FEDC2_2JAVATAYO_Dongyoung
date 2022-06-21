@@ -38,4 +38,34 @@ export const DropBox = styled.div<{
       color: ${theme.$gray600};
     }
   }
+  p {
+    width: 300px;
+    text-align: left;
+    transition: all 0.3s;
+    font-weight: normal;
+    line-height: 1.3;
+  }
+  .title {
+    margin: 5px 0;
+  }
+  .channel {
+    color: ${theme.$red};
+  }
+  button div {
+    padding-bottom: 20px;
+    border-bottom: 1px solid ${theme.$gray200};
+    &:hover p {
+      color: ${theme.$gray600};
+    }
+  }
+  button:first-child div {
+    padding-top: 10px;
+  }
+  button:last-child div {
+    padding-bottom: 20px;
+    border-bottom: none;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
 `;
