@@ -9,7 +9,6 @@ import commentAPI from "@utils/apis/comment";
 import authAPI from "@utils/apis/auth";
 import { IPost, IComment } from "../../types/model";
 import storage from "@utils/storage";
-import { useAuth } from "@contexts/AuthProvider";
 
 type DetailInterface = { post?: IPost };
 
@@ -18,7 +17,6 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
   const [titleObj, setTitleObj] = useState({});
   const [comments, setComments] = useState([]);
   const [userId, setUserId] = useState("");
-  const { onLogOut, userInfo } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const editNavigate = useNavigate();
   const homeNavigate = useNavigate();
@@ -90,7 +88,6 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
           postDetail.imagePublicId != null ? postDetail.imagePublicId : ""
       }
     });
-    window.scrollTo(0, 0);
   };
 
   const postDeleteHandler = async () => {
@@ -164,10 +161,6 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
       }
     }
   }
-  const localDate = new Date(postDetail.updatedAt)
-    .toLocaleDateString()
-    .replaceAll(" ", "")
-    .substring(0, 9);
   return (
     <AppLayout>
       <div>
@@ -176,10 +169,8 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
           userId={userId}
           likes={likes}
           title={paramTitle}
-          authorId={postDetail.author._id}
-          authorFullname={postDetail.author.fullName}
-          authorImage={postDetail.author.image}
-          updatedAt={localDate}
+          authorId={postDetail.author.fullName}
+          createdAt={postDetail.updatedAt.substring(0, 10).replaceAll("-", ".")}
           channel={paramChannel}
           people={paramPeople}
           email={paramEmail}
@@ -198,10 +189,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
         <PostFooter
           comments={comments}
           userId={userId}
-          userImage={userInfo.image}
-          userName={userInfo.fullName}
           postId={postId}
-          postAuthorId={postDetail.author._id}
           isLoggedIn={isLoggedIn}
           setComments={setComments}
           deleteComment={deleteComment}

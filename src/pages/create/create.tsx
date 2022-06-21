@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AppLayout, Label, Button, Textarea } from "@components/common";
 import * as S from "./style";
 import { usePrompt } from "../../routes/Blocker";
@@ -54,7 +54,6 @@ const Create: React.FC = () => {
   const validateEmail = (email) => {
     const re =
       /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    console.log(re.test(email));
     return re.test(email);
   };
 
