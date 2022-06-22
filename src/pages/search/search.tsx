@@ -21,7 +21,12 @@ const Search: React.FC = () => {
   const search = async () => {
     try {
       const { data } = await searchAPI.searchAll(params.keyword);
-      searchPosts(data);
+      searchPosts(
+        data.filter((list) => {
+          if (list.fullName) return false;
+          return true;
+        })
+      );
     } catch (error) {
       console.error(error);
     } finally {
@@ -32,7 +37,8 @@ const Search: React.FC = () => {
   const searchPosts = (data) => {
     const result = data.filter((post) => {
       const { title } = JSON.parse(post.title);
-      return title.toLowerCase().includes(params.keyword);
+      const searchRegExp = new RegExp(`.*${params.keyword}.*`, "gi");
+      return searchRegExp.test(title);
     });
     setPosts(result);
     setFilterPost(result);
@@ -57,7 +63,13 @@ const Search: React.FC = () => {
           ) : (
             filterPost.map((post, i) => {
               if (i >= page * 10) return;
-              return <Card post={post} key={i} userId={userInfo._id} />;
+              return (
+                <Card
+                  post={post}
+                  key={i}
+                  userId={userInfo ? userInfo._id : null}
+                />
+              );
             })
           )}
         </S.CardBox>
