@@ -77,6 +77,19 @@ GitHub Wiki : https://github.com/prgrms-fe-devcourse/FEDC2_2JAVATAYO_Dongyoung/w
 
 <br>
 
+## 페이지 구성도
+
+
+![2JAVATAYO_페이지 구성도_2](https://user-images.githubusercontent.com/15838144/175064039-a7fd0534-8611-478e-a3e7-49db84c45972.png)
+
+<br>
+
+---
+
+
+<br>
+
+
 ## 폴더 구조
 
 ```
