@@ -1,4 +1,4 @@
-import { FC, Fragment, useState, SetStateAction, Dispatch } from "react";
+import { FC, Fragment, useState } from "react";
 import Button from "@components/common/Button";
 import InputBox from "@components/common/InputBox/InputBox";
 import { searchAPI, settingAPI } from "@utils/apis";
