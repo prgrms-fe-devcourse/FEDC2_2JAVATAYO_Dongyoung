@@ -14,6 +14,7 @@ import { postAPI } from "@utils/apis";
 import CHANNELS from "@constants/channel";
 import { useNavigate } from "react-router";
 import { currentDate } from "@utils/Date";
+import { useAuth } from "@contexts/AuthProvider";
 
 const placeOptions = [
   { id: 1, value: "온라인", label: "온라인" },
@@ -34,7 +35,7 @@ const expectedDateOptions = [
 
 const Create: React.FC = () => {
   const navigate = useNavigate();
-
+  const { userInfo } = useAuth();
   const [images, setImages] = useState([]);
   const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
@@ -56,6 +57,11 @@ const Create: React.FC = () => {
       /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
   };
+
+  if (!userInfo.isLoggedIn) {
+    alert("비로그인 상태에서는 접근이 불가능합니다.");
+    navigate("/");
+  }
 
   const handleCreate = () => {
     if (_title === "") {
