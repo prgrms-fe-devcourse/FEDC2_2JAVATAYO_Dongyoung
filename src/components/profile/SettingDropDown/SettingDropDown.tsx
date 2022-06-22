@@ -60,7 +60,7 @@ const SettingDropDown: FC<SettingDropDownInterface> = ({
           visible={editPasswordVisible}
           onClose={() => setEditPasswordVisible(false)}
         >
-          <EditPassword />
+          <EditPassword onModalClose={() => setEditPasswordVisible(false)} />
         </Modal>
       </div>
     </div>

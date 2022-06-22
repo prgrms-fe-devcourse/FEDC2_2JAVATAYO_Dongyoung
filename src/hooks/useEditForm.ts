@@ -25,6 +25,7 @@ const useEditForm = <T>({ initialValue, onSubmit, validate }: EditForm<T>) => {
     const newErrors = validate ? validate(values) : {};
     if (Object.keys(newErrors).length === 0) {
       await onSubmit(values);
+      setValues(initialValue);
     }
     setErrors(newErrors);
 
