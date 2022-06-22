@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
-import { Header, Footer, Card, Button } from "@components/common";
+import { Header, Footer, Card, Button, PageLoading } from "@components/common";
 import {
   Tab,
   ProfileImageBox,
@@ -152,136 +152,138 @@ const Profile: React.FC = () => {
   return (
     <>
       <Header />
-
-      {profileUser === undefined ||
-      written.posts === undefined ||
-      liked.posts === undefined ? (
-        "로딩 중..."
-      ) : (
-        <>
-          <S.Wrapper padding="60px 0 0">
-            <CoverImageBox
-              isMine={isMine}
-              imgSrc={isMine ? userInfo.coverImage : profileUser.coverImage}
-              handleImageUpload={handleCoverUpload}
-            />
-          </S.Wrapper>
-
-          <S.Layout>
-            <S.Wrapper margin="-32px 0 11px">
-              <ProfileImageBox
+      <S.Contents>
+        {profileUser === undefined ||
+        written === INITIAL_POSTS ||
+        liked === INITIAL_POSTS ? (
+          <PageLoading />
+        ) : (
+          <>
+            <S.Wrapper padding="60px 0 0">
+              <CoverImageBox
                 isMine={isMine}
-                imgSrc={isMine ? userInfo.image : profileUser.image}
-                handleImageUpload={handleProfileImage}
+                imgSrc={isMine ? userInfo.coverImage : profileUser.coverImage}
+                handleImageUpload={handleCoverUpload}
               />
             </S.Wrapper>
 
-            <S.FlexContainer direction="column" gap="6px">
-              <S.FullName>
-                {isMine ? userInfo.fullName : profileUser.fullName}
-              </S.FullName>
-              <S.Email>{isMine ? userInfo.email : profileUser.email}</S.Email>
-            </S.FlexContainer>
-
-            {!isMine && userInfo.isLoggedIn ? (
-              <S.Wrapper margin="6px 0 10px">
-                <FollowIcon
-                  following={userInfo.following}
-                  profileUserId={profileUserId}
-                  visitorUserId={userInfo.id}
-                  handleCreateFollow={handleCreateFollow}
-                  handleDeleteFollow={handleDeleteFollow}
+            <S.Layout>
+              <S.Wrapper margin="-32px 0 11px">
+                <ProfileImageBox
+                  isMine={isMine}
+                  imgSrc={isMine ? userInfo.image : profileUser.image}
+                  handleImageUpload={handleProfileImage}
                 />
               </S.Wrapper>
-            ) : null}
 
-            <S.DefinitionList existFollowIcon={!isMine && userInfo.isLoggedIn}>
-              <S.DefinitionItem>
-                <dt>팔로워</dt>
-                <dd>{profileUser.followers.length}</dd>
-              </S.DefinitionItem>
+              <S.FlexContainer direction="column" gap="6px">
+                <S.FullName>
+                  {isMine ? userInfo.fullName : profileUser.fullName}
+                </S.FullName>
+                <S.Email>{isMine ? userInfo.email : profileUser.email}</S.Email>
+              </S.FlexContainer>
 
-              <S.DefinitionItem>
-                <dt>팔로잉</dt>
-                <dd>{profileUser.following.length}</dd>
-              </S.DefinitionItem>
+              {!isMine && userInfo.isLoggedIn ? (
+                <S.Wrapper margin="6px 0 10px">
+                  <FollowIcon
+                    following={userInfo.following}
+                    profileUserId={profileUserId}
+                    visitorUserId={userInfo.id}
+                    handleCreateFollow={handleCreateFollow}
+                    handleDeleteFollow={handleDeleteFollow}
+                  />
+                </S.Wrapper>
+              ) : null}
 
-              <S.DefinitionItem>
-                <dt>게시글</dt>
-                <dd>{profileUser.posts.length}</dd>
-              </S.DefinitionItem>
-            </S.DefinitionList>
+              <S.DefinitionList
+                existFollowIcon={!isMine && userInfo.isLoggedIn}
+              >
+                <S.DefinitionItem>
+                  <dt>팔로워</dt>
+                  <dd>{profileUser.followers.length}</dd>
+                </S.DefinitionItem>
 
-            <Tab style={{ marginBottom: "30px" }}>
-              <Tab.Item active title="작성한 글 목록">
-                <SCardBox>
-                  {written.posts
-                    .slice(0, getEndIndex(written.countClickMore))
-                    .map((post, i) => {
-                      return (
+                <S.DefinitionItem>
+                  <dt>팔로잉</dt>
+                  <dd>{profileUser.following.length}</dd>
+                </S.DefinitionItem>
+
+                <S.DefinitionItem>
+                  <dt>게시글</dt>
+                  <dd>{profileUser.posts.length}</dd>
+                </S.DefinitionItem>
+              </S.DefinitionList>
+
+              <Tab style={{ marginBottom: "30px" }}>
+                <Tab.Item active title="작성한 글 목록">
+                  <SCardBox>
+                    {written.posts
+                      .slice(0, getEndIndex(written.countClickMore))
+                      .map((post, i) => {
+                        return (
+                          <Card
+                            post={post}
+                            key={i}
+                            userId={userInfo.isLoggedIn ? userInfo._id : null}
+                            clickable={false}
+                          />
+                        );
+                      })}
+                  </SCardBox>
+
+                  <S.Wrapper margin="52px 0 0" center>
+                    {getEndIndex(written.countClickMore) < written.total ? (
+                      <Button
+                        buttonType="red"
+                        width="300"
+                        onClick={() =>
+                          setWritten({
+                            ...written,
+                            countClickMore: written.countClickMore + 1
+                          })
+                        }
+                      >
+                        더보기
+                      </Button>
+                    ) : null}
+                  </S.Wrapper>
+                </Tab.Item>
+                <Tab.Item title="좋아요 한 글">
+                  <SCardBox>
+                    {liked.posts
+                      .slice(0, getEndIndex(liked.countClickMore))
+                      .map((post, i) => (
                         <Card
                           post={post}
                           key={i}
                           userId={userInfo.isLoggedIn ? userInfo._id : null}
                           clickable={false}
                         />
-                      );
-                    })}
-                </SCardBox>
+                      ))}
+                  </SCardBox>
 
-                <S.Wrapper margin="52px 0 0" center>
-                  {getEndIndex(written.countClickMore) < written.total ? (
-                    <Button
-                      buttonType="red"
-                      width="300"
-                      onClick={() =>
-                        setWritten({
-                          ...written,
-                          countClickMore: written.countClickMore + 1
-                        })
-                      }
-                    >
-                      더보기
-                    </Button>
-                  ) : null}
-                </S.Wrapper>
-              </Tab.Item>
-              <Tab.Item title="좋아요 한 글">
-                <SCardBox>
-                  {liked.posts
-                    .slice(0, getEndIndex(liked.countClickMore))
-                    .map((post, i) => (
-                      <Card
-                        post={post}
-                        key={i}
-                        userId={userInfo.isLoggedIn ? userInfo._id : null}
-                        clickable={false}
-                      />
-                    ))}
-                </SCardBox>
-
-                <S.Wrapper margin="52px 0 0" center>
-                  {getEndIndex(liked.countClickMore) < liked.total ? (
-                    <Button
-                      buttonType="red"
-                      width="300"
-                      onClick={() =>
-                        setLiked({
-                          ...liked,
-                          countClickMore: liked.countClickMore + 1
-                        })
-                      }
-                    >
-                      더보기
-                    </Button>
-                  ) : null}
-                </S.Wrapper>
-              </Tab.Item>
-            </Tab>
-          </S.Layout>
-        </>
-      )}
-
+                  <S.Wrapper margin="52px 0 0" center>
+                    {getEndIndex(liked.countClickMore) < liked.total ? (
+                      <Button
+                        buttonType="red"
+                        width="300"
+                        onClick={() =>
+                          setLiked({
+                            ...liked,
+                            countClickMore: liked.countClickMore + 1
+                          })
+                        }
+                      >
+                        더보기
+                      </Button>
+                    ) : null}
+                  </S.Wrapper>
+                </Tab.Item>
+              </Tab>
+            </S.Layout>
+          </>
+        )}
+      </S.Contents>
       <Footer />
     </>
   );
