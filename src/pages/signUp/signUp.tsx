@@ -3,7 +3,7 @@ import { InputBox, Button, AppLayout, PageLoading } from "@components/common";
 import logoImg from "@assets/logos/logo_favicon.svg";
 import { FC, Fragment, useState } from "react";
 import { useNavigate } from "react-router";
-import { authAPI } from "@utils/apis";
+import { authAPI, userAPI } from "@utils/apis";
 import storage from "@utils/storage";
 import { useAuth } from "@contexts/AuthProvider";
 import useForm from "@hooks/useForm";
