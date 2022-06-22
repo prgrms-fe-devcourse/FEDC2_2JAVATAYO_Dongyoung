@@ -23,7 +23,7 @@ const INITIAL_POSTS = {
   total: 0
 };
 
-const REWARD_STANDARD = 0;
+const REWARD_STANDARD = 5;
 
 type Posts = {
   posts: IPost[];
