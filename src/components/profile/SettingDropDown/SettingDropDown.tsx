@@ -35,32 +35,35 @@ const SettingDropDown: FC<SettingDropDownInterface> = ({
   ];
 
   return (
-    <DropDown contents={dropDownContents} top={10} left={-32}>
-      <S.Wrapper>
-        <SettingComponent width="20px" height="20px" color={theme.$gray800} />
-      </S.Wrapper>
+    <div>
+      <DropDown contents={dropDownContents} top={10} left={-32}>
+        <S.Wrapper>
+          <SettingComponent width="20px" height="20px" color={theme.$gray800} />
+        </S.Wrapper>
+      </DropDown>
+      <div>
+        <ImageUpload
+          onImageUpload={handleImageUpload}
+          replacement={<div ref={refImageUpload}></div>}
+        />
 
-      <ImageUpload
-        onImageUpload={handleImageUpload}
-        replacement={<div ref={refImageUpload}></div>}
-      />
+        <Modal
+          height="294px"
+          visible={editFullNameVisible}
+          onClose={() => setEditFullNameVisible(false)}
+        >
+          <EditFullName onModalClose={() => setEditFullNameVisible(false)} />
+        </Modal>
 
-      <Modal
-        height="294px"
-        visible={editFullNameVisible}
-        onClose={() => setEditFullNameVisible(false)}
-      >
-        <EditFullName />
-      </Modal>
-
-      <Modal
-        height="384px"
-        visible={editPasswordVisible}
-        onClose={() => setEditPasswordVisible(false)}
-      >
-        <EditPassword />
-      </Modal>
-    </DropDown>
+        <Modal
+          height="384px"
+          visible={editPasswordVisible}
+          onClose={() => setEditPasswordVisible(false)}
+        >
+          <EditPassword onModalClose={() => setEditPasswordVisible(false)} />
+        </Modal>
+      </div>
+    </div>
   );
 };
 
