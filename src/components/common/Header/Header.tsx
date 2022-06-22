@@ -12,6 +12,12 @@ import { IPost } from "src/types/model";
 import DropDown from "../DropDown";
 import ProfileImage from "../ProfileImage";
 
+const consoleLog = `쾅쾅쾅쾅쾅쾅쾅쾅쾅
+쾅쾅         쾅쾅
+쾅쾅（∩8ㅁ8）쾅쾅
+  ＿/_ﾐつ/￣￣￣/
+    ＼/＿＿＿/`;
+
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const { onLogOut, userInfo } = useAuth();
@@ -89,6 +95,8 @@ const Header: React.FC = () => {
       console.error(e);
     }
   };
+
+  console.log(consoleLog);
 
   return (
     <S.Header>

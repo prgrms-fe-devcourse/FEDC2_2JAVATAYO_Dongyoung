@@ -62,7 +62,6 @@ const Home: React.FC = () => {
             ) : (
               posts.map((post, i) => {
                 if (i >= page) return null;
-                console.log(posts);
                 return <Card post={post} key={i} userId={userInfo._id} />;
               })
             )}
