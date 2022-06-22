@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import useEditForm from "@hooks/useEditForm";
 import { settingAPI } from "@utils/apis";
 import { Button } from "@components/common";
-import InputBox from "@components/create/InputBox/InputBox";
+import InputBox from "@components/common/InputBox/InputBox";
 import * as S from "./style";
 
 export const passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/;

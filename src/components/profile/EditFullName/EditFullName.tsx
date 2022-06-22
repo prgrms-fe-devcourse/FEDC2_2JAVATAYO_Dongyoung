@@ -1,8 +1,8 @@
 import { FC, Fragment, useState } from "react";
 import Button from "@components/common/Button";
-import InputBox from "@components/create/InputBox/InputBox";
+import InputBox from "@components/common/InputBox/InputBox";
 import { searchAPI, settingAPI } from "@utils/apis";
-import { IUser } from "src/types/model";
+import { IUser } from "../../../types/model";
 import * as S from "./style";
 
 const isValidFullName = (fullName: string) => {

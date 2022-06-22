@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
-import Header from "@components/common/Header";
-import Footer from "@components/common/Footer";
-import Card from "@components/common/Card";
-import Button from "@components/common/Button";
+import { Header, Footer, Card, Button } from "@components/common";
 import {
   Tab,
   ProfileImageBox,
@@ -15,7 +12,6 @@ import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 import { authAPI, postAPI, userAPI } from "@utils/apis";
 import { IPost, IUser } from "../../types/model";
-import axios from "axios";
 import { useAuth } from "@contexts/AuthProvider";
 
 const CARD_LIMIT = 6;
