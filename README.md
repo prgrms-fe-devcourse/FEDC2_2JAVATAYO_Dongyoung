@@ -6,9 +6,15 @@
 
 ---
 
+## ✨ 데모 
+
+https://2javatayo.netlify.app/
+
 <br>
 
 ## 🚪 프로젝트 소개
+
+2022/06/06 ~ 2022/06/22 (17일)
 
 ---
 
@@ -56,6 +62,9 @@
 ![Discord](https://img.shields.io/badge/%3CServer%3E-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 
+GitHub Discussions : https://github.com/prgrms-fe-devcourse/FEDC2_2JAVATAYO_Dongyoung/discussions
+GitHub Wiki : https://github.com/prgrms-fe-devcourse/FEDC2_2JAVATAYO_Dongyoung/wiki
+
 ---
 
 <br>
@@ -65,6 +74,8 @@
 - 설치 : $ `npm install`
 - 실행 : $ `num run start`
 - 스토리북 실행 : $ `npm run storybook`
+
+<br>
 
 ## 폴더 구조
 
@@ -151,4 +162,5 @@
 
 <br>
 
-## 👷‍♂️ 지속적으로 추가 예정입니다. ☺️
+[최종발표ppt.pdf](https://github.com/prgrms-fe-devcourse/FEDC2_2JAVATAYO_Dongyoung/files/8958677/ppt.pdf)
+
