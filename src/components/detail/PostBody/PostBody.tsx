@@ -1,5 +1,5 @@
 import * as S from "./style";
-import Button from "../../common/Button";
+import Button from "@components/common/Button";
 import theme from "../../../styles/theme";
 interface PostBodyInterface {
   introduction: string;
