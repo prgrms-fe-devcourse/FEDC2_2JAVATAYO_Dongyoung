@@ -1,16 +1,16 @@
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as Logo } from "@assets/logos/Logo.svg";
+import { ReactComponent as Logo } from "@assets/logos/logo.svg";
 import { ReactComponent as Bell } from "@assets/icons/icon_bell.svg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import { notificationAPI } from "@utils/apis";
-import ProfileImage from "../ProfileImage";
-import DropDown from "../DropDown";
 import { useAuth } from "@contexts/AuthProvider";
 import CHANNELS from "@constants/channel";
 import { IPost } from "src/types/model";
+import DropDown from "../DropDown";
+import ProfileImage from "../ProfileImage";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();

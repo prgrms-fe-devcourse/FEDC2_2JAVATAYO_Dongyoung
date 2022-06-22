@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CHANNELS from "../../../constants/channel";
+import CHANNELS from "@constants/channel";
 import * as S from "./style";
 
 interface FilterInterface {
