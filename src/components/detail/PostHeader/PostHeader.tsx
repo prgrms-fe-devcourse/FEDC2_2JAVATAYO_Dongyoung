@@ -59,7 +59,9 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
         <span onClick={backButtonClick} style={{ cursor: "pointer" }}>
           <BackIcon />
         </span>
-        <S.CenterAlignItemSpan style={{ cursor: "pointer" }}>
+        <S.CenterAlignItemSpan
+          style={userId != null ? { cursor: "pointer" } : { cursor: "default" }}
+        >
           <LikeBtn likes={likes} userId={userId} postId={postId} />
         </S.CenterAlignItemSpan>
       </S.FlexBetween>
