@@ -1,7 +1,7 @@
 import * as S from "./style";
-import Label from "../../common/Label";
-import Input from "../../common/Input";
-import ErrorMessage from "../../common/ErrorMessage";
+import Label from "../Label";
+import Input from "../Input";
+import ErrorMessage from "../ErrorMessage";
 
 interface InputBoxInterface {
   name?: string;

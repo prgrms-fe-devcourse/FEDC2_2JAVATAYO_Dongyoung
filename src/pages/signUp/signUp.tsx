@@ -1,5 +1,5 @@
 import * as S from "./style";
-import InputBox from "../../components/create/InputBox/InputBox";
+import InputBox from "../../components/common/InputBox/InputBox";
 import { Button, AppLayout, PageLoading } from "@components/common";
 import logoImg from "../../assets/logos/logo_favicon.svg";
 import { FC, Fragment, useState } from "react";
