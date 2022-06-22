@@ -1,6 +1,6 @@
 import { FC, Fragment, useState, SetStateAction, Dispatch } from "react";
 import Button from "@components/common/Button";
-import InputBox from "@components/create/InputBox/InputBox";
+import InputBox from "@components/common/InputBox/InputBox";
 import { searchAPI, settingAPI } from "@utils/apis";
 import { IUser } from "src/types/model";
 import { useAuth } from "@contexts/AuthProvider";

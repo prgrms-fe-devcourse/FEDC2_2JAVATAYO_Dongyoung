@@ -2,12 +2,7 @@ import { FC, useState } from "react";
 import { Button } from "@components/common";
 import { followAPI } from "@utils/apis";
 import { IFollow } from "../../../types/model";
-import * as S from "./style";
 
-// User
-//   following: [], 유저가 팔로우하고 있는 값들
-//   followers: [], 유저를 팔로우하고 있는 값들
-// 방문자가 프로필 유저를 팔로잉하고 있는지 체크
 interface FollowIconInterface {
   following: IFollow[];
   profileUserId: string;

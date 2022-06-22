@@ -1,8 +1,7 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { ImageUpload } from "@components/common";
 import { CoverImage } from "@components/profile";
 import { useHover } from "@hooks";
-import { userAPI } from "@utils/apis";
 import * as S from "./style";
 
 interface CoverImageBoxInterface {

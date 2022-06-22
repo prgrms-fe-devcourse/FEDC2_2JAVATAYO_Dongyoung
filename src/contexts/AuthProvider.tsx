@@ -1,6 +1,6 @@
 import { useEffect, createContext, useContext, useReducer } from "react";
-import storage from "../utils/storage";
-import { authAPI } from "../utils/apis";
+import storage from "@utils/storage";
+import { authAPI } from "@utils/apis";
 
 interface AuthProviderInterface {
   children: React.ReactNode;
