@@ -8,7 +8,6 @@ export const BottomSheet = styled.div<{
   border-radius: 15px 15px 0px 0px;
   width: 350px;
   height: 500px;
-  /* overflow: auto; */
   ${({ isHideSheet }) => (isHideSheet ? "overflow: none" : "overflow: auto")};
   transform: translateY(420px);
   transition: transform 0.4s ease-in-out;
