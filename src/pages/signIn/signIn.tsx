@@ -15,7 +15,10 @@ type Values = {
 };
 const SignIn: FC = () => {
   const navigate = useNavigate();
-  const { onLogin } = useAuth();
+  const { userInfo, onLogin } = useAuth();
+  if (userInfo.isLoggedIn) {
+    navigate("/");
+  }
   const { values, errors, isLoading, handleChange, handleSubmit } =
     useForm<Values>({
       initialValue: {

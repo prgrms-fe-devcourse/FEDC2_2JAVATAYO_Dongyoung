@@ -18,7 +18,10 @@ type Values = {
 };
 const SignUp: FC = () => {
   const navigate = useNavigate();
-  const { onLogin } = useAuth();
+  const { userInfo, onLogin } = useAuth();
+  if (userInfo.isLoggedIn) {
+    navigate("/");
+  }
   const [isChecked, setIsChecked] = useState(false);
   const { values, errors, isLoading, handleChange, handleSubmit } =
     useForm<Values>({
@@ -81,6 +84,7 @@ const SignUp: FC = () => {
       setIsChecked(true);
     }
   };
+
   return (
     <Fragment>
       <AppLayout>
