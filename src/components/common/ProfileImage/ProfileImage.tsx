@@ -1,4 +1,4 @@
-import defaultImg from "@assets/imgs/defaultProfileImage.png";
+import defaultImg from "@assets/imgs/default_profile_image.png";
 import * as S from "./style";
 
 interface ProfileImageInterface {

@@ -14,6 +14,7 @@ import { postAPI } from "@utils/apis";
 import CHANNELS from "@constants/channel";
 import { useNavigate } from "react-router";
 import { currentDate } from "@utils/Date";
+import { useAuth } from "@contexts/AuthProvider";
 
 const placeOptions = [
   { id: 1, value: "온라인", label: "온라인" },
@@ -34,7 +35,7 @@ const expectedDateOptions = [
 
 const Create: React.FC = () => {
   const navigate = useNavigate();
-
+  const { userInfo } = useAuth();
   const [images, setImages] = useState([]);
   const [_title, setTitle] = useState("");
   const [place, setPlace] = useState("online");
@@ -46,7 +47,7 @@ const Create: React.FC = () => {
     { channel: "front", people: "1", skills: [] }
   ]);
   const [canNavigate, setCanNavigate] = useState(true);
-  const [alertMessage, setAlertMessage] = useState("메인페이지로 이동합니다");
+  const [alertMessage, setAlertMessage] = useState("");
   const titleRef = useRef(null);
   const emailRef = useRef(null);
   const textAreaRef = useRef(null);
@@ -57,14 +58,26 @@ const Create: React.FC = () => {
     return re.test(email);
   };
 
+  if (!userInfo.isLoggedIn) {
+    alert("비로그인 상태에서는 접근이 불가능합니다.");
+    navigate("/");
+  }
+
   const handleCreate = () => {
     if (_title === "") {
+      alert("제목을 입력해주세요");
       titleRef.current.focus();
       return;
-    } else if (email === "" || !validateEmail(email)) {
+    } else if (email === "") {
+      alert("이메일을 입력해주세요");
       emailRef.current.focus();
       return;
-    } else if (introduction.length < 2) {
+    } else if (!validateEmail(email)) {
+      alert("올바른 이메일 형식이 아닙니다");
+      emailRef.current.focus();
+      return;
+    } else if (introduction.length < 5) {
+      alert("소개를 5자 이상 입력해주세요");
       textAreaRef.current.focus();
       return;
     }
@@ -88,6 +101,7 @@ const Create: React.FC = () => {
       const getPost = async (formData: FormData) => {
         await postAPI.createPost(formData).then((res) => {
           if (res.status === 200) {
+            alert("글작성이 완료되었습니다. 메인페이지로 이동하게 됩니다.");
             navigate("/");
           }
         });
@@ -95,8 +109,6 @@ const Create: React.FC = () => {
       getPost(formData);
     });
   };
-
-  usePrompt(alertMessage, canNavigate);
 
   const handleAddParts = () => {
     const newParts = [...parts, { channel: "front", people: "1", skills: [] }];

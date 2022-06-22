@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import CHANNELS from "@constants/channel";
 import { IPost } from "src/types/model";
-import CHANNELS from "../../../constants/channel";
 import * as S from "./style";
 
 interface FilterInterface {

@@ -1,8 +1,8 @@
 import * as S from "./style";
-import Button from "../../common/Button";
-import Textarea from "../../common/Textarea";
-import commentAPI from "../../../utils/apis/comment";
-import notificationAPI from "../../../utils/apis/notification";
+import Button from "@components/common/Button";
+import Textarea from "@components/common/Textarea";
+import commentAPI from "@utils/apis/comment";
+import notificationAPI from "@utils/apis/notification";
 import { useState, useRef } from "react";
 interface TextareaBoxInterface {
   length: number;

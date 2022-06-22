@@ -1,10 +1,10 @@
 import React from "react";
 import PostTitle from "../PostTitle";
-import ProfileImage from "../../common/ProfileImage/index";
+import ProfileImage from "@components/common/ProfileImage/index";
 import PostSummary from "../PostSummary";
-import LikeBtn from "../../common/LikeBtn";
+import LikeBtn from "@components/common/LikeBtn";
 import { ILike, IUser } from "src/types/model";
-import { ReactComponent as BackIcon } from "../../../assets/icons/icon_back.svg";
+import { ReactComponent as BackIcon } from "@assets/icons/icon_back.svg";
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 
@@ -43,10 +43,10 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   expectedDate,
   skills
 }) => {
-  const homeNavigate = useNavigate();
+  const backNavigate = useNavigate();
   const userProfileNavigate = useNavigate();
   const backButtonClick = () => {
-    homeNavigate("/");
+    backNavigate(-1);
     window.scrollTo(0, 0);
   };
   const userProfileClick = () => {
@@ -59,7 +59,9 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
         <span onClick={backButtonClick} style={{ cursor: "pointer" }}>
           <BackIcon />
         </span>
-        <S.CenterAlignItemSpan style={{ cursor: "pointer" }}>
+        <S.CenterAlignItemSpan
+          style={userId != null ? { cursor: "pointer" } : { cursor: "default" }}
+        >
           <LikeBtn likes={likes} userId={userId} postId={postId} />
         </S.CenterAlignItemSpan>
       </S.FlexBetween>

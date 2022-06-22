@@ -1,35 +1,25 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { ImageUpload } from "@components/common";
 import { CoverImage } from "@components/profile";
 import { useHover } from "@hooks";
-import { userAPI } from "@utils/apis";
 import * as S from "./style";
 
 interface CoverImageBoxInterface {
   isMine: boolean;
   imgSrc: string;
+  handleImageUpload: (file: File) => void;
 }
 
-const CoverImageBox: FC<CoverImageBoxInterface> = ({ isMine, imgSrc }) => {
-  const [src, setSrc] = useState(imgSrc);
+const CoverImageBox: FC<CoverImageBoxInterface> = ({
+  isMine,
+  imgSrc,
+  handleImageUpload
+}) => {
   const [ref, hover] = useHover<HTMLDivElement>();
-
-  const handleImageUpload = async (file: File) => {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      const response = await userAPI.changeCoverImage(formData);
-
-      setSrc(response.data.coverImage);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <S.CoverImageWrapper ref={ref}>
-      <CoverImage imgSrc={src} />
+      <CoverImage imgSrc={imgSrc} />
       {isMine && hover ? (
         <ImageUpload
           onImageUpload={handleImageUpload}

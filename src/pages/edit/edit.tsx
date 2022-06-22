@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router";
 import { useLocation } from "react-router-dom";
 import { postAPI } from "@utils/apis";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useAuth } from "@contexts/AuthProvider";
 
 const placeOptions = [
   { id: 1, value: "online", label: "온라인" },
@@ -51,22 +52,30 @@ const Edit: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state as StateType;
+  const { userInfo } = useAuth();
   const { channel, id } = useParams<Record<string, string>>();
-  const [_title, setTitle] = useState(state.title);
-  const [place, setPlace] = useState(state.place);
-  const [email, setEmail] = useState(state.email);
-  const [startDate, setStartDate] = useState(state.startDate);
-  const [expectedDate, setExpectedDate] = useState(state.expectedDate);
-  const [introduction, setIntroduction] = useState(state.introduction);
+  const [_title, setTitle] = useState(state ? state.title : "");
+  const [place, setPlace] = useState(state ? state.place : "");
+  const [email, setEmail] = useState(state ? state.email : "");
+  const [startDate, setStartDate] = useState(state ? state.startDate : "");
+  const [expectedDate, setExpectedDate] = useState(
+    state ? state.expectedDate : ""
+  );
+  const [introduction, setIntroduction] = useState(
+    state ? state.introduction : ""
+  );
   const [parts, setParts] = useState({
-    channel: state.channel,
-    people: state.people,
-    skills: Object.values(state.skills)
+    channel: state ? state.channel : "",
+    people: state ? state.people : "",
+    skills: state ? Object.values(state.skills) : []
   });
   const [images, setImages] = useState([]);
-  const [imageSrc, setImageSrc] = useState(state.image);
-  usePrompt("현재 페이지를 벗어나시겠습니까? ", true);
+  const [imageSrc, setImageSrc] = useState(state ? state.image : "");
 
+  if (!userInfo.isLoggedIn) {
+    alert("비로그인 상태에서는 접근이 불가능합니다.");
+    navigate("/");
+  }
   const handleUpdateParts = (part) => {
     const newParts = { ...part };
     setParts(newParts);
@@ -96,7 +105,8 @@ const Edit: React.FC = () => {
     const editPost = async (formData: FormData) => {
       await postAPI.updatePost(formData).then((res) => {
         if (res.status === 200) {
-          navigate("/");
+          alert("수정이 완료되었습니다");
+          navigate(`/detail/${id}`);
         }
       });
     };

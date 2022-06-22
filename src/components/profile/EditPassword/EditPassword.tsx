@@ -1,8 +1,7 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect } from "react";
 import useEditForm from "@hooks/useEditForm";
 import { settingAPI } from "@utils/apis";
-import { Button } from "@components/common";
-import InputBox from "@components/create/InputBox/InputBox";
+import { Button, InputBox } from "@components/common";
 import * as S from "./style";
 
 export const passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/;
@@ -12,9 +11,9 @@ type Values = {
   passwordConfirm: string;
 };
 
-const EditPassword: FC = () => {
-  const { isLoading, errors, handleChange, handleSubmit } = useEditForm<Values>(
-    {
+const EditPassword: FC<{ onModalClose: () => void }> = ({ onModalClose }) => {
+  const { values, isLoading, errors, handleChange, handleSubmit } =
+    useEditForm<Values>({
       initialValue: {
         password: "",
         passwordConfirm: ""
@@ -34,8 +33,14 @@ const EditPassword: FC = () => {
 
         return errors;
       }
+    });
+
+  useEffect(() => {
+    if (isLoading) {
+      alert("비밀번호가 변경되었습니다");
+      onModalClose();
     }
-  );
+  }, [isLoading]);
 
   return (
     <Fragment>
@@ -45,16 +50,20 @@ const EditPassword: FC = () => {
         <S.FlexContainer>
           <InputBox
             name="password"
+            type="password"
             label="새 비밀번호"
             errorMessage={errors["password"]}
             onChange={handleChange}
+            value={values.password}
           />
 
           <InputBox
             name="passwordConfirm"
+            type="password"
             label="새 비밀번호 확인"
             errorMessage={errors["passwordConfirm"]}
             onChange={handleChange}
+            value={values.passwordConfirm}
           />
         </S.FlexContainer>
 
