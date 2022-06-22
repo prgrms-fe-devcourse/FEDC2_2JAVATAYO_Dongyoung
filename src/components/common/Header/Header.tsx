@@ -4,7 +4,6 @@ import { ReactComponent as Logo } from "@assets/logos/Logo.svg";
 import { ReactComponent as Bell } from "@assets/icons/icon_bell.svg";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import TempLogin from "../TempLogin";
 import SearchBar from "../SearchBar";
 import { notificationAPI } from "@utils/apis";
 import ProfileImage from "../ProfileImage";
@@ -97,9 +96,6 @@ const Header: React.FC = () => {
       <Link to={"/"}>
         <Logo />
       </Link>
-      {/* 임시 */}
-      <TempLogin />
-      {/* 임시 */}
       {userInfo.isLoggedIn ? (
         <S.LoggedIn>
           <SearchBar />
