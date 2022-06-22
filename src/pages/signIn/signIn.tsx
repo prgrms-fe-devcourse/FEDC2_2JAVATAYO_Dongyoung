@@ -1,13 +1,12 @@
 import * as S from "./style";
-import InputBox from "../../components/common/InputBox/InputBox";
-import { Button, AppLayout, PageLoading } from "@components/common";
-import logoImg from "../../assets/logos/logo_favicon.svg";
+import { InputBox, Button, AppLayout, PageLoading } from "@components/common";
+import logoImg from "@assets/logos/logo_favicon.svg";
 import { FC, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
-import { authAPI } from "../../utils/apis";
-import storage from "../../utils/storage";
-import { useAuth } from "../../contexts/AuthProvider";
-import useForm from "../../hooks/useForm";
+import { authAPI } from "@utils/apis";
+import storage from "@utils/storage";
+import { useAuth } from "@contexts/AuthProvider";
+import useForm from "@hooks/useForm";
 
 type Values = {
   email: string;

@@ -1,8 +1,5 @@
 import * as S from "./style";
-import Label from "../Label";
-import Input from "../Input";
-import ErrorMessage from "../ErrorMessage";
-
+import { Label, Input, ErrorMessage } from "@components/common";
 interface InputBoxInterface {
   name?: string;
   type?: string;
