@@ -3,6 +3,7 @@ import youtubeIcon from "@assets/icons/icon_youtube.svg";
 import bannerImg from "@assets/imgs/search_banner.jpg";
 import { useAuth } from "@contexts/AuthProvider";
 import { useNavigate } from "react-router";
+import BottomSheet from "../BottomSheet";
 import * as S from "./style";
 
 const GitHubURL =
@@ -54,6 +55,7 @@ const Footer: React.FC<footerInterface> = ({ banner }) => {
               </a>
             </S.SocialLink>
           </div>
+          <BottomSheet />
         </S.Wrap>
       </S.Footer>
     </div>
