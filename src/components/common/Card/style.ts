@@ -18,6 +18,7 @@ export const FlexBetween = styled.div`
 
 export const Card = styled.div`
   width: calc(700px / 2 - 15px / 2);
+  height: 260px;
   margin-top: 15px;
   border-radius: 8px;
   padding: 21px;

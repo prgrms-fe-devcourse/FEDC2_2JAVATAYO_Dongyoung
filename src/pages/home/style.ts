@@ -47,6 +47,7 @@ export const CardBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  min-height: 500px;
 `;
 export const Card = styled.div`
   width: calc(700px / 2 - 15px / 2);
