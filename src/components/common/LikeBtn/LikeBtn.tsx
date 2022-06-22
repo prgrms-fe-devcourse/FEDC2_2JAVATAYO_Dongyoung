@@ -1,8 +1,8 @@
 import { likeAPI } from "@utils/apis";
 import React, { useEffect, useState } from "react";
 import { ILike } from "src/types/model";
-import { ReactComponent as HeartIcon } from "../../../assets/icons/icon_heart.svg";
-import { ReactComponent as HeartFillIcon } from "../../../assets/icons/icon_heart_fill.svg";
+import { ReactComponent as HeartIcon } from "@assets/icons/icon_heart.svg";
+import { ReactComponent as HeartFillIcon } from "@assets/icons/icon_heart_fill.svg";
 import * as S from "./style";
 
 type LikeBtnInterface = {
