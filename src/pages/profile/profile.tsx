@@ -6,13 +6,15 @@ import {
   Tab,
   ProfileImageBox,
   CoverImageBox,
-  FollowIcon
+  FollowIcon,
+  Reward
 } from "@components/profile";
 import * as S from "./style";
 import { CardBox as SCardBox } from "../home/style";
 import { authAPI, postAPI, userAPI } from "@utils/apis";
 import { IPost, IUser } from "../../types/model";
 import { useAuth } from "@contexts/AuthProvider";
+import { DivWrapper } from "../../components/create/PartBox/style";
 
 const CARD_LIMIT = 6;
 const INITIAL_POSTS = {
@@ -20,6 +22,8 @@ const INITIAL_POSTS = {
   countClickMore: 0,
   total: 0
 };
+
+const REWARD_STANDARD = 0;
 
 type Posts = {
   posts: IPost[];
@@ -152,6 +156,7 @@ const Profile: React.FC = () => {
   return (
     <>
       <Header />
+
       <S.Contents>
         {profileUser === undefined ||
         written === INITIAL_POSTS ||
@@ -213,6 +218,34 @@ const Profile: React.FC = () => {
                   <dd>{profileUser.posts.length}</dd>
                 </S.DefinitionItem>
               </S.DefinitionList>
+
+              <S.FlexContainer gap="25px" reward>
+                {(isMine
+                  ? userInfo.comments.length
+                  : profileUser.comments.length) >= REWARD_STANDARD ? (
+                  <Reward rewardLabel="comment" />
+                ) : null}
+                {(isMine ? userInfo.likes.length : profileUser.likes.length) >=
+                REWARD_STANDARD ? (
+                  <Reward rewardLabel="love" />
+                ) : null}
+                {(isMine
+                  ? userInfo.followers.length + userInfo.following.length
+                  : profileUser.followers.length +
+                    profileUser.following.length) >= REWARD_STANDARD ? (
+                  <Reward rewardLabel="follow" />
+                ) : null}
+                {(isMine ? userInfo.posts.length : profileUser.posts.length) >=
+                REWARD_STANDARD ? (
+                  <Reward rewardLabel="post" />
+                ) : null}
+                {(isMine ? userInfo.image : profileUser.image) ? (
+                  <Reward rewardLabel="profile" />
+                ) : null}
+                {(isMine ? userInfo.coverImage : profileUser.coverImage) ? (
+                  <Reward rewardLabel="cover" />
+                ) : null}
+              </S.FlexContainer>
 
               <Tab style={{ marginBottom: "30px" }}>
                 <Tab.Item active title="작성한 글 목록">

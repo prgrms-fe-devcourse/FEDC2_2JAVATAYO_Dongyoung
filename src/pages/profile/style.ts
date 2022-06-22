@@ -10,12 +10,15 @@ export const FlexContainer = styled.div<{
   justify?: string;
   align?: string;
   gap?: string;
+  reward?: boolean;
 }>`
   display: flex;
   gap: ${({ gap }) => (gap ? gap : null)};
   flex-direction: ${({ direction }) => (direction ? direction : "row")};
   justify-content: ${({ justify }) => (justify ? justify : "center")};
   align-items: ${({ align }) => (align ? align : "center")};
+  min-height: ${({ reward }) => (reward ? "72px" : null)};
+  margin-bottom: ${({ reward }) => (reward ? "20px" : null)};
 `;
 
 export const Layout = styled.div`
@@ -55,7 +58,7 @@ export const DefinitionList = styled.dl<{ existFollowIcon: boolean }>`
   display: flex;
   gap: 20px;
   margin: ${({ existFollowIcon }) =>
-    existFollowIcon ? "0 0 60px" : "56px 0 60px"};
+    existFollowIcon ? "0 0 27px" : "56px 0 27px"};
 `;
 
 export const DefinitionItem = styled.div`
