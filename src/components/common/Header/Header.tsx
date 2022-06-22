@@ -33,6 +33,7 @@ const Header: React.FC = () => {
     });
 
     const notificationData = filterData.map(({ comment, seen, post }) => {
+      console.log(filterData);
       if (!comment) return;
       const { channel, title } = comment.post as IPost;
       return {
@@ -42,7 +43,8 @@ const Header: React.FC = () => {
         postId: post
       };
     });
-    setNoticeSeen(!notificationData[0].seen);
+
+    if (notificationData.length > 0) setNoticeSeen(!notificationData[0].seen);
     setNoticeContents(notificationData);
   };
 
