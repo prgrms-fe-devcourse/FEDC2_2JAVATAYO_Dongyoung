@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import ImageUpload from "./ImageUpload";
 import Input from "./Input";
+import InputBox from "./InputBox";
 import Label from "./Label";
 import LikeBtn from "./LikeBtn";
 import ProfileImage from "./ProfileImage";
@@ -25,6 +26,7 @@ export {
   SkillIcon,
   ImageUpload,
   Input,
+  InputBox,
   Label,
   LikeBtn,
   Textarea,
