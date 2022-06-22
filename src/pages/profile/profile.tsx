@@ -151,7 +151,7 @@ const Profile: React.FC = () => {
     setWritten(INITIAL_POSTS);
     setLiked(INITIAL_POSTS);
     getPosts();
-  }, [userInfo.image]);
+  }, [userInfo.image, userInfo.fullName]);
 
   return (
     <>

@@ -1,19 +1,26 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useState, SetStateAction, Dispatch } from "react";
 import Button from "@components/common/Button";
 import InputBox from "@components/create/InputBox/InputBox";
 import { searchAPI, settingAPI } from "@utils/apis";
 import { IUser } from "src/types/model";
+import { useAuth } from "@contexts/AuthProvider";
 import * as S from "./style";
 
 const isValidFullName = (fullName: string) => {
   return /^[가-힣|a-z|A-Z|\d]{2,8}$/.test(fullName);
 };
 
-const EditFullName: FC = () => {
+interface EditFullNameInterface {
+  onModalClose: () => void;
+}
+
+const EditFullName: FC<EditFullNameInterface> = ({ onModalClose }) => {
   const [fullName, setFullName] = useState("");
   const [errorText, setErrorText] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [canChange, setCanChange] = useState(false);
+
+  const { onUpdate } = useAuth();
 
   const handleChange = (e) => {
     setFullName(e.target.value);
@@ -48,8 +55,16 @@ const EditFullName: FC = () => {
   };
 
   const handleSubmit = async () => {
-    alert("context 구현 후 처리할 예정");
-    // await settingAPI.changeInfo({ fullName, userName: fullName });
+    await settingAPI.changeInfo({
+      fullName,
+      userName: fullName
+    });
+
+    onUpdate({ fullName });
+    setFullName("");
+
+    alert("닉네임이 변경되었습니다");
+    onModalClose();
   };
 
   return (
