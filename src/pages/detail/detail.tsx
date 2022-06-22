@@ -19,7 +19,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
   const { onLogOut, userInfo } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const editNavigate = useNavigate();
-  const homeNavigate = useNavigate();
+  const backNavigate = useNavigate();
   const location = useLocation();
   const postId = location.pathname.substring(8);
   const { author, likes } = postDetail;
@@ -103,7 +103,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
     ) {
       try {
         await postAPI.deletePost(postId);
-        homeNavigate("/");
+        backNavigate(-1);
       } catch (error) {
         alert("잘못된 접근입니다!!");
         console.error(error);
