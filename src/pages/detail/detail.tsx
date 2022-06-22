@@ -119,7 +119,7 @@ const Detail: React.FC<DetailInterface> = ({ post = null }) => {
         return "프론트엔드";
       case "back":
         return "백엔드";
-      case "AI":
+      case "ai":
         return "AI";
       case "ios":
         return "iOS";
