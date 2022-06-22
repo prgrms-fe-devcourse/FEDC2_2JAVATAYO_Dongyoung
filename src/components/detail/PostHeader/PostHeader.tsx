@@ -43,10 +43,10 @@ const PostHeader: React.FC<PostHeaderInterface> = ({
   expectedDate,
   skills
 }) => {
-  const homeNavigate = useNavigate();
+  const backNavigate = useNavigate();
   const userProfileNavigate = useNavigate();
   const backButtonClick = () => {
-    homeNavigate("/");
+    backNavigate(-1);
     window.scrollTo(0, 0);
   };
   const userProfileClick = () => {

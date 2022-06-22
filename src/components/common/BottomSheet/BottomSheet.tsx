@@ -55,14 +55,16 @@ const BottomSheet = () => {
         input.current.value.replaceAll(" ", "")
       );
       const filterCurrentUser = (user) => user._id !== userInfo._id;
-      if (
-        data.length > 1 ||
-        (userInfo.isLoggedIn === false && data.length === 0)
-      ) {
-        setIsFindUser(true);
-        setUserList(
-          userInfo.isLoggedIn ? data.filter(filterCurrentUser) : data
-        );
+      if (data.length > 0) {
+        if (data.length === 1 && data[0]._id === userInfo._id) {
+          setIsFindUser(false);
+          setUserList([]);
+        } else {
+          setIsFindUser(true);
+          setUserList(
+            userInfo.isLoggedIn ? data.filter(filterCurrentUser) : data
+          );
+        }
       } else {
         setIsFindUser(false);
         setUserList([]);
