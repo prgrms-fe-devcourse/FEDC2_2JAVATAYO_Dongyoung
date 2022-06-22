@@ -7,12 +7,14 @@ interface UserInterface {
   userId: string;
   userFullName: string;
   userImage: string;
+  isOnline: boolean;
 }
 
 const Comment: React.FC<UserInterface> = ({
   userId,
   userFullName,
-  userImage
+  userImage,
+  isOnline
 }) => {
   const userProfileNavigate = useNavigate();
   const userProfileClick = () => {
@@ -28,7 +30,10 @@ const Comment: React.FC<UserInterface> = ({
           imgSrc={userImage ? userImage : null}
           onClick={userProfileClick}
         />
-        <span>{userFullName}</span>
+        <span style={{ fontSize: "14px", marginLeft: "10px", color: "black" }}>
+          {userFullName}
+          <span style={{ marginLeft: "10px" }}>{isOnline ? "🟢" : ""}</span>
+        </span>
       </S.UserWrapper>
     </div>
   );

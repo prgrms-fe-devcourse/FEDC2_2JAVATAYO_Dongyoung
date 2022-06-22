@@ -9,7 +9,8 @@ export const Textarea = styled.textarea<{
 
   height: ${({ isIntroduction }) => (isIntroduction ? "400" : "80")}px;
 
-  border-color: #40a9ff;
+  /* border-color: #40a9ff; */
+  border-color: #d8d9d9;
   outline-color: #096dd9;
   box-shadow: rgba(24, 144, 255, 0.2);
   border-radius: ${({ isIntroduction }) => (isIntroduction ? "0" : "10")}px;
@@ -22,4 +23,13 @@ export const Textarea = styled.textarea<{
 
   overflow: ${({ isIntroduction }) => (isIntroduction ? "none" : "auto")};
   resize: none;
+
+  &:hover {
+    border-color: #40a9ff;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #096dd9;
+  }
 `;
