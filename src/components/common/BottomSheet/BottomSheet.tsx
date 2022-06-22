@@ -1,6 +1,6 @@
 import * as S from "./style";
 import React, { useRef, useEffect, useState } from "react";
-import { userAPI } from "@utils/apis";
+import { userAPI, searchAPI } from "@utils/apis";
 import { ReactComponent as SearchIcon } from "@assets/icons/icon_search.svg";
 import User from "../User";
 
@@ -13,6 +13,11 @@ const BottomSheet = () => {
   useEffect(() => {
     getUserList();
   }, []);
+  const inputOnEnterPress = (e) => {
+    if (e.key === "Enter") {
+      search();
+    }
+  };
   const search = async () => {
     if (input.current.value.length !== 0) {
       getUser();
@@ -44,13 +49,12 @@ const BottomSheet = () => {
   };
   const getUser = async () => {
     try {
-      const filteredUser = saveUserList.filter(
-        (user) => user.fullName === input.current.value.replaceAll(" ", "")
+      const { data } = await searchAPI.searchUsers(
+        input.current.value.replaceAll(" ", "")
       );
-      if (filteredUser.length > 0) {
-        const { data } = await userAPI.getUser(filteredUser[0]._id);
+      if (data.length > 0) {
         setIsFindUser(true);
-        setUserList([data]);
+        setUserList(data);
       } else {
         setIsFindUser(false);
         setUserList([]);
@@ -113,7 +117,11 @@ const BottomSheet = () => {
           <S.BottomSheetContents>
             <S.Content>
               <S.InputBox>
-                <S.Input ref={input} placeholder="검색어를 입력해 주세요" />
+                <S.Input
+                  ref={input}
+                  onKeyUp={inputOnEnterPress}
+                  placeholder="검색어를 입력해 주세요"
+                />
                 <S.SearchBtn onClick={() => search()}>
                   <SearchIcon />
                 </S.SearchBtn>
