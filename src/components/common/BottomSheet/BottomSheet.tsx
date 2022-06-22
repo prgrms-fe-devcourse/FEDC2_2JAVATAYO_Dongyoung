@@ -72,7 +72,7 @@ const BottomSheet = () => {
   return (
     <div>
       <S.BottomSheetWrapper id="bottomSheetContainer">
-        <S.BottomSheet id="bottomSheet">
+        <S.BottomSheet id="bottomSheet" isHideSheet={isHideSheet}>
           <S.BottomSheetHeader onClick={onClickBottomSheet}>
             <div
               style={{

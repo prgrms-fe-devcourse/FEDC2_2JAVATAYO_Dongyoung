@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 
-export const BottomSheet = styled.div`
+export const BottomSheet = styled.div<{
+  isHideSheet: boolean;
+}>`
   position: fixed;
   background-color: #fff;
   border-radius: 15px 15px 0px 0px;
   width: 350px;
   height: 500px;
-  overflow: auto;
+  ${({ isHideSheet }) => (isHideSheet ? "overflow: none" : "overflow: auto")};
   transform: translateY(420px);
   transition: transform 0.4s ease-in-out;
   box-shadow: 1px 10px 10px 1px;
