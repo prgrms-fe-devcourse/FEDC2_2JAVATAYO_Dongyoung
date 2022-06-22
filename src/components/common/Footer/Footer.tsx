@@ -2,7 +2,8 @@ import githubIcon from "@assets/icons/icon_github.svg";
 import youtubeIcon from "@assets/icons/icon_youtube.svg";
 import bannerImg from "@assets/imgs/search_banner.jpg";
 import { useAuth } from "@contexts/AuthProvider";
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router";
 import BottomSheet from "../BottomSheet";
 import * as S from "./style";
 
@@ -14,7 +15,17 @@ type footerInterface = { banner?: boolean };
 const Footer: React.FC<footerInterface> = ({ banner }) => {
   const navigate = useNavigate();
   const { userInfo } = useAuth();
-
+  const location = useLocation();
+  const [isBottomSheetHide, setIsBottomSheetHide] = useState(false);
+  useEffect(() => {
+    const pathNameSplit = location.pathname.split("/");
+    const hideBottomSheetPage = ["signin", "signUp", "create", "edit"];
+    setIsBottomSheetHide(
+      hideBottomSheetPage.some((pageName) =>
+        pathNameSplit[1].includes(pageName)
+      )
+    );
+  }, [location]);
   const bannerClick = () => {
     if (userInfo.isLoggedIn) {
       navigate("/create");
@@ -55,7 +66,7 @@ const Footer: React.FC<footerInterface> = ({ banner }) => {
               </a>
             </S.SocialLink>
           </div>
-          <BottomSheet />
+          {isBottomSheetHide ? null : <BottomSheet />}
         </S.Wrap>
       </S.Footer>
     </div>
