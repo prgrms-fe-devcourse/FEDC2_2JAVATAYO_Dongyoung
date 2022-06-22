@@ -1,7 +1,6 @@
 import * as S from "./style";
 import TextareaBox from "../TextareaBox";
 import Comment from "../Comment";
-import { useEffect, useState } from "react";
 
 interface PostFooterInterface {
   comments: object[];

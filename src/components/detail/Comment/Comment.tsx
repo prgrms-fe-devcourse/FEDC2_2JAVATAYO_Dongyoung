@@ -1,5 +1,5 @@
 import * as S from "./style";
-import ProfileImage from "../../common/ProfileImage";
+import ProfileImage from "@components/common/ProfileImage";
 import theme from "../../../styles/theme";
 import { useNavigate } from "react-router-dom";
 interface CommentInterface {
