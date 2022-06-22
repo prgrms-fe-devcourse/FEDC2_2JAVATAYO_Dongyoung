@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import theme from "../../styles/theme";
 
+export const Contents = styled.div`
+  min-height: calc(100vh - 198px);
+`;
+
 export const FlexContainer = styled.div<{
   direction?: string;
   justify?: string;
