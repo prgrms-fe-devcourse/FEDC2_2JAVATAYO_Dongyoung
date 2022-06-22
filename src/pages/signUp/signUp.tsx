@@ -1,14 +1,12 @@
 import * as S from "./style";
-import InputBox from "../../components/common/InputBox/InputBox";
-import { Button, AppLayout, PageLoading } from "@components/common";
-import logoImg from "../../assets/logos/logo_favicon.svg";
+import { InputBox, Button, AppLayout, PageLoading } from "@components/common";
+import logoImg from "@assets/logos/logo_favicon.svg";
 import { FC, Fragment, useState } from "react";
-import { authAPI } from "../../utils/apis";
 import { useNavigate } from "react-router";
-import useForm from "../../hooks/useForm";
-import storage from "../../utils/storage";
-import { useAuth } from "../../contexts/AuthProvider";
-import { userAPI } from "../../utils/apis";
+import { authAPI } from "@utils/apis";
+import storage from "@utils/storage";
+import { useAuth } from "@contexts/AuthProvider";
+import useForm from "@hooks/useForm";
 
 type Values = {
   fullName: string;
