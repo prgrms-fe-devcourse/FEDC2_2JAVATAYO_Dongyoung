@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NotFound from "../pages/404";
-import Create from "../pages/create";
+import NotFound from "../pages/pagenotfound";
+import Create from "../pages/create/create";
 import Detail from "../pages/detail";
-import Edit from "../pages/edit";
+import Edit from "../pages/edit/edit";
 import Home from "../pages/home";
-import Profile from "../pages/profile";
-import Result from "../pages/result";
-import SignIn from "../pages/signIn";
-import SignUp from "../pages/signUp";
+import Profile from "../pages/profile/profile";
+import Result from "../pages/search";
+import SignIn from "../pages/signIn/signIn";
+import SignUp from "../pages/signUp/signUp";
 
 const AppRouter: React.FC = () => {
   return (
@@ -19,9 +19,8 @@ const AppRouter: React.FC = () => {
         <Route path="/create" element={<Create />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/edit/:id" element={<Edit />} />
-        <Route path="/result/:id" element={<Result />} />
-
+        <Route path="/edit/:channel/:id" element={<Edit />} />
+        <Route path="/search/:keyword" element={<Result />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

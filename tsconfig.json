@@ -1,7 +1,8 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
-    "typeRoots" : ["./@types", "./node_modules/@types"],
+    "typeRoots": ["./@types", "./node_modules/@types"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,5 +18,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "tsconfig.paths.json", "craco.config.js"]
 }
